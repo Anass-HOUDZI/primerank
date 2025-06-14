@@ -102,7 +102,7 @@ const Index = () => {
   );
 
   const renderDesktopContent = () => (
-    <div className="bg-white dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-900" id="tools-section">
       {/* Header */}
       <ToolsHeader
         searchQuery={filters.searchQuery}

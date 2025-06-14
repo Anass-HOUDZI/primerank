@@ -17,36 +17,41 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
         return {
           gradient: 'from-blue-500 to-indigo-600',
           bgGradient: 'from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
-          badge: 'POPULAIRE',
-          badgeColor: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
+          badge: 'ANALYSE',
+          badgeColor: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700',
+          textGradient: 'bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent'
         };
       case 'Optimisation':
         return {
           gradient: 'from-emerald-500 to-green-600',
           bgGradient: 'from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20',
-          badge: 'SÉMANTIQUE',
-          badgeColor: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
+          badge: 'OPTIMISATION',
+          badgeColor: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:from-emerald-600 hover:to-green-700',
+          textGradient: 'bg-gradient-to-r from-emerald-500 to-green-600 bg-clip-text text-transparent'
         };
       case 'Suivi':
         return {
           gradient: 'from-purple-500 to-violet-600',
           bgGradient: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20',
           badge: 'SUIVI',
-          badgeColor: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
+          badgeColor: 'bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700',
+          textGradient: 'bg-gradient-to-r from-purple-500 to-violet-600 bg-clip-text text-transparent'
         };
       case 'Technique':
         return {
           gradient: 'from-orange-500 to-red-600',
           bgGradient: 'from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20',
           badge: 'TECHNIQUE',
-          badgeColor: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
+          badgeColor: 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:from-orange-600 hover:to-red-700',
+          textGradient: 'bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent'
         };
       default:
         return {
-          gradient: 'from-gray-500 to-slate-600',
-          bgGradient: 'from-gray-50 to-slate-50 dark:from-gray-950/20 dark:to-slate-950/20',
+          gradient: 'from-violet-500 to-blue-600',
+          bgGradient: 'from-violet-50 to-blue-50 dark:from-violet-950/20 dark:to-blue-950/20',
           badge: 'AUTRE',
-          badgeColor: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-300'
+          badgeColor: 'bg-gradient-to-r from-violet-500 to-blue-600 text-white hover:text-white',
+          textGradient: 'bg-gradient-to-r from-violet-500 to-blue-600 bg-clip-text text-transparent'
         };
     }
   };
@@ -66,7 +71,7 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
           
           {/* Badge catégorie */}
           <div className="absolute top-4 right-4">
-            <Badge className={`${config.badgeColor} font-bold text-xs px-2 py-1 animate-scale-in`}>
+            <Badge className={`${config.badgeColor} font-bold text-xs px-2 py-1 animate-scale-in transition-all duration-300`}>
               {config.badge}
             </Badge>
           </div>
@@ -83,7 +88,7 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
         <div className="p-6 relative">
           {/* Icône avec effet moderne */}
           <div className="relative mb-6">
-            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${config.gradient} p-4 shadow-large group-hover:shadow-glow transition-all duration-300 group-hover:scale-110`}>
+            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-blue-600 p-4 shadow-large group-hover:shadow-glow transition-all duration-300 group-hover:scale-110`}>
               {React.createElement(tool.icon as any, { 
                 className: 'w-full h-full text-white' 
               })}
@@ -140,7 +145,7 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
             <Link
               to={tool.href}
               onClick={() => onUse(tool.id)}
-              className={`w-full bg-gradient-to-br ${config.gradient} text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 group-hover:shadow-glow hover:scale-105 interactive-scale relative overflow-hidden`}
+              className={`w-full bg-gradient-to-br from-violet-500 to-blue-600 text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 group-hover:shadow-glow hover:scale-105 interactive-scale relative overflow-hidden`}
             >
               <span className="relative z-10 flex items-center">
                 Utiliser l'outil

@@ -35,6 +35,13 @@ const HeroSection = () => {
     }
   ];
 
+  const scrollToTools = () => {
+    const toolsSection = document.querySelector('#tools-section');
+    if (toolsSection) {
+      toolsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-950 dark:via-blue-950/20 dark:to-indigo-950/20 overflow-hidden">
       {/* Effets de fond décoratifs */}
@@ -69,23 +76,15 @@ const HeroSection = () => {
             </p>
           </div>
 
-          {/* Boutons d'action */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '200ms' }}>
+          {/* Bouton d'action centré */}
+          <div className="flex justify-center animate-slide-up" style={{ animationDelay: '200ms' }}>
             <Button 
               size="lg" 
-              className="btn-modern text-white px-8 py-4 text-lg font-semibold group"
+              onClick={scrollToTools}
+              className="btn-modern text-white px-8 py-4 text-lg font-semibold group cursor-pointer"
             >
               Commencer gratuitement
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="lg"
-              className="px-8 py-4 text-lg font-semibold bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border-white/30 dark:border-gray-700/30 hover:bg-white/90 dark:hover:bg-gray-800/90 interactive-scale"
-            >
-              <Globe className="mr-2 w-5 h-5" />
-              Voir la démo
             </Button>
           </div>
 
