@@ -113,6 +113,7 @@ const Index = () => {
         onSortChange={(sortBy) => setFilters({ ...filters, sortBy })}
         onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
         totalResults={filteredAndSortedTools.length}
+        totalTools={allTools.length}
       />
 
       {/* Main content */}
