@@ -1,7 +1,8 @@
 
+
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { utils as XLSXUtils, writeFile as XLSXWriteFile, book_new as XLSXBookNew, book_append_sheet as XLSXBookAppendSheet, aoa_to_sheet as XLSXAoaToSheet } from 'xlsx';
+import * as XLSX from 'xlsx';
 import html2canvas from 'html2canvas';
 import { ExportData, ExportOptions, ExportProgress, ChartData } from '@/types/Export';
 
@@ -222,7 +223,7 @@ export class ExportManager {
   private async exportToExcel(data: ExportData, options: ExportOptions) {
     this.updateProgress('processing', 30, 'Création du fichier Excel...');
     
-    const workbook = XLSXBookNew();
+    const workbook = XLSX.utils.book_new();
 
     // Feuille principale avec résumé
     const summaryData = [
@@ -235,8 +236,8 @@ export class ExportManager {
       ...Object.entries(data.metrics).map(([key, value]) => [key, value])
     ];
 
-    const summarySheet = XLSXAoaToSheet(summaryData);
-    XLSXBookAppendSheet(workbook, summarySheet, 'Résumé');
+    const summarySheet = XLSX.utils.aoa_to_sheet(summaryData);
+    XLSX.utils.book_append_sheet(workbook, summarySheet, 'Résumé');
 
     this.updateProgress('processing', 60, 'Ajout des données détaillées...');
 
@@ -246,11 +247,11 @@ export class ExportManager {
         ['Recommandation', 'Description'],
         ...data.recommendations.map((rec, index) => [`Recommandation ${index + 1}`, rec])
       ];
-      const recSheet = XLSXAoaToSheet(recData);
-      XLSXBookAppendSheet(workbook, recSheet, 'Recommandations');
+      const recSheet = XLSX.utils.aoa_to_sheet(recData);
+      XLSX.utils.book_append_sheet(workbook, recSheet, 'Recommandations');
     }
 
-    XLSXWriteFile(workbook, `${data.toolName}_${Date.now()}.xlsx`);
+    XLSX.writeFile(workbook, `${data.toolName}_${Date.now()}.xlsx`);
     this.updateProgress('complete', 100, 'Fichier Excel téléchargé');
   }
 
