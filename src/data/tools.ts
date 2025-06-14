@@ -19,7 +19,8 @@ export const toolsData: Tool[] = [
     isFavorite: false,
     isNew: false,
     isTrending: true,
-    isRecommended: true
+    isRecommended: true,
+    href: '/tools/pagespeed-analyzer'
   },
   {
     id: '2',
@@ -38,7 +39,8 @@ export const toolsData: Tool[] = [
     isFavorite: true,
     isNew: false,
     isTrending: false,
-    isRecommended: true
+    isRecommended: true,
+    href: '/tools/structure-checker'
   },
   {
     id: '3',
@@ -57,7 +59,8 @@ export const toolsData: Tool[] = [
     isFavorite: false,
     isNew: true,
     isTrending: true,
-    isRecommended: false
+    isRecommended: false,
+    href: '/tools/keyword-generator'
   },
   {
     id: '4',
@@ -76,7 +79,8 @@ export const toolsData: Tool[] = [
     isFavorite: false,
     isNew: false,
     isTrending: false,
-    isRecommended: true
+    isRecommended: true,
+    href: '/tools/content-optimizer'
   },
   {
     id: '5',
@@ -95,7 +99,8 @@ export const toolsData: Tool[] = [
     isFavorite: true,
     isNew: false,
     isTrending: false,
-    isRecommended: false
+    isRecommended: false,
+    href: '/tools/schema-validator'
   },
   {
     id: '6',
@@ -114,7 +119,68 @@ export const toolsData: Tool[] = [
     isFavorite: false,
     isNew: true,
     isTrending: true,
-    isRecommended: true
+    isRecommended: true,
+    href: '/tools/local-seo'
+  },
+  {
+    id: '7',
+    name: 'Vérificateur de Positions',
+    description: 'Surveillez vos positions sur Google pour vos mots-clés avec historique détaillé.',
+    category: 'Recherche mots-clés',
+    level: 'Débutant',
+    icon: '📈',
+    rating: 4.6,
+    usageCount: 1900,
+    executionTime: '~25 secondes',
+    features: ['Suivi positions', 'Historique', 'Alertes', 'Comparaison concurrence'],
+    tags: ['positions', 'suivi', 'SERP', 'mots-clés'],
+    resultType: ['Score/Note', 'Rapport détaillé'],
+    analysisType: ['Texte/Contenu'],
+    isFavorite: false,
+    isNew: false,
+    isTrending: true,
+    isRecommended: true,
+    href: '/tools/rank-checker'
+  },
+  {
+    id: '8',
+    name: 'Bulk Status Code Checker',
+    description: 'Vérifiez le statut HTTP de milliers d\'URLs simultanément avec visualisations.',
+    category: 'Analyse technique',
+    level: 'Avancé',
+    icon: '🔗',
+    rating: 4.3,
+    usageCount: 800,
+    executionTime: '~1.5 minutes',
+    features: ['Vérification en masse', 'Visualisations', 'Export détaillé', 'Détection erreurs'],
+    tags: ['bulk', 'status', 'codes', 'technique'],
+    resultType: ['Rapport détaillé', 'Export PDF/Excel'],
+    analysisType: ['Upload de fichier'],
+    isFavorite: false,
+    isNew: true,
+    isTrending: false,
+    isRecommended: false,
+    href: '/tools/bulk-status-checker'
+  },
+  {
+    id: '9',
+    name: 'Analyseur de Backlinks',
+    description: 'Analysez votre profil de backlinks avec métriques de qualité et opportunités.',
+    category: 'Analyse de backlinks',
+    level: 'Intermédiaire',
+    icon: '🔗',
+    rating: 4.7,
+    usageCount: 1500,
+    executionTime: '~2 minutes',
+    features: ['Profil complet', 'Métriques qualité', 'Analyse ancres', 'Opportunités'],
+    tags: ['backlinks', 'netlinking', 'autorité', 'analyse'],
+    resultType: ['Rapport détaillé', 'Export PDF/Excel'],
+    analysisType: ['URL/Domaine'],
+    isFavorite: true,
+    isNew: false,
+    isTrending: true,
+    isRecommended: true,
+    href: '/tools/backlink-profiler'
   }
 ];
 

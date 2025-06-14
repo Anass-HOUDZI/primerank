@@ -1,4 +1,3 @@
-
 export interface Tool {
   id: string;
   name: string;
@@ -17,6 +16,7 @@ export interface Tool {
   isNew: boolean;
   isTrending: boolean;
   isRecommended: boolean;
+  href?: string; // Ajout du lien vers la page de l'outil
 }
 
 export interface FilterState {
