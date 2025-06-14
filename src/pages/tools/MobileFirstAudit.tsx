@@ -69,12 +69,12 @@ const MobileFirstAudit = () => {
     setTimeout(() => {
       const mockResults: MobileAuditResult = {
         url: url,
-        overallScore: Math.floor(Math.random() * 30) + 70, // 70-100
-        mobileReadiness: Math.floor(Math.random() * 25) + 75, // 75-100
-        responseTime: Math.floor(Math.random() * 2000) + 500, // 500-2500ms
-        usabilityScore: Math.floor(Math.random() * 20) + 80, // 80-100
-        contentScore: Math.floor(Math.random() * 25) + 75, // 75-100
-        technicalScore: Math.floor(Math.random() * 30) + 70, // 70-100
+        overallScore: Math.floor(Math.random() * 30) + 70,
+        mobileReadiness: Math.floor(Math.random() * 25) + 75,
+        responseTime: Math.floor(Math.random() * 2000) + 500,
+        usabilityScore: Math.floor(Math.random() * 20) + 80,
+        contentScore: Math.floor(Math.random() * 25) + 75,
+        technicalScore: Math.floor(Math.random() * 30) + 70,
         issues: {
           critical: [
             {
@@ -225,7 +225,7 @@ const MobileFirstAudit = () => {
                   </div>
                   <Progress value={results.overallScore} className="mt-4 max-w-xs mx-auto" />
                 </div>
-              </div>
+              </Card>
 
               {/* Métriques détaillées */}
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
