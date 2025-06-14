@@ -13,6 +13,7 @@ export interface Tool {
   usageCount: number;
   executionTime: string;
   isNew?: boolean;
+  isFavorite?: boolean;
   href: string;
 }
 
