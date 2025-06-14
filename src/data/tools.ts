@@ -1,5 +1,5 @@
-
 import { Tool } from '../types/Tool';
+import { Zap, Search, Target, FileText, Tag, MapPin, TrendingUp, Link, BarChart, Smartphone, Gauge } from 'lucide-react';
 
 export const toolsData: Tool[] = [
   {
@@ -8,7 +8,7 @@ export const toolsData: Tool[] = [
     description: 'Analysez la vitesse de chargement de votre site et obtenez des recommandations détaillées pour améliorer les performances.',
     category: 'Analyse technique',
     level: 'Débutant',
-    icon: '⚡',
+    icon: Zap,
     rating: 4.8,
     usageCount: 2300,
     executionTime: '~30 secondes',
@@ -28,7 +28,7 @@ export const toolsData: Tool[] = [
     description: 'Vérifiez la structure de vos URLs, balises meta et optimisation technique de vos pages web.',
     category: 'Analyse technique',
     level: 'Intermédiaire',
-    icon: '🔍',
+    icon: Search,
     rating: 4.6,
     usageCount: 1800,
     executionTime: '~45 secondes',
@@ -48,7 +48,7 @@ export const toolsData: Tool[] = [
     description: 'Découvrez des mots-clés pertinents pour votre secteur avec volumes de recherche et difficulté.',
     category: 'Recherche mots-clés',
     level: 'Débutant',
-    icon: '🎯',
+    icon: Target,
     rating: 4.7,
     usageCount: 3200,
     executionTime: '~1 minute',
@@ -68,7 +68,7 @@ export const toolsData: Tool[] = [
     description: 'Optimisez vos textes pour le SEO en analysant la densité des mots-clés et la lisibilité.',
     category: 'Optimisation contenu',
     level: 'Intermédiaire',
-    icon: '📝',
+    icon: FileText,
     rating: 4.5,
     usageCount: 1500,
     executionTime: '~20 secondes',
@@ -88,7 +88,7 @@ export const toolsData: Tool[] = [
     description: 'Vérifiez et validez vos données structurées Schema.org pour améliorer votre référencement.',
     category: 'Outils techniques',
     level: 'Avancé',
-    icon: '🏷️',
+    icon: Tag,
     rating: 4.9,
     usageCount: 950,
     executionTime: '~15 secondes',
@@ -108,7 +108,7 @@ export const toolsData: Tool[] = [
     description: 'Optimisez votre présence locale avec analyse de citations et cohérence NAP.',
     category: 'SEO local',
     level: 'Intermédiaire',
-    icon: '📍',
+    icon: MapPin,
     rating: 4.4,
     usageCount: 1200,
     executionTime: '~2 minutes',
@@ -128,7 +128,7 @@ export const toolsData: Tool[] = [
     description: 'Surveillez vos positions sur Google pour vos mots-clés avec historique détaillé.',
     category: 'Recherche mots-clés',
     level: 'Débutant',
-    icon: '📈',
+    icon: TrendingUp,
     rating: 4.6,
     usageCount: 1900,
     executionTime: '~25 secondes',
@@ -148,7 +148,7 @@ export const toolsData: Tool[] = [
     description: 'Vérifiez le statut HTTP de milliers d\'URLs simultanément avec visualisations.',
     category: 'Analyse technique',
     level: 'Avancé',
-    icon: '🔗',
+    icon: Link,
     rating: 4.3,
     usageCount: 800,
     executionTime: '~1.5 minutes',
@@ -168,7 +168,7 @@ export const toolsData: Tool[] = [
     description: 'Analysez votre profil de backlinks avec métriques de qualité et opportunités.',
     category: 'Analyse de backlinks',
     level: 'Intermédiaire',
-    icon: '🔗',
+    icon: Link,
     rating: 4.7,
     usageCount: 1500,
     executionTime: '~2 minutes',
@@ -181,6 +181,46 @@ export const toolsData: Tool[] = [
     isTrending: true,
     isRecommended: true,
     href: '/tools/backlink-profiler'
+  },
+  {
+    id: '10',
+    name: 'Analyseur de Densité de Mots-Clés',
+    description: 'Analysez la densité des mots-clés dans vos contenus et obtenez des recommandations d\'optimisation.',
+    category: 'Optimisation contenu',
+    level: 'Débutant',
+    icon: BarChart,
+    rating: 4.5,
+    usageCount: 1800,
+    executionTime: '~10 secondes',
+    features: ['Analyse en temps réel', 'Calcul TF-IDF', 'Score lisibilité', 'Export CSV'],
+    tags: ['densité', 'mots-clés', 'contenu', 'optimisation'],
+    resultType: ['Score/Note', 'Rapport détaillé', 'Export PDF/Excel'],
+    analysisType: ['Texte/Contenu'],
+    isFavorite: false,
+    isNew: true,
+    isTrending: true,
+    isRecommended: true,
+    href: '/tools/keyword-density-analyzer'
+  },
+  {
+    id: '11',
+    name: 'Générateur de Méta Descriptions',
+    description: 'Générez automatiquement des méta descriptions optimisées pour le SEO à partir de votre contenu.',
+    category: 'Optimisation contenu',
+    level: 'Débutant',
+    icon: FileText,
+    rating: 4.6,
+    usageCount: 2100,
+    executionTime: '~5 secondes',
+    features: ['Génération automatique', 'Optimisation longueur', 'Intégration mots-clés', 'Multiples variations'],
+    tags: ['meta', 'descriptions', 'SEO', 'optimisation'],
+    resultType: ['Rapport détaillé', 'Export PDF/Excel'],
+    analysisType: ['Texte/Contenu'],
+    isFavorite: false,
+    isNew: true,
+    isTrending: false,
+    isRecommended: true,
+    href: '/tools/meta-description-generator'
   }
 ];
 
@@ -188,12 +228,12 @@ export const toolsData: Tool[] = [
 export const allTools: Tool[] = [
   ...toolsData,
   {
-    id: '7',
+    id: '12',
     name: 'Audit Mobile-First',
     description: 'Vérifiez la compatibilité mobile et l\'optimisation pour les appareils mobiles.',
     category: 'Analyse technique',
     level: 'Débutant',
-    icon: '📱',
+    icon: Smartphone,
     rating: 4.6,
     usageCount: 1900,
     executionTime: '~25 secondes',
@@ -207,12 +247,12 @@ export const allTools: Tool[] = [
     isRecommended: true
   },
   {
-    id: '8',
+    id: '13',
     name: 'Comparateur de SERP',
     description: 'Comparez votre position avec vos concurrents sur les résultats de recherche.',
     category: 'Recherche mots-clés',
     level: 'Avancé',
-    icon: '📊',
+    icon: Gauge,
     rating: 4.3,
     usageCount: 800,
     executionTime: '~1.5 minutes',
@@ -225,7 +265,6 @@ export const allTools: Tool[] = [
     isTrending: false,
     isRecommended: false
   }
-  // ... continuing with more tools to reach 24 total
 ];
 
 export const categories = [

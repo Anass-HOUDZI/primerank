@@ -1,11 +1,13 @@
 
+import { LucideIcon } from 'lucide-react';
+
 export interface Tool {
   id: string;
   name: string;
   description: string;
   category: string;
   level: 'Débutant' | 'Intermédiaire' | 'Avancé';
-  icon: string;
+  icon: LucideIcon;
   rating: number;
   usageCount: number;
   executionTime: string;
