@@ -53,7 +53,7 @@ const BacklinkProfiler = () => {
         domain: `example${i + 1}.com`,
         anchor: ['mot-clé principal', 'lien naturel', 'cliquez ici', 'en savoir plus', 'site officiel'][Math.floor(Math.random() * 5)],
         authority: Math.floor(Math.random() * 50) + 20,
-        type: Math.random() > 0.3 ? 'dofollow' : 'nofollow' as const
+        type: (Math.random() > 0.3 ? 'dofollow' : 'nofollow') as 'dofollow' | 'nofollow'
       }));
 
       const anchorCounts = mockBacklinks.reduce((acc, link) => {
@@ -151,7 +151,7 @@ const BacklinkProfiler = () => {
       value: data.domainAuthority,
       maxValue: 100,
       icon: <Shield />,
-      color: data.domainAuthority >= 70 ? 'green' : data.domainAuthority >= 40 ? 'orange' : 'red' as const
+      color: (data.domainAuthority >= 70 ? 'green' : data.domainAuthority >= 40 ? 'orange' : 'red') as const
     },
     {
       id: 'trustFlow',
@@ -159,7 +159,7 @@ const BacklinkProfiler = () => {
       value: data.trustFlow,
       maxValue: 100,
       icon: <TrendingUp />,
-      color: data.trustFlow >= 60 ? 'green' : data.trustFlow >= 30 ? 'orange' : 'red' as const
+      color: (data.trustFlow >= 60 ? 'green' : data.trustFlow >= 30 ? 'orange' : 'red') as const
     }
   ] : [];
 

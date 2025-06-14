@@ -183,7 +183,6 @@ const BulkStatusChecker = () => {
           placeholder="Sélectionnez votre fichier CSV..."
           onSubmit={handleCheck}
           loading={loading}
-          acceptedFiles=".csv,.txt"
         />
         
         <ResultsDisplay
