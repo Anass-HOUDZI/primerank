@@ -1,12 +1,8 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { X, Filter } from 'lucide-react';
 import { FilterState } from '../types/Tool';
+import { categories, levels, analysisTypes, resultTypes, popularTags } from '../data/tools';
+import { Star, X } from 'lucide-react';
 
 interface FilterSidebarProps {
   filters: FilterState;
@@ -16,125 +12,245 @@ interface FilterSidebarProps {
   resultCount: number;
 }
 
-const FilterSidebar = ({ filters, onFilterChange, isOpen, onClose, resultCount }: FilterSidebarProps) => {
-  const categories = ['Recherche de mots-clés', 'Analyse technique', 'Analyse de backlinks', 'Optimisation de contenu'];
-  const levels = ['Débutant', 'Intermédiaire', 'Avancé'];
-  const tags = ['SERP', 'mots-clés', 'backlinks', 'vitesse', 'contenu', 'méta description'];
-
-  const handleCategoryChange = (category: string, checked: boolean) => {
-    const newCategories = checked 
-      ? [...filters.categories, category]
-      : filters.categories.filter(c => c !== category);
-    onFilterChange({ ...filters, categories: newCategories });
+const FilterSidebar: React.FC<FilterSidebarProps> = ({
+  filters,
+  onFilterChange,
+  isOpen,
+  onClose,
+  resultCount
+}) => {
+  const handleCategoryChange = (category: string) => {
+    if (category === 'Toutes') {
+      onFilterChange({ ...filters, categories: [] });
+    } else {
+      const newCategories = filters.categories.includes(category)
+        ? filters.categories.filter(c => c !== category)
+        : [...filters.categories, category];
+      onFilterChange({ ...filters, categories: newCategories });
+    }
   };
 
-  const handleLevelChange = (level: string, checked: boolean) => {
-    const newLevels = checked 
-      ? [...filters.levels, level]
-      : filters.levels.filter(l => l !== level);
+  const handleLevelChange = (level: string) => {
+    const newLevels = filters.levels.includes(level)
+      ? filters.levels.filter(l => l !== level)
+      : [...filters.levels, level];
     onFilterChange({ ...filters, levels: newLevels });
   };
 
-  const handleTagChange = (tag: string, checked: boolean) => {
-    const newTags = checked 
-      ? [...filters.tags, tag]
-      : filters.tags.filter(t => t !== tag);
+  const handleAnalysisTypeChange = (type: string) => {
+    const newTypes = filters.analysisTypes.includes(type)
+      ? filters.analysisTypes.filter(t => t !== type)
+      : [...filters.analysisTypes, type];
+    onFilterChange({ ...filters, analysisTypes: newTypes });
+  };
+
+  const handleResultTypeChange = (type: string) => {
+    const newTypes = filters.resultTypes.includes(type)
+      ? filters.resultTypes.filter(t => t !== type)
+      : [...filters.resultTypes, type];
+    onFilterChange({ ...filters, resultTypes: newTypes });
+  };
+
+  const handleTagChange = (tag: string) => {
+    const newTags = filters.tags.includes(tag)
+      ? filters.tags.filter(t => t !== tag)
+      : [...filters.tags, tag];
     onFilterChange({ ...filters, tags: newTags });
   };
 
   const clearAllFilters = () => {
     onFilterChange({
-      searchQuery: '',
+      searchQuery: filters.searchQuery,
       categories: [],
       levels: [],
       analysisTypes: [],
       resultTypes: [],
       tags: [],
       minRating: 0,
-      sortBy: 'popularity'
+      sortBy: filters.sortBy
     });
   };
 
-  if (!isOpen) return null;
+  const hasActiveFilters = filters.categories.length > 0 || 
+    filters.levels.length > 0 || 
+    filters.analysisTypes.length > 0 || 
+    filters.resultTypes.length > 0 || 
+    filters.tags.length > 0 || 
+    filters.minRating > 0;
 
   return (
-    <div className="fixed inset-0 z-50 lg:relative lg:inset-auto lg:z-auto">
-      <div className="absolute inset-0 bg-black/50 lg:hidden" onClick={onClose} />
-      
-      <div className="fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-xl lg:relative lg:w-64 lg:shadow-none overflow-y-auto">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={`
+        fixed lg:static inset-y-0 left-0 z-50 w-80 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out overflow-y-auto
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         <div className="p-6">
+          {/* Header */}
           <div className="flex items-center justify-between mb-6 lg:hidden">
-            <h2 className="text-lg font-semibold flex items-center">
-              <Filter className="w-5 h-5 mr-2" />
-              Filtres
-            </h2>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
-            </Button>
+            <h2 className="text-lg font-semibold text-gray-900">Filtres</h2>
+            <button
+              onClick={onClose}
+              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <Label className="text-sm font-medium mb-3 block">Catégories</Label>
-              <div className="space-y-2">
-                {categories.map(category => (
-                  <div key={category} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={category}
-                      checked={filters.categories.includes(category)}
-                      onCheckedChange={(checked) => handleCategoryChange(category, checked as boolean)}
+          {/* Results count and clear filters */}
+          <div className="flex items-center justify-between mb-6">
+            <span className="text-sm text-gray-600">{resultCount} outils trouvés</span>
+            {hasActiveFilters && (
+              <button
+                onClick={clearAllFilters}
+                className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Effacer tout
+              </button>
+            )}
+          </div>
+
+          {/* Categories */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">📂 Catégories principales</h3>
+            <div className="space-y-2">
+              {categories.map((category) => {
+                const isSelected = category === 'Toutes' 
+                  ? filters.categories.length === 0 
+                  : filters.categories.includes(category);
+                
+                return (
+                  <label key={category} className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => handleCategoryChange(category)}
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
-                    <Label htmlFor={category} className="text-sm">{category}</Label>
+                    <span className="text-sm text-gray-700">{category}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Analysis Type */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">⚡ Type d'analyse</h3>
+            <div className="space-y-2">
+              {analysisTypes.map((type) => (
+                <label key={type} className="flex items-center space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filters.analysisTypes.includes(type)}
+                    onChange={() => handleAnalysisTypeChange(type)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Level */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">🎯 Niveau requis</h3>
+            <div className="space-y-2">
+              {levels.map((level) => (
+                <label key={level} className="flex items-center space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filters.levels.includes(level)}
+                    onChange={() => handleLevelChange(level)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">{level}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Result Type */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">📊 Type de résultat</h3>
+            <div className="space-y-2">
+              {resultTypes.map((type) => (
+                <label key={type} className="flex items-center space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filters.resultTypes.includes(type)}
+                    onChange={() => handleResultTypeChange(type)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular Tags */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">🏷️ Tags populaires</h3>
+            <div className="flex flex-wrap gap-2">
+              {popularTags.map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagChange(tag)}
+                  className={`px-3 py-1 text-xs rounded-full transition-colors ${
+                    filters.tags.includes(tag)
+                      ? 'bg-blue-100 text-blue-800 border border-blue-300'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Rating */}
+          <div className="mb-6">
+            <h3 className="font-medium text-gray-900 mb-3">⭐ Évaluation minimale</h3>
+            <div className="space-y-2">
+              {[4.5, 4.0, 3.5, 0].map((rating) => (
+                <label key={rating} className="flex items-center space-x-3 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="rating"
+                    checked={filters.minRating === rating}
+                    onChange={() => onFilterChange({ ...filters, minRating: rating })}
+                    className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < Math.floor(rating) 
+                            ? 'fill-yellow-400 text-yellow-400' 
+                            : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                    <span className="text-sm text-gray-700 ml-1">
+                      {rating === 0 ? 'Toutes' : `${rating}+`}
+                    </span>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <Label className="text-sm font-medium mb-3 block">Niveau</Label>
-              <div className="space-y-2">
-                {levels.map(level => (
-                  <div key={level} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={level}
-                      checked={filters.levels.includes(level)}
-                      onCheckedChange={(checked) => handleLevelChange(level, checked as boolean)}
-                    />
-                    <Label htmlFor={level} className="text-sm">{level}</Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <Label className="text-sm font-medium mb-3 block">Tags</Label>
-              <div className="space-y-2">
-                {tags.map(tag => (
-                  <div key={tag} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={tag}
-                      checked={filters.tags.includes(tag)}
-                      onCheckedChange={(checked) => handleTagChange(tag, checked as boolean)}
-                    />
-                    <Label htmlFor={tag} className="text-sm">#{tag}</Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-4 border-t">
-              <Button variant="outline" onClick={clearAllFilters} className="w-full">
-                Effacer tous les filtres
-              </Button>
-            </div>
-
-            <div className="text-sm text-gray-500">
-              {resultCount} outil{resultCount !== 1 ? 's' : ''} trouvé{resultCount !== 1 ? 's' : ''}
+                </label>
+              ))}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

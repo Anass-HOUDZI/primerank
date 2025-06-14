@@ -1,54 +1,63 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Zap, Shield, TrendingUp } from 'lucide-react';
+import { Search, Star, TrendingUp, Zap } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Suite d'Outils SEO
-            <span className="text-yellow-300"> Gratuits</span>
+          {/* Title */}
+          <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Outils <span className="text-blue-600">SEO</span>{' '}
+            <span className="text-green-500">Gratuits</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-            Analysez, optimisez et surveillez votre référencement avec notre collection complète d'outils SEO professionnels.
+          
+          {/* Subtitle */}
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Découvrez une suite complète de 24 outils SEO gratuits conçus pour propulser 
+            votre site au sommet des résultats de recherche. De l'analyse technique à 
+            l'optimisation sémantique, en passant par le netlinking, nous avons ce qu'il 
+            vous faut.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
-              Commencer gratuitement
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-              Voir tous les outils
-            </Button>
+          {/* Category Tags */}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <span className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+              <Search className="w-4 h-4 mr-2" />
+              Mots-clés & SEO
+            </span>
+            <span className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Sémantique
+            </span>
+            <span className="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+              <Zap className="w-4 h-4 mr-2" />
+              Technique
+            </span>
+            <span className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">
+              <Star className="w-4 h-4 mr-2" />
+              Netlinking
+            </span>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-yellow-300" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Rapide & Efficace</h3>
-              <p className="text-blue-100">Obtenez des résultats en quelques secondes</p>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">24</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Outils gratuits</div>
             </div>
-            
             <div className="text-center">
-              <div className="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-green-300" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">100% Gratuit</h3>
-              <p className="text-blue-100">Aucune limitation, aucun abonnement</p>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">∞</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Utilisations illimitées</div>
             </div>
-            
             <div className="text-center">
-              <div className="bg-white/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-8 h-8 text-purple-300" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Résultats Professionnels</h3>
-              <p className="text-blue-100">Qualité agence à portée de tous</p>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">0€</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">100% gratuit</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">&lt; 2s</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Temps de réponse</div>
             </div>
           </div>
         </div>

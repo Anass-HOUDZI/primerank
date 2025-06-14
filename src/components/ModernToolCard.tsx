@@ -1,11 +1,8 @@
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Star, Clock, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import { Tool } from '../types/Tool';
-import { useNavigate } from 'react-router-dom';
 
 interface ModernToolCardProps {
   tool: Tool;
@@ -13,75 +10,118 @@ interface ModernToolCardProps {
 }
 
 const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
-  const navigate = useNavigate();
-
-  const handleUse = () => {
-    navigate(tool.href);
-    onUse(tool.id);
-  };
-
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Débutant': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'Intermédiaire': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-      case 'Avancé': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'Analyse':
+        return {
+          bg: 'bg-blue-50 dark:bg-blue-900/20',
+          text: 'text-blue-600 dark:text-blue-400',
+          border: 'border-blue-200 dark:border-blue-800',
+          button: 'bg-blue-600 hover:bg-blue-700'
+        };
+      case 'Optimisation':
+        return {
+          bg: 'bg-green-50 dark:bg-green-900/20',
+          text: 'text-green-600 dark:text-green-400',
+          border: 'border-green-200 dark:border-green-800',
+          button: 'bg-green-600 hover:bg-green-700'
+        };
+      case 'Suivi':
+        return {
+          bg: 'bg-purple-50 dark:bg-purple-900/20',
+          text: 'text-purple-600 dark:text-purple-400',
+          border: 'border-purple-200 dark:border-purple-800',
+          button: 'bg-purple-600 hover:bg-purple-700'
+        };
+      case 'Technique':
+        return {
+          bg: 'bg-orange-50 dark:bg-orange-900/20',
+          text: 'text-orange-600 dark:text-orange-400',
+          border: 'border-orange-200 dark:border-orange-800',
+          button: 'bg-orange-600 hover:bg-orange-700'
+        };
+      default:
+        return {
+          bg: 'bg-gray-50 dark:bg-gray-900/20',
+          text: 'text-gray-600 dark:text-gray-400',
+          border: 'border-gray-200 dark:border-gray-800',
+          button: 'bg-gray-600 hover:bg-gray-700'
+        };
     }
   };
 
+  const getCategoryLabel = (category: string) => {
+    switch (category) {
+      case 'Analyse': return 'POPULAIRE';
+      case 'Optimisation': return 'SÉMANTIQUE';
+      case 'Suivi': return 'SUIVI';
+      case 'Technique': return 'TECHNIQUE';
+      default: return category.toUpperCase();
+    }
+  };
+
+  const colors = getCategoryColor(tool.category);
+
   return (
-    <Card className="p-6 hover:shadow-lg transition-all duration-300 border-l-4 border-l-blue-500">
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex-1">
-          <div className="flex items-center space-x-2 mb-2">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              {tool.name}
-            </h3>
-            {tool.isNew && (
-              <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-                Nouveau
-              </Badge>
-            )}
-          </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
-            {tool.description}
-          </p>
-          
-          <div className="flex items-center space-x-4 text-xs text-gray-500 mb-4">
-            <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 mr-1" />
-              <span>{tool.rating}</span>
-            </div>
-            <div className="flex items-center">
-              <Users className="w-4 h-4 mr-1" />
-              <span>{tool.usageCount.toLocaleString()}</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="w-4 h-4 mr-1" />
-              <span>{tool.executionTime}</span>
-            </div>
-          </div>
+    <div className={`relative bg-white dark:bg-gray-800 rounded-2xl border-2 ${colors.border} hover:shadow-lg transition-all duration-300 group overflow-hidden`}>
+      {/* Category Badge */}
+      <div className={`absolute top-4 right-4 px-3 py-1 ${colors.bg} ${colors.text} text-xs font-bold rounded-full`}>
+        {getCategoryLabel(tool.category)}
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        {/* Icon */}
+        <div className={`w-16 h-16 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-4`}>
+          {React.createElement(tool.icon as any, { className: 'w-8 h-8' })}
         </div>
+
+        {/* Title */}
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors">
+          {tool.name}
+        </h3>
+
+        {/* Description */}
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
+          {tool.description}
+        </p>
+
+        {/* Features */}
+        <div className="space-y-2 mb-6">
+          {tool.features.slice(0, 3).map((feature, index) => (
+            <div key={index} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+              <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3"></div>
+              {feature}
+            </div>
+          ))}
+        </div>
+
+        {/* Action Button */}
+        {tool.href ? (
+          <Link
+            to={tool.href}
+            onClick={() => onUse(tool.id)}
+            className={`w-full ${colors.button} text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-200 group-hover:translate-y-[-2px]`}
+          >
+            Utiliser →
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="w-full bg-gray-300 text-gray-500 py-3 px-4 rounded-xl font-medium flex items-center justify-center cursor-not-allowed"
+          >
+            Bientôt disponible
+          </button>
+        )}
       </div>
 
-      <div className="flex items-center justify-between">
-        <Badge className={getLevelColor(tool.level)}>
-          {tool.level}
-        </Badge>
-        
-        <Button onClick={handleUse} className="bg-blue-600 hover:bg-blue-700">
-          Utiliser l'outil
-        </Button>
-      </div>
-
-      <div className="mt-4 flex flex-wrap gap-1">
-        {tool.tags.slice(0, 3).map((tag, index) => (
-          <Badge key={index} variant="outline" className="text-xs">
-            #{tag}
-          </Badge>
-        ))}
-      </div>
-    </Card>
+      {/* New Badge */}
+      {tool.isNew && (
+        <div className="absolute top-0 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-b-lg">
+          NOUVEAU
+        </div>
+      )}
+    </div>
   );
 };
 

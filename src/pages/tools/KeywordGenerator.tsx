@@ -1,11 +1,15 @@
 
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
+import { InputForm } from '@/components/tools/InputForm';
 import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
-import { KeywordGeneratorForm } from '@/components/tools/KeywordGeneratorForm';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Target, TrendingUp, Search } from 'lucide-react';
+import { Target, TrendingUp, Search, Filter, Download } from 'lucide-react';
 
 interface KeywordData {
   keyword: string;
@@ -49,6 +53,7 @@ const KeywordGenerator = () => {
     setError('');
     
     try {
+      // Simulation d'une génération de mots-clés
       await new Promise(resolve => setTimeout(resolve, 3000));
       
       const variations = [
@@ -65,6 +70,7 @@ const KeywordGenerator = () => {
         const keywords: KeywordData[] = [];
         const seed = seedKeyword.trim().toLowerCase();
         
+        // Ajouter le mot-clé exact
         keywords.push({
           keyword: seed,
           searchVolume: Math.floor(Math.random() * 5000) + 1000,
@@ -74,6 +80,7 @@ const KeywordGenerator = () => {
           trend: ['up', 'down', 'stable'][Math.floor(Math.random() * 3)] as 'up' | 'down' | 'stable'
         });
 
+        // Générer des variations
         variations.forEach(prefix => {
           if (Math.random() > 0.3) {
             keywords.push({
@@ -182,22 +189,29 @@ const KeywordGenerator = () => {
     switch (trend) {
       case 'up': return <TrendingUp className="w-4 h-4 text-green-500" />;
       case 'down': return <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />;
-      default: return <div className="w-4 h-4 text-gray-400">→</div>;
+      case 'stable': return <div className="w-4 h-4 text-gray-400">→</div>;
+      default: return null;
     }
   };
 
   return (
     <ToolLayout
       title="Générateur de Mots-Clés"
-      description="Découvrez des mots-clés pertinents avec leurs métriques de volume, concurrence et difficulté pour optimiser votre stratégie SEO."
+      description="Découvrez des milliers de mots-clés pertinents avec volumes de recherche, niveau de concurrence et estimations CPC pour optimiser votre stratégie SEO."
       icon={<Target />}
       category="research"
       relatedTools={[
         {
-          title: "Rank Checker",
-          description: "Vérifiez vos positions sur Google",
+          title: "Vérificateur de Positions",
+          description: "Suivez vos positions",
           href: "/tools/rank-checker",
           icon: <Search />
+        },
+        {
+          title: "Analyse SERP",
+          description: "Analysez la concurrence",
+          href: "/tools/serp-analyzer",
+          icon: <Filter />
         }
       ]}
     >
@@ -205,27 +219,86 @@ const KeywordGenerator = () => {
         <Card className="p-6">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
             <Target className="w-5 h-5 mr-2" />
-            Configuration de la génération
+            Configuration de la recherche
           </h2>
           
-          <KeywordGeneratorForm
-            seedKeyword={seedKeyword}
-            language={language}
-            country={country}
-            minVolume={minVolume}
-            competition={competition}
-            onSeedKeywordChange={setSeedKeyword}
-            onLanguageChange={setLanguage}
-            onCountryChange={setCountry}
-            onMinVolumeChange={setMinVolume}
-            onCompetitionChange={setCompetition}
-            onSubmit={handleGenerate}
-            loading={loading}
-          />
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <Label htmlFor="seed">Mot-clé de base</Label>
+              <Input
+                id="seed"
+                placeholder="seo, marketing digital..."
+                value={seedKeyword}
+                onChange={(e) => setSeedKeyword(e.target.value)}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="minVol">Volume minimum</Label>
+              <Select value={minVolume} onValueChange={setMinVolume}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Tous</SelectItem>
+                  <SelectItem value="100">100+</SelectItem>
+                  <SelectItem value="500">500+</SelectItem>
+                  <SelectItem value="1000">1000+</SelectItem>
+                  <SelectItem value="5000">5000+</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="lang">Langue</Label>
+              <Select value={language} onValueChange={setLanguage}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="fr">Français</SelectItem>
+                  <SelectItem value="en">Anglais</SelectItem>
+                  <SelectItem value="es">Espagnol</SelectItem>
+                  <SelectItem value="de">Allemand</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="comp">Concurrence</Label>
+              <Select value={competition} onValueChange={setCompetition}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Tous niveaux</SelectItem>
+                  <SelectItem value="low">Faible</SelectItem>
+                  <SelectItem value="medium">Moyenne</SelectItem>
+                  <SelectItem value="high">Élevée</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <Button 
+            onClick={handleGenerate}
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                Génération en cours...
+              </>
+            ) : (
+              'Générer les mots-clés'
+            )}
+          </Button>
         </Card>
         
         <ResultsDisplay
-          title="Mots-clés générés"
+          title="Suggestions de mots-clés"
           data={data}
           loading={loading}
           error={error}
@@ -233,13 +306,14 @@ const KeywordGenerator = () => {
         >
           {data && (
             <div className="space-y-6">
+              {/* Résumé */}
               <div className="grid md:grid-cols-3 gap-4">
                 <Card className="p-4 text-center">
                   <div className="text-2xl font-bold text-blue-600">{data.totalSuggestions}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Mots-clés trouvés</div>
                 </Card>
                 <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">{data.averageVolume}</div>
+                  <div className="text-2xl font-bold text-green-600">{data.averageVolume.toLocaleString()}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Volume moyen</div>
                 </Card>
                 <Card className="p-4 text-center">
@@ -248,42 +322,65 @@ const KeywordGenerator = () => {
                 </Card>
               </div>
 
+              {/* Tableau des mots-clés */}
               <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Liste des mots-clés</h3>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-semibold">Liste des mots-clés</h3>
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
+                      <Download className="w-4 h-4 mr-2" />
+                      CSV
+                    </Button>
+                  </div>
+                </div>
                 <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
+                  <table className="w-full">
                     <thead>
                       <tr className="border-b border-gray-200 dark:border-gray-700">
-                        <th className="text-left py-2">Mot-clé</th>
-                        <th className="text-center py-2">Volume</th>
-                        <th className="text-center py-2">Concurrence</th>
-                        <th className="text-center py-2">CPC</th>
-                        <th className="text-center py-2">Difficulté</th>
-                        <th className="text-center py-2">Tendance</th>
+                        <th className="text-left py-3 px-4 font-medium">Mot-clé</th>
+                        <th className="text-center py-3 px-4 font-medium">Volume</th>
+                        <th className="text-center py-3 px-4 font-medium">Concurrence</th>
+                        <th className="text-center py-3 px-4 font-medium">CPC</th>
+                        <th className="text-center py-3 px-4 font-medium">Difficulté</th>
+                        <th className="text-center py-3 px-4 font-medium">Tendance</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data.suggestions.slice(0, 20).map((keyword, index) => (
-                        <tr key={index} className="border-b border-gray-100 dark:border-gray-800">
-                          <td className="py-2 font-medium">{keyword.keyword}</td>
-                          <td className="py-2 text-center">{keyword.searchVolume.toLocaleString()}</td>
-                          <td className="py-2 text-center">
-                            <span className={`px-2 py-1 rounded text-xs ${getCompetitionColor(keyword.competition)}`}>
+                      {data.suggestions.map((keyword, index) => (
+                        <tr key={index} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800">
+                          <td className="py-3 px-4 font-medium">{keyword.keyword}</td>
+                          <td className="py-3 px-4 text-center text-blue-600 dark:text-blue-400 font-medium">
+                            {keyword.searchVolume.toLocaleString()}
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${getCompetitionColor(keyword.competition)}`}>
                               {keyword.competition}
                             </span>
                           </td>
-                          <td className="py-2 text-center">{keyword.cpc.toFixed(2)}€</td>
-                          <td className="py-2 text-center">{keyword.difficulty}%</td>
-                          <td className="py-2 text-center">{getTrendIcon(keyword.trend)}</td>
+                          <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-300">
+                            {keyword.cpc.toFixed(2)}€
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            <div className="flex items-center justify-center">
+                              <div className="w-8 h-2 bg-gray-200 rounded-full mr-2">
+                                <div 
+                                  className={`h-2 rounded-full ${
+                                    keyword.difficulty >= 70 ? 'bg-red-500' :
+                                    keyword.difficulty >= 40 ? 'bg-orange-500' : 'bg-green-500'
+                                  }`}
+                                  style={{ width: `${keyword.difficulty}%` }}
+                                />
+                              </div>
+                              <span className="text-xs text-gray-500">{keyword.difficulty}%</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            {getTrendIcon(keyword.trend)}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-                  {data.suggestions.length > 20 && (
-                    <p className="text-sm text-gray-500 mt-4">
-                      ... et {data.suggestions.length - 20} autres mots-clés
-                    </p>
-                  )}
                 </div>
               </Card>
             </div>

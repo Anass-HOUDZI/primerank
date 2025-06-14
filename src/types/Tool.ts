@@ -1,20 +1,25 @@
 
+import { LucideIcon } from 'lucide-react';
+
 export interface Tool {
   id: string;
   name: string;
   description: string;
-  icon: string;
   category: string;
   level: 'Débutant' | 'Intermédiaire' | 'Avancé';
-  analysisType: string[];
-  resultType: string[];
-  tags: string[];
+  icon: LucideIcon;
   rating: number;
   usageCount: number;
   executionTime: string;
-  isNew?: boolean;
-  isFavorite?: boolean;
-  href: string;
+  features: string[];
+  tags: string[];
+  resultType: string[];
+  analysisType: string[];
+  isFavorite: boolean;
+  isNew: boolean;
+  isTrending: boolean;
+  isRecommended: boolean;
+  href?: string;
 }
 
 export interface FilterState {
@@ -25,7 +30,7 @@ export interface FilterState {
   resultTypes: string[];
   tags: string[];
   minRating: number;
-  sortBy: string;
+  sortBy: 'popularity' | 'rating' | 'alphabetical' | 'newest' | 'fastest' | 'difficulty';
 }
 
 export type ViewMode = 'grid' | 'list';
