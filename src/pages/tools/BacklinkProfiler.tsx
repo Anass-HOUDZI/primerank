@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
@@ -151,7 +150,7 @@ const BacklinkProfiler = () => {
       value: data.domainAuthority,
       maxValue: 100,
       icon: <Shield />,
-      color: (data.domainAuthority >= 70 ? 'green' : data.domainAuthority >= 40 ? 'orange' : 'red') as const
+      color: (data.domainAuthority >= 70 ? 'green' : data.domainAuthority >= 40 ? 'orange' : 'red') as 'green' | 'orange' | 'red'
     },
     {
       id: 'trustFlow',
@@ -159,7 +158,7 @@ const BacklinkProfiler = () => {
       value: data.trustFlow,
       maxValue: 100,
       icon: <TrendingUp />,
-      color: (data.trustFlow >= 60 ? 'green' : data.trustFlow >= 30 ? 'orange' : 'red') as const
+      color: (data.trustFlow >= 60 ? 'green' : data.trustFlow >= 30 ? 'orange' : 'red') as 'green' | 'orange' | 'red'
     }
   ] : [];
 
