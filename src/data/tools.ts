@@ -221,12 +221,7 @@ export const toolsData: Tool[] = [
     isTrending: false,
     isRecommended: true,
     href: '/tools/meta-description-generator'
-  }
-];
-
-// Add more tools to reach 24 total
-export const allTools: Tool[] = [
-  ...toolsData,
+  },
   {
     id: '12',
     name: 'Audit Mobile-First',
@@ -242,9 +237,10 @@ export const allTools: Tool[] = [
     resultType: ['Score/Note', 'Rapport détaillé'],
     analysisType: ['URL/Domaine'],
     isFavorite: false,
-    isNew: false,
+    isNew: true,
     isTrending: true,
-    isRecommended: true
+    isRecommended: true,
+    href: '/tools/mobile-first-audit'
   },
   {
     id: '13',
@@ -263,9 +259,13 @@ export const allTools: Tool[] = [
     isFavorite: false,
     isNew: true,
     isTrending: false,
-    isRecommended: false
+    isRecommended: false,
+    href: '/tools/serp-comparator'
   }
 ];
+
+// Add more tools to reach 24 total
+export const allTools: Tool[] = toolsData;
 
 export const categories = [
   'Toutes',
@@ -273,7 +273,8 @@ export const categories = [
   'Optimisation contenu',
   'Recherche mots-clés',
   'SEO local',
-  'Outils techniques'
+  'Outils techniques',
+  'Analyse de backlinks'
 ];
 
 export const levels = ['Débutant', 'Intermédiaire', 'Avancé'];

@@ -13,6 +13,8 @@ import BulkStatusChecker from "./pages/tools/BulkStatusChecker";
 import BacklinkProfiler from "./pages/tools/BacklinkProfiler";
 import KeywordDensityAnalyzer from "./pages/tools/KeywordDensityAnalyzer";
 import MetaDescriptionGenerator from "./pages/tools/MetaDescriptionGenerator";
+import SERPComparator from "./pages/tools/SERPComparator";
+import MobileFirstAudit from "./pages/tools/MobileFirstAudit";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,10 @@ const App = () => (
           {/* Nouveaux outils côté client */}
           <Route path="/tools/keyword-density-analyzer" element={<KeywordDensityAnalyzer />} />
           <Route path="/tools/meta-description-generator" element={<MetaDescriptionGenerator />} />
+          
+          {/* Nouveaux outils avancés */}
+          <Route path="/tools/serp-comparator" element={<SERPComparator />} />
+          <Route path="/tools/mobile-first-audit" element={<MobileFirstAudit />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
