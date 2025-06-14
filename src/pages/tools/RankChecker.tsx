@@ -1,14 +1,12 @@
 
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
-import { InputForm } from '@/components/tools/InputForm';
 import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
+import { KeywordConfigForm } from '@/components/tools/KeywordConfigForm';
+import { RankResults } from '@/components/tools/RankResults';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { TrendingUp, Search, MapPin, Plus, X } from 'lucide-react';
+import { TrendingUp, Search, MapPin } from 'lucide-react';
 
 interface RankData {
   keyword: string;
@@ -36,20 +34,6 @@ const RankChecker = () => {
   const [domain, setDomain] = useState('');
   const { toast } = useToast();
 
-  const addKeyword = () => {
-    setKeywords([...keywords, '']);
-  };
-
-  const removeKeyword = (index: number) => {
-    setKeywords(keywords.filter((_, i) => i !== index));
-  };
-
-  const updateKeyword = (index: number, value: string) => {
-    const newKeywords = [...keywords];
-    newKeywords[index] = value;
-    setKeywords(newKeywords);
-  };
-
   const handleAnalyze = async () => {
     if (!domain.trim() || keywords.filter(k => k.trim()).length === 0) {
       toast({
@@ -64,7 +48,6 @@ const RankChecker = () => {
     setError('');
     
     try {
-      // Simulation d'une vérification de positions
       await new Promise(resolve => setTimeout(resolve, 4000));
       
       const validKeywords = keywords.filter(k => k.trim());
@@ -156,21 +139,6 @@ const RankChecker = () => {
     });
   };
 
-  const getPositionColor = (position: number | null) => {
-    if (!position) return 'text-gray-400';
-    if (position <= 3) return 'text-green-600 dark:text-green-400';
-    if (position <= 10) return 'text-blue-600 dark:text-blue-400';
-    if (position <= 20) return 'text-orange-600 dark:text-orange-400';
-    return 'text-red-600 dark:text-red-400';
-  };
-
-  const getChangeIcon = (current: number | null, previous: number | undefined) => {
-    if (!current || !previous) return null;
-    if (current < previous) return <TrendingUp className="w-4 h-4 text-green-500" />;
-    if (current > previous) return <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />;
-    return <div className="w-4 h-4 text-gray-400">→</div>;
-  };
-
   return (
     <ToolLayout
       title="Vérificateur de Positions"
@@ -199,68 +167,14 @@ const RankChecker = () => {
             Configuration de la vérification
           </h2>
           
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="domain">Domaine à analyser</Label>
-              <Input
-                id="domain"
-                type="url"
-                placeholder="https://exemple.com"
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                className="mt-1"
-              />
-            </div>
-
-            <div>
-              <Label>Mots-clés à vérifier</Label>
-              <div className="space-y-2 mt-2">
-                {keywords.map((keyword, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <Input
-                      placeholder="Mot-clé à vérifier"
-                      value={keyword}
-                      onChange={(e) => updateKeyword(index, e.target.value)}
-                      className="flex-1"
-                    />
-                    {keywords.length > 1 && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => removeKeyword(index)}
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={addKeyword}
-                  className="w-full"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Ajouter un mot-clé
-                </Button>
-              </div>
-            </div>
-
-            <Button 
-              onClick={handleAnalyze}
-              disabled={loading}
-              className="w-full"
-            >
-              {loading ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Vérification en cours...
-                </>
-              ) : (
-                'Vérifier les positions'
-              )}
-            </Button>
-          </div>
+          <KeywordConfigForm
+            keywords={keywords}
+            domain={domain}
+            onKeywordsChange={setKeywords}
+            onDomainChange={setDomain}
+            onSubmit={handleAnalyze}
+            loading={loading}
+          />
         </Card>
         
         <ResultsDisplay
@@ -270,76 +184,7 @@ const RankChecker = () => {
           error={error}
           onExport={handleExport}
         >
-          {data && (
-            <div className="space-y-6">
-              {/* Résumé */}
-              <div className="grid md:grid-cols-4 gap-4">
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">{data.totalKeywords}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Mots-clés</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">{data.avgPosition || 'N/A'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Position moyenne</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">{data.improvements}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Améliorations</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-red-600">{data.declines}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Régressions</div>
-                </Card>
-              </div>
-
-              {/* Tableau des résultats */}
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Détail des positions</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-gray-200 dark:border-gray-700">
-                        <th className="text-left py-3 px-4 font-medium">Mot-clé</th>
-                        <th className="text-center py-3 px-4 font-medium">Position</th>
-                        <th className="text-center py-3 px-4 font-medium">Évolution</th>
-                        <th className="text-center py-3 px-4 font-medium">Volume</th>
-                        <th className="text-center py-3 px-4 font-medium">Difficulté</th>
-                        <th className="text-left py-3 px-4 font-medium">URL</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {data.keywords.map((result, index) => (
-                        <tr key={index} className="border-b border-gray-100 dark:border-gray-800">
-                          <td className="py-3 px-4 font-medium">{result.keyword}</td>
-                          <td className={`py-3 px-4 text-center font-bold ${getPositionColor(result.position)}`}>
-                            {result.position || 'Non classé'}
-                          </td>
-                          <td className="py-3 px-4 text-center">
-                            {getChangeIcon(result.position, result.previousPosition)}
-                          </td>
-                          <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-300">
-                            {result.searchVolume.toLocaleString()}
-                          </td>
-                          <td className="py-3 px-4 text-center">
-                            <span className={`px-2 py-1 rounded text-xs ${
-                              result.difficulty >= 70 ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200' :
-                              result.difficulty >= 40 ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' :
-                              'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                            }`}>
-                              {result.difficulty}%
-                            </span>
-                          </td>
-                          <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-300 truncate max-w-xs">
-                            {result.url || 'N/A'}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </Card>
-            </div>
-          )}
+          {data && <RankResults data={data} />}
         </ResultsDisplay>
       </div>
     </ToolLayout>
