@@ -3,7 +3,6 @@ import React from 'react';
 import { AlertCircle, RefreshCw, Search, Clock, Share2, Bookmark } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { QuickExport } from '@/components/export/QuickExport';
 import { ExportData } from '@/types/Export';
 
 interface ResultsDisplayProps {
@@ -32,16 +31,6 @@ export const ResultsDisplay = ({
   keywords,
   recommendations
 }: ResultsDisplayProps) => {
-  // Création automatique des données d'export si non fournies
-  const defaultExportData: ExportData = exportData || {
-    toolName: title,
-    analysisDate: new Date().toLocaleDateString('fr-FR'),
-    url,
-    keywords,
-    metrics: typeof data === 'object' && data !== null ? data : { result: data },
-    recommendations,
-  };
-
   if (loading) {
     return (
       <Card className="p-8">
@@ -111,26 +100,6 @@ export const ResultsDisplay = ({
               minute: '2-digit'
             })}
           </p>
-        </div>
-        
-        <div className="flex items-center space-x-2">
-          {/* Ancien système d'export pour compatibilité */}
-          {onExport && (
-            <div className="flex items-center space-x-2 mr-2">
-              <Button variant="outline" size="sm" onClick={() => onExport('pdf')}>
-                PDF
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => onExport('csv')}>
-                CSV
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => onExport('json')}>
-                JSON
-              </Button>
-            </div>
-          )}
-          
-          {/* Nouveau système d'export avancé */}
-          <QuickExport data={defaultExportData} />
         </div>
       </div>
 
