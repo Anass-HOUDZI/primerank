@@ -2,6 +2,7 @@
 import React from 'react';
 import { useIsMobile } from '../../hooks/use-mobile';
 import { MobileNavigation } from './MobileNavigation';
+import { Footer } from '../Footer';
 
 interface MobileOptimizedLayoutProps {
   children: React.ReactNode;
@@ -11,12 +12,14 @@ export const MobileOptimizedLayout: React.FC<MobileOptimizedLayoutProps> = ({ ch
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
       {isMobile && <MobileNavigation />}
       
-      <main className={`${isMobile ? 'pb-20 pt-16' : ''} transition-all duration-300`}>
+      <main className={`${isMobile ? 'pb-20 pt-16' : ''} transition-all duration-300 flex-1`}>
         {children}
       </main>
+
+      <Footer />
 
       {/* Pull-to-refresh indicator */}
       {isMobile && (
