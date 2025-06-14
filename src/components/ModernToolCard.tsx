@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Clock, Users, Star, Zap } from 'lucide-react';
 import { Tool } from '../types/Tool';
+import { Badge } from '@/components/ui/badge';
 
 interface ModernToolCardProps {
   tool: Tool;
@@ -10,117 +11,163 @@ interface ModernToolCardProps {
 }
 
 const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
-  const getCategoryColor = (category: string) => {
+  const getCategoryConfig = (category: string) => {
     switch (category) {
       case 'Analyse':
         return {
-          bg: 'bg-blue-50 dark:bg-blue-900/20',
-          text: 'text-blue-600 dark:text-blue-400',
-          border: 'border-blue-200 dark:border-blue-800',
-          button: 'bg-blue-600 hover:bg-blue-700'
+          gradient: 'from-blue-500 to-indigo-600',
+          bgGradient: 'from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
+          badge: 'POPULAIRE',
+          badgeColor: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300'
         };
       case 'Optimisation':
         return {
-          bg: 'bg-green-50 dark:bg-green-900/20',
-          text: 'text-green-600 dark:text-green-400',
-          border: 'border-green-200 dark:border-green-800',
-          button: 'bg-green-600 hover:bg-green-700'
+          gradient: 'from-emerald-500 to-green-600',
+          bgGradient: 'from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20',
+          badge: 'SÉMANTIQUE',
+          badgeColor: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
         };
       case 'Suivi':
         return {
-          bg: 'bg-purple-50 dark:bg-purple-900/20',
-          text: 'text-purple-600 dark:text-purple-400',
-          border: 'border-purple-200 dark:border-purple-800',
-          button: 'bg-purple-600 hover:bg-purple-700'
+          gradient: 'from-purple-500 to-violet-600',
+          bgGradient: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20',
+          badge: 'SUIVI',
+          badgeColor: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300'
         };
       case 'Technique':
         return {
-          bg: 'bg-orange-50 dark:bg-orange-900/20',
-          text: 'text-orange-600 dark:text-orange-400',
-          border: 'border-orange-200 dark:border-orange-800',
-          button: 'bg-orange-600 hover:bg-orange-700'
+          gradient: 'from-orange-500 to-red-600',
+          bgGradient: 'from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20',
+          badge: 'TECHNIQUE',
+          badgeColor: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300'
         };
       default:
         return {
-          bg: 'bg-gray-50 dark:bg-gray-900/20',
-          text: 'text-gray-600 dark:text-gray-400',
-          border: 'border-gray-200 dark:border-gray-800',
-          button: 'bg-gray-600 hover:bg-gray-700'
+          gradient: 'from-gray-500 to-slate-600',
+          bgGradient: 'from-gray-50 to-slate-50 dark:from-gray-950/20 dark:to-slate-950/20',
+          badge: 'AUTRE',
+          badgeColor: 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-300'
         };
     }
   };
 
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'Analyse': return 'POPULAIRE';
-      case 'Optimisation': return 'SÉMANTIQUE';
-      case 'Suivi': return 'SUIVI';
-      case 'Technique': return 'TECHNIQUE';
-      default: return category.toUpperCase();
-    }
-  };
-
-  const colors = getCategoryColor(tool.category);
+  const config = getCategoryConfig(tool.category);
 
   return (
-    <div className={`relative bg-white dark:bg-gray-800 rounded-2xl border-2 ${colors.border} hover:shadow-lg transition-all duration-300 group overflow-hidden`}>
-      {/* Category Badge */}
-      <div className={`absolute top-4 right-4 px-3 py-1 ${colors.bg} ${colors.text} text-xs font-bold rounded-full`}>
-        {getCategoryLabel(tool.category)}
-      </div>
+    <div className="group relative">
+      {/* Card principale */}
+      <div className="card-modern p-0 overflow-hidden group-hover:scale-105 transition-all duration-500">
+        {/* Header avec gradient */}
+        <div className={`relative h-24 bg-gradient-to-br ${config.bgGradient} overflow-hidden`}>
+          {/* Effets décoratifs */}
+          <div className="absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
+          <div className="absolute top-2 right-2 w-20 h-20 rounded-full bg-white/10 group-hover:scale-110 transition-transform duration-500" />
+          <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-white/5 group-hover:scale-125 transition-transform duration-700" />
+          
+          {/* Badge catégorie */}
+          <div className="absolute top-4 right-4">
+            <Badge className={`${config.badgeColor} font-bold text-xs px-2 py-1 animate-scale-in`}>
+              {config.badge}
+            </Badge>
+          </div>
 
-      {/* Content */}
-      <div className="p-6">
-        {/* Icon */}
-        <div className={`w-16 h-16 ${colors.bg} ${colors.text} rounded-xl flex items-center justify-center mb-4`}>
-          {React.createElement(tool.icon as any, { className: 'w-8 h-8' })}
-        </div>
-
-        {/* Title */}
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors">
-          {tool.name}
-        </h3>
-
-        {/* Description */}
-        <p className="text-gray-600 dark:text-gray-300 text-sm mb-6 leading-relaxed">
-          {tool.description}
-        </p>
-
-        {/* Features */}
-        <div className="space-y-2 mb-6">
-          {tool.features.slice(0, 3).map((feature, index) => (
-            <div key={index} className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-3"></div>
-              {feature}
+          {/* Badge nouveau */}
+          {tool.isNew && (
+            <div className="absolute top-0 left-4 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-b-lg shadow-lg animate-pulse">
+              NOUVEAU
             </div>
-          ))}
+          )}
         </div>
 
-        {/* Action Button */}
-        {tool.href ? (
-          <Link
-            to={tool.href}
-            onClick={() => onUse(tool.id)}
-            className={`w-full ${colors.button} text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-200 group-hover:translate-y-[-2px]`}
-          >
-            Utiliser →
-          </Link>
-        ) : (
-          <button
-            disabled
-            className="w-full bg-gray-300 text-gray-500 py-3 px-4 rounded-xl font-medium flex items-center justify-center cursor-not-allowed"
-          >
-            Bientôt disponible
-          </button>
-        )}
+        {/* Contenu principal */}
+        <div className="p-6 relative">
+          {/* Icône avec effet moderne */}
+          <div className="relative mb-6">
+            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${config.gradient} p-4 shadow-large group-hover:shadow-glow transition-all duration-300 group-hover:scale-110`}>
+              {React.createElement(tool.icon as any, { 
+                className: 'w-full h-full text-white' 
+              })}
+            </div>
+            
+            {/* Indicateur de popularité */}
+            {tool.usageCount > 1000 && (
+              <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                <Zap className="w-3 h-3 text-white" />
+              </div>
+            )}
+          </div>
+
+          {/* Titre et description */}
+          <div className="space-y-3 mb-6">
+            <h3 className="text-xl font-display font-bold text-gray-900 dark:text-white group-hover:text-gradient transition-all duration-300">
+              {tool.name}
+            </h3>
+            
+            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+              {tool.description}
+            </p>
+          </div>
+
+          {/* Fonctionnalités clés */}
+          <div className="space-y-2 mb-6">
+            {tool.features?.slice(0, 3).map((feature, index) => (
+              <div 
+                key={index} 
+                className="flex items-center text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 mr-3 group-hover:scale-125 transition-transform" />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Métriques */}
+          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-6">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center">
+                <Clock className="w-3 h-3 mr-1" />
+                <span>{tool.executionTime}</span>
+              </div>
+              <div className="flex items-center">
+                <Users className="w-3 h-3 mr-1" />
+                <span>{tool.usageCount?.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center">
+                <Star className="w-3 h-3 mr-1 fill-current text-yellow-400" />
+                <span>{tool.rating?.toFixed(1)}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bouton d'action */}
+          {tool.href ? (
+            <Link
+              to={tool.href}
+              onClick={() => onUse(tool.id)}
+              className={`w-full bg-gradient-to-br ${config.gradient} text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center transition-all duration-300 group-hover:shadow-glow hover:scale-105 interactive-scale relative overflow-hidden`}
+            >
+              <span className="relative z-10 flex items-center">
+                Utiliser l'outil
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+              
+              {/* Effet de shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="w-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 py-3 px-4 rounded-xl font-medium cursor-not-allowed opacity-60"
+            >
+              Bientôt disponible
+            </button>
+          )}
+        </div>
+
+        {/* Effet de lueur au survol */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" 
+             style={{ background: `linear-gradient(135deg, ${config.gradient.split(' ')[1]} 0%, ${config.gradient.split(' ')[3]} 100%)` }} />
       </div>
-
-      {/* New Badge */}
-      {tool.isNew && (
-        <div className="absolute top-0 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-b-lg">
-          NOUVEAU
-        </div>
-      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'display': ['Cal Sans', 'Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,12 +66,32 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Nouvelles couleurs pour le design moderne
+				gradient: {
+					primary: 'var(--gradient-primary)',
+					secondary: 'var(--gradient-secondary)',
+					accent: 'var(--gradient-accent)',
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'medium': 'var(--shadow-medium)',
+				'large': 'var(--shadow-large)',
+				'glow': '0 0 20px rgba(59, 130, 246, 0.4)',
+				'glow-lg': '0 0 40px rgba(59, 130, 246, 0.6)',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-primary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+				'gradient-accent': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -84,11 +109,59 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				// Nouvelles animations modernes
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)' },
+					'50%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.8)' }
+				},
+				'gradient-shift': {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' }
+				},
+				'slide-up': {
+					from: {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					to: {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					from: {
+						opacity: '0',
+						transform: 'scale(0.95)'
+					},
+					to: {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				'shimmer': {
+					from: { backgroundPosition: '-200% 0' },
+					to: { backgroundPosition: '200% 0' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'gradient-shift': 'gradient-shift 8s ease infinite',
+				'slide-up': 'slide-up 0.6s ease-out',
+				'scale-in': 'scale-in 0.4s ease-out',
+				'shimmer': 'shimmer 2s linear infinite',
+			},
+			backdropBlur: {
+				'xs': '2px',
+				'modern': '16px',
 			}
 		}
 	},
