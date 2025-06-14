@@ -140,7 +140,7 @@ const PageSpeedAnalyzer = () => {
       value: data.mobileScore,
       maxValue: 100,
       icon: <Smartphone />,
-      color: data.mobileScore >= 90 ? 'green' : data.mobileScore >= 50 ? 'orange' : 'red' as const
+      color: (data.mobileScore >= 90 ? 'green' : data.mobileScore >= 50 ? 'orange' : 'red') as const
     },
     {
       id: 'desktop', 
@@ -148,7 +148,7 @@ const PageSpeedAnalyzer = () => {
       value: data.desktopScore,
       maxValue: 100,
       icon: <Monitor />,
-      color: data.desktopScore >= 90 ? 'green' : data.desktopScore >= 50 ? 'orange' : 'red' as const
+      color: (data.desktopScore >= 90 ? 'green' : data.desktopScore >= 50 ? 'orange' : 'red') as const
     },
     {
       id: 'loadTime',
@@ -157,7 +157,7 @@ const PageSpeedAnalyzer = () => {
       maxValue: 3,
       description: 'secondes',
       icon: <Clock />,
-      color: data.loadTime <= 1.5 ? 'green' : data.loadTime <= 3 ? 'orange' : 'red' as const
+      color: (data.loadTime <= 1.5 ? 'green' : data.loadTime <= 3 ? 'orange' : 'red') as const
     }
   ] : [];
 
