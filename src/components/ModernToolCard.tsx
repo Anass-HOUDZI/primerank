@@ -99,13 +99,6 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
               {config.badge}
             </Badge>
           </div>
-
-          {/* Badge nouveau */}
-          {tool.isNew && (
-            <div className="absolute top-0 left-4 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-b-lg shadow-lg animate-pulse">
-              NOUVEAU
-            </div>
-          )}
         </div>
 
         {/* Contenu principal */}

@@ -19,7 +19,6 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
       {/* Icône */}
       <div className={`
         ${isListView ? 'mr-4' : 'mb-4'}
-        ${tool.isNew ? 'relative' : ''}
       `}>
         <div className={`
           flex items-center justify-center rounded-lg
@@ -33,11 +32,6 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
             className: isListView ? 'w-6 h-6' : 'w-8 h-8'
           })}
         </div>
-        {tool.isNew && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-            NEW
-          </span>
-        )}
       </div>
 
       {/* Contenu */}

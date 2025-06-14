@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Link } from 'lucide-react';
@@ -60,14 +59,6 @@ const BacklinkOpportunities = () => {
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    toast({
-      title: "Export réussi",
-      description: "Opportunités de backlinks téléchargées"
-    });
-  };
-
   return (
     <ToolLayout
       title="Opportunités de Backlinks"
@@ -93,49 +84,53 @@ const BacklinkOpportunities = () => {
           loading={loading}
         />
         
-        <ResultsDisplay
-          title="Opportunités trouvées"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Sites de contact</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2">Domaine</th>
-                      <th className="text-left py-2">Autorité</th>
-                      <th className="text-left py-2">Email</th>
-                      <th className="text-left py-2">Type</th>
+        {data && !loading && !error && (
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Sites de contact</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2">Domaine</th>
+                    <th className="text-left py-2">Autorité</th>
+                    <th className="text-left py-2">Email</th>
+                    <th className="text-left py-2">Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.opportunities.map((opp, index) => (
+                    <tr key={index} className="border-b border-gray-100">
+                      <td className="py-2">{opp.domain}</td>
+                      <td className="py-2">
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          opp.authority >= 60 ? 'bg-green-100 text-green-800' :
+                          opp.authority >= 40 ? 'bg-orange-100 text-orange-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {opp.authority}
+                        </span>
+                      </td>
+                      <td className="py-2">{opp.email}</td>
+                      <td className="py-2">{opp.contactType}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {data.opportunities.map((opp, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="py-2">{opp.domain}</td>
-                        <td className="py-2">
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            opp.authority >= 60 ? 'bg-green-100 text-green-800' :
-                            opp.authority >= 40 ? 'bg-orange-100 text-orange-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {opp.authority}
-                          </span>
-                        </td>
-                        <td className="py-2">{opp.email}</td>
-                        <td className="py-2">{opp.contactType}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          )}
-        </ResultsDisplay>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        )}
+
+        {loading && (
+          <Card className="p-6 text-center">
+            <p>Recherche en cours...</p>
+          </Card>
+        )}
+
+        {error && (
+          <Card className="p-6 text-center text-red-600">
+            <p>{error}</p>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );

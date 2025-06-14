@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Link, Target } from 'lucide-react';
@@ -54,14 +53,6 @@ const InternalLinking = () => {
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    toast({
-      title: "Export réussi",
-      description: "Opportunités de maillage téléchargées"
-    });
-  };
-
   return (
     <ToolLayout
       title="Opportunités de Maillage"
@@ -87,49 +78,53 @@ const InternalLinking = () => {
           loading={loading}
         />
         
-        <ResultsDisplay
-          title="Opportunités de maillage"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Liens recommandés</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2">Page source</th>
-                      <th className="text-left py-2">Page cible</th>
-                      <th className="text-left py-2">Ancre suggérée</th>
-                      <th className="text-left py-2">Score</th>
+        {data && !loading && !error && (
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Liens recommandés</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2">Page source</th>
+                    <th className="text-left py-2">Page cible</th>
+                    <th className="text-left py-2">Ancre suggérée</th>
+                    <th className="text-left py-2">Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.opportunities.map((opp, index) => (
+                    <tr key={index} className="border-b border-gray-100">
+                      <td className="py-2">{opp.fromPage}</td>
+                      <td className="py-2">{opp.toPage}</td>
+                      <td className="py-2">{opp.anchor}</td>
+                      <td className="py-2">
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          opp.relevanceScore >= 80 ? 'bg-green-100 text-green-800' :
+                          opp.relevanceScore >= 60 ? 'bg-orange-100 text-orange-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {opp.relevanceScore}%
+                        </span>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {data.opportunities.map((opp, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="py-2">{opp.fromPage}</td>
-                        <td className="py-2">{opp.toPage}</td>
-                        <td className="py-2">{opp.anchor}</td>
-                        <td className="py-2">
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            opp.relevanceScore >= 80 ? 'bg-green-100 text-green-800' :
-                            opp.relevanceScore >= 60 ? 'bg-orange-100 text-orange-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {opp.relevanceScore}%
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          )}
-        </ResultsDisplay>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        )}
+
+        {loading && (
+          <Card className="p-6 text-center">
+            <p>Analyse en cours...</p>
+          </Card>
+        )}
+
+        {error && (
+          <Card className="p-6 text-center text-red-600">
+            <p>{error}</p>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );
