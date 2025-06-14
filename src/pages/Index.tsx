@@ -265,44 +265,6 @@ const Index = () => {
           </main>
         </div>
       </div>
-
-      {/* Footer Section */}
-      <div className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Autres Outils SEO Essentiels
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-              Découvrez également ces outils SEO gratuits incontournables proposés par Google et 
-              d'autres acteurs majeurs du web.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Google Search Console</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Outil officiel de Google pour surveiller la présence de votre site dans les résultats de recherche et identifier les problèmes.
-                </p>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Google Analytics</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Analysez le comportement de vos visiteurs, les sources de trafic et les conversions pour optimiser votre stratégie.
-                </p>
-              </div>
-              
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Google Keyword Planner</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Découvrez de nouveaux mots-clés liés à votre activité et consultez des estimations du nombre de recherches.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
