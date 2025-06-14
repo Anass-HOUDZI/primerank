@@ -56,7 +56,7 @@ const HeroSection = () => {
               <div className="text-sm text-gray-600 dark:text-gray-400">100% gratuit</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900 dark:text-white">< 2s</div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">&lt; 2s</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Temps de réponse</div>
             </div>
           </div>
