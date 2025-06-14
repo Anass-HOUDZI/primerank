@@ -7,6 +7,8 @@ import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { PWAInstall } from "@/components/PWAInstall";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+
+// Outils existants
 import PageSpeedAnalyzer from "./pages/tools/PageSpeedAnalyzer";
 import RankChecker from "./pages/tools/RankChecker";
 import KeywordGenerator from "./pages/tools/KeywordGenerator";
@@ -16,6 +18,23 @@ import KeywordDensityAnalyzer from "./pages/tools/KeywordDensityAnalyzer";
 import MetaDescriptionGenerator from "./pages/tools/MetaDescriptionGenerator";
 import SERPComparator from "./pages/tools/SERPComparator";
 import MobileFirstAudit from "./pages/tools/MobileFirstAudit";
+
+// Nouveaux outils à créer
+import CriticalCSSGenerator from "./pages/tools/CriticalCSSGenerator";
+import ImageCompressor from "./pages/tools/ImageCompressor";
+import KeywordCombinations from "./pages/tools/KeywordCombinations";
+import CompetitorKeywords from "./pages/tools/CompetitorKeywords";
+import SemanticCocoonV1 from "./pages/tools/SemanticCocoonV1";
+import SemanticCocoonV2 from "./pages/tools/SemanticCocoonV2";
+import InternalLinking from "./pages/tools/InternalLinking";
+import SitemapExtractor from "./pages/tools/SitemapExtractor";
+import CSVConverter from "./pages/tools/CSVConverter";
+import BacklinkOpportunities from "./pages/tools/BacklinkOpportunities";
+import WebsiteBacklinkAnalyzer from "./pages/tools/WebsiteBacklinkAnalyzer";
+import GSCIntegration from "./pages/tools/GSCIntegration";
+import GAIntegration from "./pages/tools/GAIntegration";
+import SchemaValidator from "./pages/tools/SchemaValidator";
+import PositionedKeywords from "./pages/tools/PositionedKeywords";
 
 // Configuration optimisée pour PWA
 const queryClient = new QueryClient({
@@ -42,20 +61,41 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Index />} />
         
-        {/* Outils SEO existants */}
-        <Route path="/tools/pagespeed-analyzer" element={<PageSpeedAnalyzer />} />
+        {/* Outils d'analyse technique */}
         <Route path="/tools/rank-checker" element={<RankChecker />} />
-        <Route path="/tools/keyword-generator" element={<KeywordGenerator />} />
         <Route path="/tools/bulk-status-checker" element={<BulkStatusChecker />} />
-        <Route path="/tools/backlink-profiler" element={<BacklinkProfiler />} />
-        
-        {/* Nouveaux outils côté client */}
-        <Route path="/tools/keyword-density-analyzer" element={<KeywordDensityAnalyzer />} />
-        <Route path="/tools/meta-description-generator" element={<MetaDescriptionGenerator />} />
-        
-        {/* Nouveaux outils avancés */}
-        <Route path="/tools/serp-comparator" element={<SERPComparator />} />
+        <Route path="/tools/pagespeed-analyzer" element={<PageSpeedAnalyzer />} />
         <Route path="/tools/mobile-first-audit" element={<MobileFirstAudit />} />
+        <Route path="/tools/critical-css-generator" element={<CriticalCSSGenerator />} />
+        <Route path="/tools/image-compressor" element={<ImageCompressor />} />
+
+        {/* Outils de recherche mots-clés */}
+        <Route path="/tools/keyword-generator" element={<KeywordGenerator />} />
+        <Route path="/tools/keyword-density" element={<KeywordDensityAnalyzer />} />
+        <Route path="/tools/serp-comparator" element={<SERPComparator />} />
+        <Route path="/tools/keyword-combinations" element={<KeywordCombinations />} />
+        <Route path="/tools/competitor-keywords" element={<CompetitorKeywords />} />
+
+        {/* Outils d'architecture sémantique */}
+        <Route path="/tools/semantic-cocoon-v1" element={<SemanticCocoonV1 />} />
+        <Route path="/tools/semantic-cocoon-v2" element={<SemanticCocoonV2 />} />
+        <Route path="/tools/internal-linking" element={<InternalLinking />} />
+
+        {/* Outils d'optimisation contenu */}
+        <Route path="/tools/meta-generator" element={<MetaDescriptionGenerator />} />
+        <Route path="/tools/sitemap-extractor" element={<SitemapExtractor />} />
+        <Route path="/tools/csv-converter" element={<CSVConverter />} />
+
+        {/* Outils d'analyse de backlinks */}
+        <Route path="/tools/backlink-profiler" element={<BacklinkProfiler />} />
+        <Route path="/tools/backlink-opportunities" element={<BacklinkOpportunities />} />
+        <Route path="/tools/website-backlink-analyzer" element={<WebsiteBacklinkAnalyzer />} />
+
+        {/* Intégrations APIs */}
+        <Route path="/tools/gsc-integration" element={<GSCIntegration />} />
+        <Route path="/tools/ga-integration" element={<GAIntegration />} />
+        <Route path="/tools/schema-validator" element={<SchemaValidator />} />
+        <Route path="/tools/positioned-keywords" element={<PositionedKeywords />} />
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
