@@ -1,6 +1,7 @@
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
@@ -55,56 +56,58 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <Toaster />
-    <Sonner />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          
+          {/* Outils d'analyse technique */}
+          <Route path="/tools/rank-checker" element={<RankChecker />} />
+          <Route path="/tools/bulk-status-checker" element={<BulkStatusChecker />} />
+          <Route path="/tools/pagespeed-analyzer" element={<PageSpeedAnalyzer />} />
+          <Route path="/tools/mobile-first-audit" element={<MobileFirstAudit />} />
+          <Route path="/tools/critical-css-generator" element={<CriticalCSSGenerator />} />
+          <Route path="/tools/image-compressor" element={<ImageCompressor />} />
+
+          {/* Outils de recherche mots-clés */}
+          <Route path="/tools/keyword-generator" element={<KeywordGenerator />} />
+          <Route path="/tools/keyword-density" element={<KeywordDensityAnalyzer />} />
+          <Route path="/tools/serp-comparator" element={<SERPComparator />} />
+          <Route path="/tools/keyword-combinations" element={<KeywordCombinations />} />
+          <Route path="/tools/competitor-keywords" element={<CompetitorKeywords />} />
+
+          {/* Outils d'architecture sémantique */}
+          <Route path="/tools/semantic-cocoon-v1" element={<SemanticCocoonV1 />} />
+          <Route path="/tools/semantic-cocoon-v2" element={<SemanticCocoonV2 />} />
+          <Route path="/tools/internal-linking" element={<InternalLinking />} />
+
+          {/* Outils d'optimisation contenu */}
+          <Route path="/tools/meta-generator" element={<MetaDescriptionGenerator />} />
+          <Route path="/tools/sitemap-extractor" element={<SitemapExtractor />} />
+          <Route path="/tools/csv-converter" element={<CSVConverter />} />
+
+          {/* Outils d'analyse de backlinks */}
+          <Route path="/tools/backlink-profiler" element={<BacklinkProfiler />} />
+          <Route path="/tools/backlink-opportunities" element={<BacklinkOpportunities />} />
+          <Route path="/tools/website-backlink-analyzer" element={<WebsiteBacklinkAnalyzer />} />
+
+          {/* Intégrations APIs */}
+          <Route path="/tools/gsc-integration" element={<GSCIntegration />} />
+          <Route path="/tools/ga-integration" element={<GAIntegration />} />
+          <Route path="/tools/schema-validator" element={<SchemaValidator />} />
+          <Route path="/tools/positioned-keywords" element={<PositionedKeywords />} />
+          
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         
-        {/* Outils d'analyse technique */}
-        <Route path="/tools/rank-checker" element={<RankChecker />} />
-        <Route path="/tools/bulk-status-checker" element={<BulkStatusChecker />} />
-        <Route path="/tools/pagespeed-analyzer" element={<PageSpeedAnalyzer />} />
-        <Route path="/tools/mobile-first-audit" element={<MobileFirstAudit />} />
-        <Route path="/tools/critical-css-generator" element={<CriticalCSSGenerator />} />
-        <Route path="/tools/image-compressor" element={<ImageCompressor />} />
-
-        {/* Outils de recherche mots-clés */}
-        <Route path="/tools/keyword-generator" element={<KeywordGenerator />} />
-        <Route path="/tools/keyword-density" element={<KeywordDensityAnalyzer />} />
-        <Route path="/tools/serp-comparator" element={<SERPComparator />} />
-        <Route path="/tools/keyword-combinations" element={<KeywordCombinations />} />
-        <Route path="/tools/competitor-keywords" element={<CompetitorKeywords />} />
-
-        {/* Outils d'architecture sémantique */}
-        <Route path="/tools/semantic-cocoon-v1" element={<SemanticCocoonV1 />} />
-        <Route path="/tools/semantic-cocoon-v2" element={<SemanticCocoonV2 />} />
-        <Route path="/tools/internal-linking" element={<InternalLinking />} />
-
-        {/* Outils d'optimisation contenu */}
-        <Route path="/tools/meta-generator" element={<MetaDescriptionGenerator />} />
-        <Route path="/tools/sitemap-extractor" element={<SitemapExtractor />} />
-        <Route path="/tools/csv-converter" element={<CSVConverter />} />
-
-        {/* Outils d'analyse de backlinks */}
-        <Route path="/tools/backlink-profiler" element={<BacklinkProfiler />} />
-        <Route path="/tools/backlink-opportunities" element={<BacklinkOpportunities />} />
-        <Route path="/tools/website-backlink-analyzer" element={<WebsiteBacklinkAnalyzer />} />
-
-        {/* Intégrations APIs */}
-        <Route path="/tools/gsc-integration" element={<GSCIntegration />} />
-        <Route path="/tools/ga-integration" element={<GAIntegration />} />
-        <Route path="/tools/schema-validator" element={<SchemaValidator />} />
-        <Route path="/tools/positioned-keywords" element={<PositionedKeywords />} />
-        
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      
-      {/* Composants PWA */}
-      <OfflineIndicator />
-      <PWAInstall />
-    </BrowserRouter>
+        {/* Composants PWA */}
+        <OfflineIndicator />
+        <PWAInstall />
+      </BrowserRouter>
+    </TooltipProvider>
   </QueryClientProvider>
 );
 
