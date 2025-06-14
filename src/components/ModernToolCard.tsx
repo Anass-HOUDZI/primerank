@@ -13,44 +13,68 @@ interface ModernToolCardProps {
 const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
   const getCategoryConfig = (category: string) => {
     switch (category) {
-      case 'Analyse':
+      case 'Analyse technique':
         return {
           gradient: 'from-blue-500 to-indigo-600',
           bgGradient: 'from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
-          badge: 'ANALYSE',
-          badgeColor: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700',
+          badge: 'ANALYSE TECHNIQUE',
+          badgeColor: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 hover:text-white',
           textGradient: 'bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent'
         };
-      case 'Optimisation':
+      case 'Optimisation contenu':
         return {
           gradient: 'from-emerald-500 to-green-600',
           bgGradient: 'from-emerald-50 to-green-50 dark:from-emerald-950/20 dark:to-green-950/20',
-          badge: 'OPTIMISATION',
-          badgeColor: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:from-emerald-600 hover:to-green-700',
+          badge: 'OPTIMISATION CONTENU',
+          badgeColor: 'bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:from-emerald-600 hover:to-green-700 hover:text-white',
           textGradient: 'bg-gradient-to-r from-emerald-500 to-green-600 bg-clip-text text-transparent'
         };
-      case 'Suivi':
+      case 'Recherche mots-clés':
         return {
           gradient: 'from-purple-500 to-violet-600',
           bgGradient: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20',
-          badge: 'SUIVI',
-          badgeColor: 'bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700',
+          badge: 'RECHERCHE MOTS-CLÉS',
+          badgeColor: 'bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 hover:text-white',
           textGradient: 'bg-gradient-to-r from-purple-500 to-violet-600 bg-clip-text text-transparent'
         };
-      case 'Technique':
+      case 'SEO local':
         return {
           gradient: 'from-orange-500 to-red-600',
           bgGradient: 'from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20',
-          badge: 'TECHNIQUE',
-          badgeColor: 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:from-orange-600 hover:to-red-700',
+          badge: 'SEO LOCAL',
+          badgeColor: 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:from-orange-600 hover:to-red-700 hover:text-white',
           textGradient: 'bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent'
+        };
+      case 'Outils techniques':
+        return {
+          gradient: 'from-slate-500 to-gray-600',
+          bgGradient: 'from-slate-50 to-gray-50 dark:from-slate-950/20 dark:to-gray-950/20',
+          badge: 'OUTILS TECHNIQUES',
+          badgeColor: 'bg-gradient-to-r from-slate-500 to-gray-600 text-white hover:from-slate-600 hover:to-gray-700 hover:text-white',
+          textGradient: 'bg-gradient-to-r from-slate-500 to-gray-600 bg-clip-text text-transparent'
+        };
+      case 'Analyse de backlinks':
+        return {
+          gradient: 'from-pink-500 to-rose-600',
+          bgGradient: 'from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20',
+          badge: 'ANALYSE BACKLINKS',
+          badgeColor: 'bg-gradient-to-r from-pink-500 to-rose-600 text-white hover:from-pink-600 hover:to-rose-700 hover:text-white',
+          textGradient: 'bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent'
+        };
+      case 'Architecture sémantique':
+        return {
+          gradient: 'from-cyan-500 to-teal-600',
+          bgGradient: 'from-cyan-50 to-teal-50 dark:from-cyan-950/20 dark:to-teal-950/20',
+          badge: 'ARCHITECTURE SÉMANTIQUE',
+          badgeColor: 'bg-gradient-to-r from-cyan-500 to-teal-600 text-white hover:from-cyan-600 hover:to-teal-700 hover:text-white',
+          textGradient: 'bg-gradient-to-r from-cyan-500 to-teal-600 bg-clip-text text-transparent'
         };
       default:
         return {
           gradient: 'from-violet-500 to-blue-600',
           bgGradient: 'from-violet-50 to-blue-50 dark:from-violet-950/20 dark:to-blue-950/20',
           badge: 'AUTRE',
-          badgeColor: 'bg-gradient-to-r from-violet-500 to-blue-600 text-white hover:text-white',
+          badgeColor: 'bg-gradient-to-r from-violet-500 to-blue-600 text-white hover:from-violet-600 hover:to-blue-700 hover:text-white',
           textGradient: 'bg-gradient-to-r from-violet-500 to-blue-600 bg-clip-text text-transparent'
         };
     }
