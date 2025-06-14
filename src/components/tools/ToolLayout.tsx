@@ -1,9 +1,7 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Clock, Shield, Download, Lock, Lightbulb, Grid3X3, BookOpen, Mail } from 'lucide-react';
+import { ChevronRight, Clock, Shield, Lock, Lightbulb, Grid3X3 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface ToolLayoutProps {
@@ -108,10 +106,6 @@ export const ToolLayout = ({
                 100% gratuit
               </div>
               <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                <Download className="w-4 h-4 mr-2" />
-                Export PDF/CSV
-              </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                 <Lock className="w-4 h-4 mr-2" />
                 Données privées
               </div>
@@ -181,30 +175,6 @@ export const ToolLayout = ({
                 </div>
               </Card>
             )}
-
-            {/* CTA Card */}
-            <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-3">
-                Besoin d'aide ?
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                Consultez notre documentation complète ou contactez notre équipe
-              </p>
-              <div className="space-y-3">
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link to="/guides">
-                    <BookOpen className="w-4 h-4 mr-2" />
-                    Guide d'utilisation
-                  </Link>
-                </Button>
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link to="/contact">
-                    <Mail className="w-4 h-4 mr-2" />
-                    Nous contacter
-                  </Link>
-                </Button>
-              </div>
-            </Card>
           </div>
         </div>
       </div>
