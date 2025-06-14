@@ -14,19 +14,8 @@ interface ToolCardProps {
 const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) => {
   const isListView = viewMode === 'list';
   
-  const CardComponent = tool.href ? Link : 'div';
-  const cardProps = tool.href ? { to: tool.href } : {};
-
-  return (
-    <CardComponent 
-      {...cardProps}
-      className={`
-        group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 
-        hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200
-        ${isListView ? 'flex items-center p-4' : 'p-6'}
-        ${tool.href ? 'cursor-pointer' : ''}
-      `}
-    >
+  const cardContent = (
+    <>
       {/* Icône */}
       <div className={`
         ${isListView ? 'mr-4' : 'mb-4'}
@@ -40,7 +29,7 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
             tool.category === 'Suivi' ? 'bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400' :
             'bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400'}
         `}>
-          {React.cloneElement(tool.icon, { 
+          {React.createElement(tool.icon as any, { 
             className: isListView ? 'w-6 h-6' : 'w-8 h-8'
           })}
         </div>
@@ -60,11 +49,6 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
               <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                 {tool.name}
               </h3>
-              {tool.isPremium && (
-                <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs px-2 py-0.5 rounded-full font-medium">
-                  PRO
-                </span>
-              )}
             </div>
             
             <p className={`text-gray-600 dark:text-gray-300 ${isListView ? 'text-sm' : ''}`}>
@@ -178,7 +162,33 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
           </div>
         )}
       </div>
-    </CardComponent>
+    </>
+  );
+
+  if (tool.href) {
+    return (
+      <Link 
+        to={tool.href}
+        className={`
+          group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 
+          hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200
+          ${isListView ? 'flex items-center p-4' : 'p-6'}
+          cursor-pointer
+        `}
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return (
+    <div className={`
+      group bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 
+      hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200
+      ${isListView ? 'flex items-center p-4' : 'p-6'}
+    `}>
+      {cardContent}
+    </div>
   );
 };
 
