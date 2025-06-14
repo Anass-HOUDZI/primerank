@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Image, Download, Zap } from 'lucide-react';
+import { Image, Zap } from 'lucide-react';
 
 interface CompressionResult {
   originalSize: number;
@@ -67,15 +66,6 @@ const ImageCompressor = () => {
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    
-    toast({
-      title: "Téléchargement simulé",
-      description: "Image compressée prête à télécharger"
-    });
-  };
-
   return (
     <ToolLayout
       title="Compresseur d'Images"
@@ -101,36 +91,40 @@ const ImageCompressor = () => {
           loading={loading}
         />
         
-        <ResultsDisplay
-          title="Résultat de compression"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-4 gap-4">
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-red-600">{data.originalSize}KB</div>
-                  <div className="text-sm text-gray-600">Taille originale</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">{data.compressedSize}KB</div>
-                  <div className="text-sm text-gray-600">Taille compressée</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">{data.savings}%</div>
-                  <div className="text-sm text-gray-600">Économies</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-purple-600">{data.format}</div>
-                  <div className="text-sm text-gray-600">Format de sortie</div>
-                </Card>
-              </div>
+        {data && !loading && !error && (
+          <div className="space-y-6">
+            <div className="grid md:grid-cols-4 gap-4">
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-red-600">{data.originalSize}KB</div>
+                <div className="text-sm text-gray-600">Taille originale</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-green-600">{data.compressedSize}KB</div>
+                <div className="text-sm text-gray-600">Taille compressée</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600">{data.savings}%</div>
+                <div className="text-sm text-gray-600">Économies</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-purple-600">{data.format}</div>
+                <div className="text-sm text-gray-600">Format de sortie</div>
+              </Card>
             </div>
-          )}
-        </ResultsDisplay>
+          </div>
+        )}
+
+        {loading && (
+          <Card className="p-6 text-center">
+            <p>Compression en cours...</p>
+          </Card>
+        )}
+
+        {error && (
+          <Card className="p-6 text-center text-red-600">
+            <p>{error}</p>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Users, Target } from 'lucide-react';
@@ -64,15 +63,6 @@ const CompetitorKeywords = () => {
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    
-    toast({
-      title: "Export réussi",
-      description: "Analyse concurrentielle téléchargée"
-    });
-  };
-
   return (
     <ToolLayout
       title="Analyse Concurrentielle"
@@ -98,58 +88,62 @@ const CompetitorKeywords = () => {
           loading={loading}
         />
         
-        <ResultsDisplay
-          title="Analyse concurrentielle"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <div className="space-y-6">
-              <Card className="p-4 text-center">
-                <div className="text-2xl font-bold text-blue-600">{data.totalKeywords}</div>
-                <div className="text-sm text-gray-600">Opportunités détectées</div>
-              </Card>
+        {data && !loading && !error && (
+          <div className="space-y-6">
+            <Card className="p-4 text-center">
+              <div className="text-2xl font-bold text-blue-600">{data.totalKeywords}</div>
+              <div className="text-sm text-gray-600">Opportunités détectées</div>
+            </Card>
 
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Gap Analysis</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">Mot-clé</th>
-                        <th className="text-left py-2">Position concurrent</th>
-                        <th className="text-left py-2">Votre position</th>
-                        <th className="text-left py-2">Volume</th>
-                        <th className="text-left py-2">Opportunité</th>
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-4">Gap Analysis</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2">Mot-clé</th>
+                      <th className="text-left py-2">Position concurrent</th>
+                      <th className="text-left py-2">Votre position</th>
+                      <th className="text-left py-2">Volume</th>
+                      <th className="text-left py-2">Opportunité</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.gapKeywords.slice(0, 15).map((item, index) => (
+                      <tr key={index} className="border-b border-gray-100">
+                        <td className="py-2">{item.keyword}</td>
+                        <td className="py-2 text-green-600">#{item.competitorPosition}</td>
+                        <td className="py-2">{item.yourPosition ? `#${item.yourPosition}` : 'Non classé'}</td>
+                        <td className="py-2">{item.volume.toLocaleString()}</td>
+                        <td className="py-2">
+                          <span className={`px-2 py-1 rounded text-xs ${
+                            item.opportunity === 'high' ? 'bg-green-100 text-green-800' :
+                            item.opportunity === 'medium' ? 'bg-orange-100 text-orange-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {item.opportunity}
+                          </span>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {data.gapKeywords.slice(0, 15).map((item, index) => (
-                        <tr key={index} className="border-b border-gray-100">
-                          <td className="py-2">{item.keyword}</td>
-                          <td className="py-2 text-green-600">#{item.competitorPosition}</td>
-                          <td className="py-2">{item.yourPosition ? `#${item.yourPosition}` : 'Non classé'}</td>
-                          <td className="py-2">{item.volume.toLocaleString()}</td>
-                          <td className="py-2">
-                            <span className={`px-2 py-1 rounded text-xs ${
-                              item.opportunity === 'high' ? 'bg-green-100 text-green-800' :
-                              item.opportunity === 'medium' ? 'bg-orange-100 text-orange-800' :
-                              'bg-red-100 text-red-800'
-                            }`}>
-                              {item.opportunity}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </Card>
-            </div>
-          )}
-        </ResultsDisplay>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {loading && (
+          <Card className="p-6 text-center">
+            <p>Analyse en cours...</p>
+          </Card>
+        )}
+
+        {error && (
+          <Card className="p-6 text-center text-red-600">
+            <p>{error}</p>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );

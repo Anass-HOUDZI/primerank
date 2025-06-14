@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
 import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Code, Download, Eye, Zap } from 'lucide-react';
+import { Code, Eye, Zap } from 'lucide-react';
 
 interface CriticalCSSData {
   url: string;
@@ -69,26 +68,6 @@ const CriticalCSSGenerator = () => {
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    
-    const exportData = format === 'json' 
-      ? JSON.stringify({ css: data.criticalCSS, metrics: { originalSize: data.originalSize, criticalSize: data.criticalSize, savings: data.savings } }, null, 2)
-      : data.criticalCSS;
-    
-    const blob = new Blob([exportData], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `critical-css.${format === 'json' ? 'json' : 'css'}`;
-    a.click();
-    
-    toast({
-      title: "Export réussi",
-      description: "CSS critique téléchargé"
-    });
-  };
-
   return (
     <ToolLayout
       title="Générateur de CSS Critique"
@@ -114,54 +93,58 @@ const CriticalCSSGenerator = () => {
           loading={loading}
         />
         
-        <ResultsDisplay
-          title="CSS critique extrait"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <div className="space-y-6">
-              <div className="grid md:grid-cols-3 gap-4">
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">{data.originalSize}KB</div>
-                  <div className="text-sm text-gray-600">CSS original</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">{data.criticalSize}KB</div>
-                  <div className="text-sm text-gray-600">CSS critique</div>
-                </Card>
-                <Card className="p-4 text-center">
-                  <div className="text-2xl font-bold text-orange-600">{data.savings}%</div>
-                  <div className="text-sm text-gray-600">Économies</div>
-                </Card>
-              </div>
-
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center">
-                  <Code className="w-5 h-5 mr-2" />
-                  CSS Critique
-                </h3>
-                <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-sm">
-                  <code>{data.criticalCSS}</code>
-                </pre>
+        {data && !loading && !error && (
+          <div className="space-y-6">
+            <div className="grid md:grid-cols-3 gap-4">
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600">{data.originalSize}KB</div>
+                <div className="text-sm text-gray-600">CSS original</div>
               </Card>
-
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Recommandations</h3>
-                <ul className="space-y-2">
-                  {data.recommendations.map((rec, index) => (
-                    <li key={index} className="flex items-start">
-                      <Eye className="w-4 h-4 mr-2 text-blue-500 mt-0.5" />
-                      <span className="text-sm">{rec}</span>
-                    </li>
-                  ))}
-                </ul>
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-green-600">{data.criticalSize}KB</div>
+                <div className="text-sm text-gray-600">CSS critique</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <div className="text-2xl font-bold text-orange-600">{data.savings}%</div>
+                <div className="text-sm text-gray-600">Économies</div>
               </Card>
             </div>
-          )}
-        </ResultsDisplay>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-4 flex items-center">
+                <Code className="w-5 h-5 mr-2" />
+                CSS Critique
+              </h3>
+              <pre className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto text-sm">
+                <code>{data.criticalCSS}</code>
+              </pre>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-4">Recommandations</h3>
+              <ul className="space-y-2">
+                {data.recommendations.map((rec, index) => (
+                  <li key={index} className="flex items-start">
+                    <Eye className="w-4 h-4 mr-2 text-blue-500 mt-0.5" />
+                    <span className="text-sm">{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </div>
+        )}
+
+        {loading && (
+          <Card className="p-6 text-center">
+            <p>Extraction en cours...</p>
+          </Card>
+        )}
+
+        {error && (
+          <Card className="p-6 text-center text-red-600">
+            <p>{error}</p>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );
