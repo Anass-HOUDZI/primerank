@@ -1,10 +1,8 @@
 
 import React from 'react';
-import { AlertCircle, RefreshCw, Search, Clock, Share2, Bookmark } from 'lucide-react';
+import { AlertCircle, RefreshCw, Search, FileText, Download, Code, Clock, Share2, Bookmark } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { QuickExport } from '@/components/export/QuickExport';
-import { ExportData } from '@/types/Export';
 
 interface ResultsDisplayProps {
   title: string;
@@ -13,11 +11,6 @@ interface ResultsDisplayProps {
   error?: string;
   onExport?: (format: 'pdf' | 'csv' | 'json') => void;
   children?: React.ReactNode;
-  // Nouvelles props pour l'export avancé
-  exportData?: ExportData;
-  url?: string;
-  keywords?: string[];
-  recommendations?: string[];
 }
 
 export const ResultsDisplay = ({ 
@@ -26,22 +19,8 @@ export const ResultsDisplay = ({
   loading, 
   error, 
   onExport,
-  children,
-  exportData,
-  url,
-  keywords,
-  recommendations
+  children 
 }: ResultsDisplayProps) => {
-  // Création automatique des données d'export si non fournies
-  const defaultExportData: ExportData = exportData || {
-    toolName: title,
-    analysisDate: new Date().toLocaleDateString('fr-FR'),
-    url,
-    keywords,
-    metrics: typeof data === 'object' && data !== null ? data : { result: data },
-    recommendations,
-  };
-
   if (loading) {
     return (
       <Card className="p-8">
@@ -113,25 +92,22 @@ export const ResultsDisplay = ({
           </p>
         </div>
         
-        <div className="flex items-center space-x-2">
-          {/* Ancien système d'export pour compatibilité */}
-          {onExport && (
-            <div className="flex items-center space-x-2 mr-2">
-              <Button variant="outline" size="sm" onClick={() => onExport('pdf')}>
-                PDF
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => onExport('csv')}>
-                CSV
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => onExport('json')}>
-                JSON
-              </Button>
-            </div>
-          )}
-          
-          {/* Nouveau système d'export avancé */}
-          <QuickExport data={defaultExportData} />
-        </div>
+        {onExport && (
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" size="sm" onClick={() => onExport('pdf')}>
+              <FileText className="w-4 h-4 mr-2" />
+              PDF
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => onExport('csv')}>
+              <Download className="w-4 h-4 mr-2" />
+              CSV
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => onExport('json')}>
+              <Code className="w-4 h-4 mr-2" />
+              JSON
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Contenu des résultats */}
