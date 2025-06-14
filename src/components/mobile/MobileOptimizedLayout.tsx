@@ -27,15 +27,17 @@ export const MobileOptimizedLayout: React.FC<MobileOptimizedLayoutProps> = ({ ch
         </div>
       )}
 
-      {/* Safe area for notched devices */}
-      <style jsx>{`
-        .safe-area-pb {
-          padding-bottom: env(safe-area-inset-bottom);
-        }
-        .safe-area-pt {
-          padding-top: env(safe-area-inset-top);
-        }
-      `}</style>
+      {/* Safe area styles using Tailwind classes */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .safe-area-pb {
+            padding-bottom: env(safe-area-inset-bottom);
+          }
+          .safe-area-pt {
+            padding-top: env(safe-area-inset-top);
+          }
+        `
+      }} />
     </div>
   );
 };

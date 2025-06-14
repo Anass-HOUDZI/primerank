@@ -37,9 +37,7 @@ export const MobileToolCard: React.FC<MobileToolCardProps> = ({
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
-              {React.cloneElement(tool.icon as React.ReactElement, {
-                className: "w-5 h-5"
-              })}
+              <tool.icon className="w-5 h-5" />
             </div>
             <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-gray-900 dark:text-white text-sm leading-tight">
