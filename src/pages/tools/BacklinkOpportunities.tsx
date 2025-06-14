@@ -73,7 +73,7 @@ const BacklinkOpportunities = () => {
       title="Opportunités de Backlinks"
       description="Découvrez des sites de blogging et récupérez automatiquement les contacts pour votre outreach"
       icon={<Mail />}
-      category="backlinks"
+      category="research"
       relatedTools={[
         {
           title: "Backlink Profiler",

@@ -67,7 +67,7 @@ const InternalLinking = () => {
       title="Opportunités de Maillage"
       description="Identifiez automatiquement les meilleures opportunités de liens internes pour votre site"
       icon={<Link />}
-      category="structure"
+      category="optimize"
       relatedTools={[
         {
           title: "Générateur de Cocons V1",

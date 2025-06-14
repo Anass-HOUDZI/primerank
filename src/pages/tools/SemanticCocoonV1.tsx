@@ -80,7 +80,7 @@ const SemanticCocoonV1 = () => {
       title="Générateur de Cocons V1"
       description="Créez automatiquement des cocons sémantiques sur 2 niveaux pour optimiser votre maillage interne"
       icon={<Layers />}
-      category="structure"
+      category="optimize"
       relatedTools={[
         {
           title: "Générateur de Cocons V2",

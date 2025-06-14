@@ -86,7 +86,7 @@ const WebsiteBacklinkAnalyzer = () => {
       title="Analyseur de Backlinks Site"
       description="Exportez vers Google Sheets l'analyse détaillée des backlinks avec distribution des ancres"
       icon={<Share2 />}
-      category="backlinks"
+      category="analyze"
       relatedTools={[
         {
           title: "Backlink Profiler",

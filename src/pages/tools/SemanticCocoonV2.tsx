@@ -23,7 +23,7 @@ const SemanticCocoonV2 = () => {
       title="Générateur de Cocons V2"
       description="Interface interactive pour explorer et construire vos cocons sémantiques avec drag & drop"
       icon={<Compass />}
-      category="structure"
+      category="optimize"
       relatedTools={[
         {
           title: "Générateur de Cocons V1",
