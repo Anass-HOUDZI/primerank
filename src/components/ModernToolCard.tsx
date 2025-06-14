@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Clock, Users, Star, Zap } from 'lucide-react';
+import { ArrowRight, Clock, Star, Zap } from 'lucide-react';
 import { Tool } from '../types/Tool';
 import { Badge } from '@/components/ui/badge';
 
@@ -127,10 +127,6 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
               <div className="flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
                 <span>{tool.executionTime}</span>
-              </div>
-              <div className="flex items-center">
-                <Users className="w-3 h-3 mr-1" />
-                <span>{tool.usageCount?.toLocaleString()}</span>
               </div>
               <div className="flex items-center">
                 <Star className="w-3 h-3 mr-1 fill-current text-yellow-400" />

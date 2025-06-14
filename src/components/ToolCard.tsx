@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Users, Star, Heart, Bookmark, ExternalLink } from 'lucide-react';
+import { Clock, Star, Heart, Bookmark, ExternalLink } from 'lucide-react';
 import { Tool, ViewMode } from '../types/Tool';
 
 interface ToolCardProps {
@@ -93,11 +93,6 @@ const ToolCard = ({ tool, viewMode, onToggleFavorite, onUse }: ToolCardProps) =>
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
               <span>{tool.executionTime}</span>
-            </div>
-            
-            <div className="flex items-center gap-1">
-              <Users className="w-4 h-4" />
-              <span>{tool.usageCount.toLocaleString()}</span>
             </div>
             
             <div className="flex items-center gap-1">
