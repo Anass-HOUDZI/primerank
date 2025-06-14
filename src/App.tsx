@@ -11,6 +11,8 @@ import RankChecker from "./pages/tools/RankChecker";
 import KeywordGenerator from "./pages/tools/KeywordGenerator";
 import BulkStatusChecker from "./pages/tools/BulkStatusChecker";
 import BacklinkProfiler from "./pages/tools/BacklinkProfiler";
+import KeywordDensityAnalyzer from "./pages/tools/KeywordDensityAnalyzer";
+import MetaDescriptionGenerator from "./pages/tools/MetaDescriptionGenerator";
 
 const queryClient = new QueryClient();
 
@@ -23,12 +25,16 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           
-          {/* Outils SEO */}
+          {/* Outils SEO existants */}
           <Route path="/tools/pagespeed-analyzer" element={<PageSpeedAnalyzer />} />
           <Route path="/tools/rank-checker" element={<RankChecker />} />
           <Route path="/tools/keyword-generator" element={<KeywordGenerator />} />
           <Route path="/tools/bulk-status-checker" element={<BulkStatusChecker />} />
           <Route path="/tools/backlink-profiler" element={<BacklinkProfiler />} />
+          
+          {/* Nouveaux outils côté client */}
+          <Route path="/tools/keyword-density-analyzer" element={<KeywordDensityAnalyzer />} />
+          <Route path="/tools/meta-description-generator" element={<MetaDescriptionGenerator />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
