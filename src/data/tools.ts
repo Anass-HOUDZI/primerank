@@ -7,6 +7,92 @@ import {
 } from 'lucide-react';
 import { Tool } from '../types/Tool';
 
+// Export the filter constants that FilterSidebar needs
+export const categories = [
+  'Toutes',
+  'Analyse technique',
+  'Recherche mots-clés',
+  'Optimisation contenu',
+  'Analyse de backlinks',
+  'Architecture sémantique',
+  'SEO local',
+  'Outils techniques'
+];
+
+export const levels = ['Débutant', 'Intermédiaire', 'Avancé'];
+
+export const analysisTypes = [
+  'Temps réel',
+  'Historique',
+  'Technique',
+  'Crawl',
+  'Performance',
+  'Mobile',
+  'UX',
+  'Sémantique',
+  'Concurrence',
+  'Contenu',
+  'CTR',
+  'SERP',
+  'Intention',
+  'Backlinks',
+  'Autorité'
+];
+
+export const resultTypes = [
+  'Graphique',
+  'Tableau',
+  'PDF',
+  'CSV',
+  'Excel',
+  'Score',
+  'Rapport détaillé',
+  'Recommandations',
+  'Liste',
+  'Pourcentages',
+  'Comparatif',
+  'Analyse',
+  'Opportunités',
+  'Texte',
+  'Preview',
+  'Métriques',
+  'Checklist'
+];
+
+export const popularTags = [
+  'SERP',
+  'tracking',
+  'positions',
+  'monitoring',
+  'HTTP',
+  'status',
+  'bulk',
+  'crawl',
+  'performance',
+  'vitesse',
+  'optimisation',
+  'Core Web Vitals',
+  'mobile',
+  'responsive',
+  'UX',
+  'Google',
+  'mots-clés',
+  'recherche',
+  'SEO',
+  'suggestions',
+  'densité',
+  'contenu',
+  'analyse',
+  'intention',
+  'comparaison',
+  'meta',
+  'description',
+  'CTR',
+  'backlinks',
+  'autorité',
+  'qualité'
+];
+
 export const allTools: Tool[] = [
   // Analyse technique
   {
