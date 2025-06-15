@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -15,7 +14,13 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'xs': '360px',    // Nouveau : petit smartphone
+				'sm': '480px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
+				'2xl': '1536px',
+				'3xl': '1920px',  // Nouveau : très grand écran
 			}
 		},
 		extend: {
@@ -162,7 +167,13 @@ export default {
 			backdropBlur: {
 				'xs': '2px',
 				'modern': '16px',
-			}
+			},
+			screens: {
+				// Ajout de breakpoints ultra adaptatifs
+				'xs': '360px',    // Téléphone compact
+				'xxs':'320px',    // Ultra petit appareil (ex : anciens iPhones Android compacts)
+				'3xl': '1920px',  // Desktop/TV 4K
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
