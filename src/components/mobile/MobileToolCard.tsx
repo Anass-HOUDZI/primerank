@@ -24,10 +24,21 @@ export const MobileToolCard: React.FC<MobileToolCardProps> = ({
     onSwipeLeft: () => onFavorite?.(tool.id),
   });
 
+  // Ajout pour accès via clic sur toute la carte (hors boutons d'action)
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Empêche le double appel si c'est déjà déclenché par un bouton.
+    if (e.target instanceof HTMLElement && 
+      (e.target.closest('button') || e.target.tagName === "BUTTON")) {
+      return;
+    }
+    onUse(tool.id);
+  };
+
   return (
     <Card 
       className="group relative overflow-hidden transition-all duration-300 active:scale-95 touch-manipulation"
       {...touchGestures}
+      onClick={handleCardClick}
     >
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-950/20 dark:to-purple-950/20 opacity-0 group-active:opacity-100 transition-opacity duration-200" />
