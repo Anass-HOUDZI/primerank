@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { allTools } from '../data/tools';
 import HeroSection from '../components/HeroSection';
 import FilterSidebar from '../components/FilterSidebar';
@@ -18,6 +19,7 @@ import { Filter } from 'lucide-react';
 const Index = () => {
   const isMobile = useIsMobile();
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const navigate = useNavigate();
   
   const {
     viewMode,
@@ -36,7 +38,7 @@ const Index = () => {
   };
 
   const handleUseTool = (toolId: string) => {
-    console.log('Use tool:', toolId);
+    navigate(`/tools/${toolId}`);
   };
 
   const renderMobileContent = () => (
