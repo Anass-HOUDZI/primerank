@@ -5,32 +5,27 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
-  category: string;
-  level: 'Débutant' | 'Intermédiaire' | 'Avancé';
   icon: LucideIcon;
-  rating: number;
-  usageCount: number;
-  executionTime: string;
-  features: string[];
+  category: string;
   tags: string[];
-  resultType: string[];
-  analysisType: string[];
-  isFavorite: boolean;
-  isNew: boolean;
-  isTrending: boolean;
-  isRecommended: boolean;
-  href?: string;
+  rating: number;
+  level: 'Débutant' | 'Intermédiaire' | 'Avancé';
+  isFavorite?: boolean;
+  isNew?: boolean;
+  isPremium?: boolean;
 }
 
 export interface FilterState {
   searchQuery: string;
   categories: string[];
   levels: string[];
-  analysisTypes: string[];
-  resultTypes: string[];
   tags: string[];
   minRating: number;
-  sortBy: 'popularity' | 'rating' | 'alphabetical' | 'newest' | 'fastest' | 'difficulty';
+  sortBy: 'name' | 'rating' | 'category' | 'newest';
 }
 
 export type ViewMode = 'grid' | 'list';
+
+export interface ToolsByCategory {
+  [category: string]: Tool[];
+}

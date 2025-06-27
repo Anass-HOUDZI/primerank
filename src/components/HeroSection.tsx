@@ -1,140 +1,103 @@
 
 import React from 'react';
-import { ArrowRight, Zap, Shield, Clock, Globe, TrendingUp, Users } from 'lucide-react';
+import { Search, Star, Zap, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { MetricsCard } from '@/components/dashboard/MetricsCard';
 
-const HeroSection = () => {
-  const metrics = [
-    {
-      title: 'Outils Disponibles',
-      value: '24+',
-      change: '+3 ce mois',
-      changeType: 'positive' as const,
-      icon: Zap,
-      gradient: 'from-blue-500 to-purple-600',
-      description: 'Suite complète d\'outils SEO'
-    },
-    {
-      title: 'Utilisateurs Actifs',
-      value: '2.1K',
-      change: '+12%',
-      changeType: 'positive' as const,
-      icon: Users,
-      gradient: 'from-green-500 to-emerald-600',
-      description: 'Communauté grandissante'
-    },
-    {
-      title: 'Analyses Effectuées',
-      value: '45K+',
-      change: '+8% cette semaine',
-      changeType: 'positive' as const,
-      icon: TrendingUp,
-      gradient: 'from-orange-500 to-red-600',
-      description: 'Analyses SEO réalisées'
-    }
-  ];
-
+const HeroSection: React.FC = () => {
   const scrollToTools = () => {
-    const toolsSection = document.querySelector('#tools-section');
+    const toolsSection = document.getElementById('tools-section');
     if (toolsSection) {
       toolsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-950 dark:via-blue-950/20 dark:to-indigo-950/20 overflow-hidden">
-      {/* Effets de fond décoratifs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-emerald-400/20 to-cyan-600/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-blue-500/10 via-purple-500/5 to-transparent rounded-full animate-pulse-glow" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
-        {/* Header Principal */}
-        <div className="text-center space-y-8 mb-16">
-          {/* Badge avec animation */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-modern border border-white/20 dark:border-gray-700/20 shadow-soft animate-scale-in">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              🚀 Suite SEO gratuite - 100% Open Source
-            </span>
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-20 overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          {/* Hero badge */}
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 text-sm font-medium mb-8">
+            <Star className="w-4 h-4 mr-2" />
+            24 outils SEO gratuits et professionnels
           </div>
 
-          {/* Titre principal avec gradient */}
-          <div className="space-y-6 animate-slide-up">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold">
-              <span className="text-gradient">Suite SEO</span>
-              <br />
-              <span className="text-gray-900 dark:text-white">Professionnelle</span>
-            </h1>
-            
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
-              24 outils SEO gratuits et puissants pour analyser, optimiser et suivre 
-              vos performances dans les moteurs de recherche
-            </p>
-          </div>
+          {/* Main heading */}
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SEO Tools</span>
+            <br />
+            Complète et Gratuite
+          </h1>
 
-          {/* Bouton d'action centré */}
-          <div className="flex justify-center animate-slide-up" style={{ animationDelay: '200ms' }}>
-            <Button 
-              size="lg" 
+          {/* Subtitle */}
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Optimisez votre référencement naturel avec notre collection d'outils professionnels. 
+            Analyse de mots-clés, audit technique, suivi de positions et bien plus encore.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button
               onClick={scrollToTools}
-              className="btn-modern text-white px-8 py-4 text-lg font-semibold group cursor-pointer"
+              size="lg"
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg"
             >
-              Commencer gratuitement
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Search className="w-5 h-5 mr-2" />
+              Découvrir les outils
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="px-8 py-4 text-lg border-2 border-gray-300 hover:border-gray-400"
+            >
+              <Shield className="w-5 h-5 mr-2" />
+              100% Gratuit
             </Button>
           </div>
 
-          {/* Points clés avec animations */}
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-600 dark:text-gray-400 animate-slide-up" style={{ animationDelay: '400ms' }}>
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span>100% Gratuit</span>
+          {/* Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Rapide et Efficace
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Résultats instantanés avec nos algorithmes optimisés
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-500" />
-              <span>Résultats instantanés</span>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Sécurisé et Privé
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Vos données restent confidentielles et sécurisées
+              </p>
             </div>
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-purple-500" />
-              <span>Sans inscription</span>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                <Star className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Qualité Professionnelle
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Outils utilisés par les experts SEO du monde entier
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* Métriques avec cartes modernes */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {metrics.map((metric, index) => (
-            <div 
-              key={metric.title}
-              className="animate-slide-up"
-              style={{ animationDelay: `${600 + index * 200}ms` }}
-            >
-              <MetricsCard {...metric} />
-            </div>
-          ))}
-        </div>
-
-        {/* Call to action final */}
-        <div className="text-center animate-slide-up" style={{ animationDelay: '1200ms' }}>
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-primary shadow-glow mb-6 animate-pulse-glow">
-            <ArrowRight className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-3xl font-display font-bold text-gray-900 dark:text-white mb-4">
-            Prêt à booster votre SEO ?
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Découvrez nos outils ci-dessous et commencez à optimiser votre site web dès maintenant
-          </p>
         </div>
       </div>
-
-      {/* Effet de transition vers la section suivante */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-gray-900 to-transparent" />
-    </div>
+    </section>
   );
 };
 
