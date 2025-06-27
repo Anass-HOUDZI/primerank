@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FilterState } from '../types/Tool';
-import { categories, levels, analysisTypes, resultTypes, popularTags } from '../data/tools';
+import { categories, levels, popularTags } from '../data/tools';
 import { Star, X } from 'lucide-react';
 
 interface FilterSidebarProps {
@@ -37,20 +37,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
     onFilterChange({ ...filters, levels: newLevels });
   };
 
-  const handleAnalysisTypeChange = (type: string) => {
-    const newTypes = filters.analysisTypes.includes(type)
-      ? filters.analysisTypes.filter(t => t !== type)
-      : [...filters.analysisTypes, type];
-    onFilterChange({ ...filters, analysisTypes: newTypes });
-  };
-
-  const handleResultTypeChange = (type: string) => {
-    const newTypes = filters.resultTypes.includes(type)
-      ? filters.resultTypes.filter(t => t !== type)
-      : [...filters.resultTypes, type];
-    onFilterChange({ ...filters, resultTypes: newTypes });
-  };
-
   const handleTagChange = (tag: string) => {
     const newTags = filters.tags.includes(tag)
       ? filters.tags.filter(t => t !== tag)
@@ -63,8 +49,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
       searchQuery: filters.searchQuery,
       categories: [],
       levels: [],
-      analysisTypes: [],
-      resultTypes: [],
       tags: [],
       minRating: 0,
       sortBy: filters.sortBy
@@ -73,8 +57,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   const hasActiveFilters = filters.categories.length > 0 || 
     filters.levels.length > 0 || 
-    filters.analysisTypes.length > 0 || 
-    filters.resultTypes.length > 0 || 
     filters.tags.length > 0 || 
     filters.minRating > 0;
 
@@ -142,24 +124,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
             </div>
           </div>
 
-          {/* Analysis Type */}
-          <div className="mb-6">
-            <h3 className="font-medium text-gray-900 mb-3">⚡ Type d'analyse</h3>
-            <div className="space-y-2">
-              {analysisTypes.map((type) => (
-                <label key={type} className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={filters.analysisTypes.includes(type)}
-                    onChange={() => handleAnalysisTypeChange(type)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-gray-700">{type}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
           {/* Level */}
           <div className="mb-6">
             <h3 className="font-medium text-gray-900 mb-3">🎯 Niveau requis</h3>
@@ -173,24 +137,6 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({
                     className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
                   <span className="text-sm text-gray-700">{level}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Result Type */}
-          <div className="mb-6">
-            <h3 className="font-medium text-gray-900 mb-3">📊 Type de résultat</h3>
-            <div className="space-y-2">
-              {resultTypes.map((type) => (
-                <label key={type} className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={filters.resultTypes.includes(type)}
-                    onChange={() => handleResultTypeChange(type)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-gray-700">{type}</span>
                 </label>
               ))}
             </div>
