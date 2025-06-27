@@ -13,6 +13,10 @@ export interface Tool {
   isFavorite?: boolean;
   isNew?: boolean;
   isPremium?: boolean;
+  usageCount?: number;
+  features?: string[];
+  executionTime?: string;
+  href?: string;
 }
 
 export interface FilterState {

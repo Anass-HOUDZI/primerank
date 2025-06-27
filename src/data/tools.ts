@@ -6,6 +6,23 @@ import {
   PieChart, MonitorSpeaker, Zap, Eye, TrendingUp
 } from 'lucide-react';
 
+// Constantes pour les filtres
+export const categories = [
+  'Toutes',
+  'Analyse de mots-clés',
+  'Architecture sémantique', 
+  'Analyse technique',
+  'Analyse de backlinks',
+  'Intégrations APIs'
+];
+
+export const levels = ['Débutant', 'Intermédiaire', 'Avancé'];
+
+export const popularTags = [
+  'gratuit', 'rapide', 'api', 'export', 'temps-réel', 'positions', 
+  'mots-clés', 'backlinks', 'performance', 'sémantique'
+];
+
 export const allTools: Tool[] = [
   // Outils d'analyse de mots-clés
   {
@@ -17,7 +34,11 @@ export const allTools: Tool[] = [
     tags: ['positions', 'suivi', 'google', 'temps-réel'],
     rating: 4.8,
     level: 'Intermédiaire',
-    isNew: true
+    isNew: true,
+    usageCount: 1250,
+    executionTime: '30 secondes',
+    features: ['Suivi en temps réel', 'Alertes automatiques', 'Historique détaillé'],
+    href: '/tools/rank-checker'
   },
   {
     id: 'keyword-generator',
@@ -27,7 +48,11 @@ export const allTools: Tool[] = [
     category: 'Analyse de mots-clés',
     tags: ['mots-clés', 'recherche', 'volume', 'api'],
     rating: 4.9,
-    level: 'Débutant'
+    level: 'Débutant',
+    usageCount: 2100,
+    executionTime: '45 secondes',
+    features: ['API Google intégrée', 'Volumes de recherche', 'Analyse de concurrence'],
+    href: '/tools/keyword-generator'
   },
   {
     id: 'keyword-combinations',
@@ -37,7 +62,11 @@ export const allTools: Tool[] = [
     category: 'Analyse de mots-clés',
     tags: ['combinaisons', 'variations', 'longue-traîne'],
     rating: 4.6,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 850,
+    executionTime: '15 secondes',
+    features: ['Génération algorithmique', 'Export CSV', 'Filtres avancés'],
+    href: '/tools/keyword-combinations'
   },
   {
     id: 'competitor-keywords',
@@ -47,7 +76,12 @@ export const allTools: Tool[] = [
     category: 'Analyse de mots-clés',
     tags: ['concurrence', 'gap-analysis', 'opportunités'],
     rating: 4.7,
-    level: 'Avancé'
+    level: 'Avancé',
+    isPremium: true,
+    usageCount: 650,
+    executionTime: '2 minutes',
+    features: ['Gap analysis', 'Analyse SERP', 'Opportunités cachées'],
+    href: '/tools/competitor-keywords'
   },
   {
     id: 'serp-comparator',
@@ -57,7 +91,11 @@ export const allTools: Tool[] = [
     category: 'Analyse de mots-clés',
     tags: ['serp', 'intention', 'comparaison'],
     rating: 4.5,
-    level: 'Avancé'
+    level: 'Avancé',
+    usageCount: 420,
+    executionTime: '1 minute',
+    features: ['Analyse d\'intention', 'Score de similarité', 'Visualisations'],
+    href: '/tools/serp-comparator'
   },
 
   // Outils d'architecture sémantique
@@ -69,7 +107,11 @@ export const allTools: Tool[] = [
     category: 'Architecture sémantique',
     tags: ['cocon', 'sémantique', 'maillage', 'automatique'],
     rating: 4.8,
-    level: 'Avancé'
+    level: 'Avancé',
+    usageCount: 580,
+    executionTime: '3 minutes',
+    features: ['Clustering automatique', 'Visualisation D3.js', 'Export JSON/CSV'],
+    href: '/tools/semantic-cocoon-v1'
   },
   {
     id: 'semantic-cocoon-v2',
@@ -80,7 +122,11 @@ export const allTools: Tool[] = [
     tags: ['cocon', 'interactif', 'drag-drop', 'visuel'],
     rating: 4.9,
     level: 'Avancé',
-    isNew: true
+    isNew: true,
+    usageCount: 320,
+    executionTime: '5 minutes',
+    features: ['Interface drag & drop', 'Sauvegarde sessions', 'Export interactif'],
+    href: '/tools/semantic-cocoon-v2'
   },
   {
     id: 'internal-linking',
@@ -90,7 +136,11 @@ export const allTools: Tool[] = [
     category: 'Architecture sémantique',
     tags: ['maillage', 'liens-internes', 'optimisation'],
     rating: 4.7,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 750,
+    executionTime: '2 minutes',
+    features: ['Analyse automatique', 'Suggestions contextuelles', 'Score de pertinence'],
+    href: '/tools/internal-linking'
   },
 
   // Outils d'analyse technique
@@ -102,7 +152,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['status-code', 'bulk', 'urls', 'rapide'],
     rating: 4.8,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 1420,
+    executionTime: '45 secondes',
+    features: ['1000 URLs simultanées', 'Visualisations graphiques', 'Export détaillé'],
+    href: '/tools/bulk-status-checker'
   },
   {
     id: 'critical-css-generator',
@@ -112,7 +166,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['css', 'performance', 'critique', 'optimisation'],
     rating: 4.6,
-    level: 'Avancé'
+    level: 'Avancé',
+    usageCount: 680,
+    executionTime: '1 minute',
+    features: ['Puppeteer intégré', 'Preview avant/après', 'Optimisation above-fold'],
+    href: '/tools/critical-css-generator'
   },
   {
     id: 'image-compressor',
@@ -122,7 +180,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['images', 'compression', 'webp', 'optimisation'],
     rating: 4.7,
-    level: 'Débutant'
+    level: 'Débutant',
+    usageCount: 1850,
+    executionTime: '30 secondes',
+    features: ['Conversion WebP', 'Redimensionnement auto', 'Processing batch'],
+    href: '/tools/image-compressor'
   },
   {
     id: 'pagespeed-analyzer',
@@ -132,7 +194,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['performance', 'vitesse', 'core-web-vitals'],
     rating: 4.8,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 1250,
+    executionTime: '1 minute',
+    features: ['Core Web Vitals', 'Lighthouse API', 'Recommandations personnalisées'],
+    href: '/tools/pagespeed-analyzer'
   },
   {
     id: 'sitemap-extractor',
@@ -142,7 +208,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['sitemap', 'structure', 'visualisation'],
     rating: 4.5,
-    level: 'Débutant'
+    level: 'Débutant',
+    usageCount: 920,
+    executionTime: '20 secondes',
+    features: ['Visualisation arbre', 'Analyse structure', 'Export formats multiples'],
+    href: '/tools/sitemap-extractor'
   },
   {
     id: 'csv-converter',
@@ -152,7 +222,11 @@ export const allTools: Tool[] = [
     category: 'Analyse technique',
     tags: ['csv', 'conversion', 'screaming-frog', 'export'],
     rating: 4.4,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 540,
+    executionTime: '15 secondes',
+    features: ['Import Screaming Frog', 'Diagrammes automatiques', 'Export Google Sheets'],
+    href: '/tools/csv-converter'
   },
 
   // Outils d'analyse de backlinks
@@ -164,7 +238,12 @@ export const allTools: Tool[] = [
     category: 'Analyse de backlinks',
     tags: ['backlinks', 'profil', 'qualité', 'métriques'],
     rating: 4.9,
-    level: 'Avancé'
+    level: 'Avancé',
+    isPremium: true,
+    usageCount: 480,
+    executionTime: '3 minutes',
+    features: ['Métriques DA/PA', 'Analyse ancres', 'Score qualité'],
+    href: '/tools/backlink-profiler'
   },
   {
     id: 'backlink-opportunities',
@@ -174,7 +253,12 @@ export const allTools: Tool[] = [
     category: 'Analyse de backlinks',
     tags: ['opportunités', 'outreach', 'contacts', 'prospection'],
     rating: 4.6,
-    level: 'Avancé'
+    level: 'Avancé',
+    isPremium: true,
+    usageCount: 320,
+    executionTime: '2 minutes',
+    features: ['Scraping SERP', 'Extraction contacts', 'CRM simple'],
+    href: '/tools/backlink-opportunities'
   },
   {
     id: 'website-backlink-analyzer',
@@ -184,7 +268,11 @@ export const allTools: Tool[] = [
     category: 'Analyse de backlinks',
     tags: ['analyse', 'export', 'google-sheets', 'ancres'],
     rating: 4.5,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 650,
+    executionTime: '1 minute',
+    features: ['Export Google Sheets', 'Analyse ancres détaillée', 'Métriques complètes'],
+    href: '/tools/website-backlink-analyzer'
   },
 
   // Intégrations APIs
@@ -197,7 +285,11 @@ export const allTools: Tool[] = [
     tags: ['gsc', 'google', 'integration', 'dashboard'],
     rating: 4.8,
     level: 'Intermédiaire',
-    isPremium: true
+    isPremium: true,
+    usageCount: 850,
+    executionTime: '1 minute',
+    features: ['OAuth2 intégré', 'Dashboard performances', 'Soumission sitemap'],
+    href: '/tools/gsc-integration'
   },
   {
     id: 'ga-integration',
@@ -208,7 +300,11 @@ export const allTools: Tool[] = [
     tags: ['analytics', 'google', 'conversion', 'comportement'],
     rating: 4.7,
     level: 'Intermédiaire',
-    isPremium: true
+    isPremium: true,
+    usageCount: 720,
+    executionTime: '30 secondes',
+    features: ['GA4 Reporting API', 'Tableaux de bord', 'Métriques conversions'],
+    href: '/tools/ga-integration'
   },
   {
     id: 'schema-validator',
@@ -218,7 +314,11 @@ export const allTools: Tool[] = [
     category: 'Intégrations APIs',
     tags: ['schema', 'données-structurées', 'validation'],
     rating: 4.6,
-    level: 'Avancé'
+    level: 'Avancé',
+    usageCount: 430,
+    executionTime: '20 secondes',
+    features: ['Validation complète', 'Preview SERP', 'Recommandations'],
+    href: '/tools/schema-validator'
   },
   {
     id: 'positioned-keywords',
@@ -228,6 +328,10 @@ export const allTools: Tool[] = [
     category: 'Intégrations APIs',
     tags: ['positions', 'suivi', 'mots-clés', 'évolution'],
     rating: 4.8,
-    level: 'Intermédiaire'
+    level: 'Intermédiaire',
+    usageCount: 980,
+    executionTime: '45 secondes',
+    features: ['Positions moyennes', 'Évolution historique', 'Alertes changements'],
+    href: '/tools/positioned-keywords'
   }
 ];
