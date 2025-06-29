@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OfflineIndicator } from "@/components/OfflineIndicator";
 import { PWAInstall } from "@/components/PWAInstall";
 import Index from "./pages/Index";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Favorites from "./pages/Favorites";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 // Outils existants
@@ -60,6 +64,10 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/settings" element={<Settings />} />
         
         {/* Outils d'analyse technique */}
         <Route path="/tools/rank-checker" element={<RankChecker />} />

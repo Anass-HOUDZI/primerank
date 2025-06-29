@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Heart, Github, Twitter, Mail } from 'lucide-react';
+import { Search, Mail, Github, Linkedin } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/tools" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <Link to="/" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                   Tous les outils
                 </Link>
               </li>
@@ -53,16 +53,24 @@ export const Footer: React.FC = () => {
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Catégories</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <span className="text-gray-600 dark:text-gray-400">Analyse de mots-clés</span>
+                <Link to="/?category=Analyse de mots-clés" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  Analyse de mots-clés
+                </Link>
               </li>
               <li>
-                <span className="text-gray-600 dark:text-gray-400">Analyse technique</span>
+                <Link to="/?category=Analyse technique" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  Analyse technique
+                </Link>
               </li>
               <li>
-                <span className="text-gray-600 dark:text-gray-400">Architecture sémantique</span>
+                <Link to="/?category=Architecture sémantique" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  Architecture sémantique
+                </Link>
               </li>
               <li>
-                <span className="text-gray-600 dark:text-gray-400">Analyse de backlinks</span>
+                <Link to="/?category=Analyse de backlinks" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  Analyse de backlinks
+                </Link>
               </li>
             </ul>
           </div>
@@ -71,13 +79,13 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Contact</h3>
             <div className="flex space-x-4">
-              <a href="mailto:contact@seotools.com" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="mailto:anass.houdzigmail.com" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Mail className="w-5 h-5" />
               </a>
-              <a href="https://twitter.com/seotools" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a href="https://www.linkedin.com/in/anasshoudzi/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://github.com/seotools" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+              <a href="https://github.com/Anass-HOUDZI/" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Github className="w-5 h-5" />
               </a>
             </div>
@@ -85,8 +93,17 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm flex items-center justify-center">
-            Fait avec <Heart className="w-4 h-4 text-red-500 mx-1" /> pour la communauté SEO
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
+            Copyright © 2025{' '}
+            <a 
+              href="https://www.linkedin.com/in/anasshoudzi/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+            >
+              Anass Houdzi
+            </a>
+            {' '} – Tous droits réservés.
           </p>
         </div>
       </div>

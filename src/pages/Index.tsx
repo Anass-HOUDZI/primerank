@@ -43,6 +43,23 @@ const Index = () => {
 
   const renderMobileContent = () => (
     <div className="px-4 space-y-6">
+      {/* Hero Section sur mobile */}
+      <div className="text-center py-8">
+        <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 text-sm font-medium mb-6">
+          ⭐ 24 outils SEO gratuits et professionnels
+        </div>
+        
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SEO Tools</span>
+          <br />
+          Complète et Gratuite
+        </h1>
+        
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+          Optimisez votre référencement naturel avec notre collection d'outils professionnels.
+        </p>
+      </div>
+
       {/* Mobile Search and Filter Header */}
       <div className="flex items-center space-x-3">
         <div className="flex-1">
@@ -151,7 +168,7 @@ const Index = () => {
   return (
     <MobileOptimizedLayout>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        {/* Hero Section - hidden on mobile for better UX */}
+        {/* Hero Section - uniquement sur desktop */}
         {!isMobile && <HeroSection />}
 
         {/* Main Content */}
