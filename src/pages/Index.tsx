@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { allTools } from '../data/tools';
-import HeroSection from '../components/HeroSection';
+import RevolutionaryHero from '../components/hero/RevolutionaryHero';
+import { CategoriesSection } from '../components/categories/CategoriesSection';
 import FilterSidebar from '../components/FilterSidebar';
 import ToolsHeader from '../components/ToolsHeader';
 import ActiveFilters from '../components/filters/ActiveFilters';
@@ -42,136 +43,130 @@ const Index = () => {
   };
 
   const renderMobileContent = () => (
-    <div className="px-4 space-y-6">
-      {/* Hero Section sur mobile */}
-      <div className="text-center py-8">
-        <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 text-sm font-medium mb-6">
-          ⭐ 24 outils SEO gratuits et professionnels
-        </div>
-        
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SEO Tools</span>
-          <br />
-          Complète et Gratuite
-        </h1>
-        
-        <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          Optimisez votre référencement naturel avec notre collection d'outils professionnels.
-        </p>
+    <div className="space-y-6">
+      {/* Hero Section révolutionnaire sur mobile */}
+      <div className="min-h-screen">
+        <RevolutionaryHero />
       </div>
 
-      {/* Mobile Search and Filter Header */}
-      <div className="flex items-center space-x-3">
-        <div className="flex-1">
-          <input
-            type="text"
-            placeholder="Rechercher un outil..."
-            value={filters.searchQuery}
-            onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
+      <div className="px-4 space-y-6">
+        {/* Mobile Search and Filter Header */}
+        <div className="flex items-center space-x-3">
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="Rechercher un outil..."
+              value={filters.searchQuery}
+              onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white/10 backdrop-blur-md dark:bg-gray-800/50 focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
+            />
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setMobileFilterOpen(true)}
+            className="px-3 py-3 rounded-xl bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20"
+          >
+            <Filter className="w-4 h-4" />
+          </Button>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setMobileFilterOpen(true)}
-          className="px-3 py-3 rounded-xl"
-        >
-          <Filter className="w-4 h-4" />
-        </Button>
-      </div>
 
-      {/* Active filters for mobile */}
-      <ActiveFilters filters={filters} onFilterChange={setFilters} />
+        {/* Active filters for mobile */}
+        <ActiveFilters filters={filters} onFilterChange={setFilters} />
 
-      {/* Mobile Tools Grid */}
-      {filteredAndSortedTools.length === 0 ? (
-        <EmptyState onClearFilters={clearAllFilters} />
-      ) : (
-        <div className="space-y-8">
-          {Object.entries(toolsByCategory).map(([category, tools]) => (
-            <div key={category}>
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                {category}
-              </h2>
-              <div className="grid gap-4">
-                {tools.map((tool) => (
-                  <MobileToolCard
-                    key={tool.id}
-                    tool={tool}
-                    onUse={handleUseTool}
-                    onFavorite={handleToggleFavorite}
-                  />
-                ))}
+        {/* Mobile Tools Grid */}
+        {filteredAndSortedTools.length === 0 ? (
+          <EmptyState onClearFilters={clearAllFilters} />
+        ) : (
+          <div className="space-y-8">
+            {Object.entries(toolsByCategory).map(([category, tools]) => (
+              <div key={category}>
+                <h2 className="text-xl font-bold text-white mb-4">
+                  {category}
+                </h2>
+                <div className="grid gap-4">
+                  {tools.map((tool) => (
+                    <MobileToolCard
+                      key={tool.id}
+                      tool={tool}
+                      onUse={handleUseTool}
+                      onFavorite={handleToggleFavorite}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
 
-      {/* Mobile Filter Sheet */}
-      <MobileFilterSheet
-        isOpen={mobileFilterOpen}
-        onClose={() => setMobileFilterOpen(false)}
-        filters={filters}
-        onFilterChange={setFilters}
-        onClearFilters={clearAllFilters}
-      />
+        {/* Mobile Filter Sheet */}
+        <MobileFilterSheet
+          isOpen={mobileFilterOpen}
+          onClose={() => setMobileFilterOpen(false)}
+          filters={filters}
+          onFilterChange={setFilters}
+          onClearFilters={clearAllFilters}
+        />
+      </div>
     </div>
   );
 
   const renderDesktopContent = () => (
-    <div className="bg-white dark:bg-gray-900" id="tools-section">
-      {/* Header */}
-      <ToolsHeader
-        searchQuery={filters.searchQuery}
-        onSearchChange={(query) => setFilters({ ...filters, searchQuery: query })}
-        viewMode={viewMode}
-        onViewModeChange={setViewMode}
-        sortBy={filters.sortBy}
-        onSortChange={(sortBy) => setFilters({ ...filters, sortBy })}
-        onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
-        totalResults={filteredAndSortedTools.length}
-        totalTools={allTools.length}
-      />
+    <>
+      {/* Hero Section révolutionnaire */}
+      <RevolutionaryHero />
+      
+      {/* Section des catégories premium */}
+      <CategoriesSection />
 
-      {/* Main content */}
-      <div className="max-w-7xl mx-auto flex">
-        {/* Sidebar */}
-        <FilterSidebar
-          filters={filters}
-          onFilterChange={setFilters}
-          isOpen={isFilterOpen}
-          onClose={() => setIsFilterOpen(false)}
-          resultCount={filteredAndSortedTools.length}
+      <div className="bg-white dark:bg-gray-900" id="tools-section">
+        {/* Header */}
+        <ToolsHeader
+          searchQuery={filters.searchQuery}
+          onSearchChange={(query) => setFilters({ ...filters, searchQuery: query })}
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
+          sortBy={filters.sortBy}
+          onSortChange={(sortBy) => setFilters({ ...filters, sortBy })}
+          onToggleFilters={() => setIsFilterOpen(!isFilterOpen)}
+          totalResults={filteredAndSortedTools.length}
+          totalTools={allTools.length}
         />
 
-        {/* Main content area */}
-        <main className="flex-1 p-6">
-          {/* Active filters display */}
-          <ActiveFilters filters={filters} onFilterChange={setFilters} />
+        {/* Main content */}
+        <div className="max-w-7xl mx-auto flex">
+          {/* Sidebar */}
+          <FilterSidebar
+            filters={filters}
+            onFilterChange={setFilters}
+            isOpen={isFilterOpen}
+            onClose={() => setIsFilterOpen(false)}
+            resultCount={filteredAndSortedTools.length}
+          />
 
-          {/* Tools grid by category or empty state */}
-          {filteredAndSortedTools.length === 0 ? (
-            <EmptyState onClearFilters={clearAllFilters} />
-          ) : (
-            <ToolsGrid 
-              toolsByCategory={toolsByCategory} 
-              onUseTool={handleUseTool} 
-            />
-          )}
-        </main>
+          {/* Main content area */}
+          <main className="flex-1 p-6">
+            {/* Active filters display */}
+            <ActiveFilters filters={filters} onFilterChange={setFilters} />
+
+            {/* Tools grid by category or empty state */}
+            {filteredAndSortedTools.length === 0 ? (
+              <EmptyState onClearFilters={clearAllFilters} />
+            ) : (
+              <ToolsGrid 
+                toolsByCategory={toolsByCategory} 
+                onUseTool={handleUseTool} 
+              />
+            )}
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   );
 
   return (
     <MobileOptimizedLayout>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        {/* Hero Section - uniquement sur desktop */}
-        {!isMobile && <HeroSection />}
-
-        {/* Main Content */}
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
         {isMobile ? renderMobileContent() : renderDesktopContent()}
       </div>
     </MobileOptimizedLayout>
