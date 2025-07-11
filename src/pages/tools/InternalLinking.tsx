@@ -95,7 +95,7 @@ const InternalLinking = () => {
     <ToolLayout
       title="Opportunités de Maillage Interne"
       description="Identifiez automatiquement les meilleures opportunités de liens internes pour votre site"
-      icon={Link}
+      icon={<Link className="w-6 h-6" />}
     >
       <div className="space-y-6">
         {/* Input Section */}
