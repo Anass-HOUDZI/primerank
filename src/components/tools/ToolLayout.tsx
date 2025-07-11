@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Clock, Shield, Lock, Lightbulb, Grid3X3 } from 'lucide-react';
@@ -28,85 +29,93 @@ export const ToolLayout = ({
 }: ToolLayoutProps) => {
   const categoryConfig = {
     analyze: {
-      color: 'blue',
-      bgGradient: 'from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
-      borderColor: 'border-blue-200 dark:border-blue-800'
+      color: 'purple',
+      bgGradient: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20',
+      borderColor: 'border-purple-200 dark:border-purple-800',
+      categoryPath: '/category/analyse-mots-cles',
+      categoryLabel: 'Analyse de mots-clés'
     },
     optimize: {
-      color: 'green', 
-      bgGradient: 'from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20',
-      borderColor: 'border-green-200 dark:border-green-800'
+      color: 'cyan', 
+      bgGradient: 'from-cyan-50 to-teal-50 dark:from-cyan-950/20 dark:to-teal-950/20',
+      borderColor: 'border-cyan-200 dark:border-cyan-800',
+      categoryPath: '/category/architecture-semantique',
+      categoryLabel: 'Architecture sémantique'
     },
     research: {
-      color: 'purple',
-      bgGradient: 'from-purple-50 to-violet-50 dark:from-purple-950/20 dark:to-violet-950/20', 
-      borderColor: 'border-purple-200 dark:border-purple-800'
+      color: 'pink',
+      bgGradient: 'from-pink-50 to-rose-50 dark:from-pink-950/20 dark:to-rose-950/20', 
+      borderColor: 'border-pink-200 dark:border-pink-800',
+      categoryPath: '/category/analyse-backlinks',
+      categoryLabel: 'Analyse de backlinks'
     },
     technical: {
-      color: 'orange',
-      bgGradient: 'from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20',
-      borderColor: 'border-orange-200 dark:border-orange-800'
+      color: 'blue',
+      bgGradient: 'from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
+      borderColor: 'border-blue-200 dark:border-blue-800',
+      categoryPath: '/category/analyse-technique',
+      categoryLabel: 'Analyse technique'
     }
   };
 
   const config = categoryConfig[category];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      {/* Breadcrumb */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Breadcrumb moderne */}
+      <div className="bg-white/5 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <Link to="/" className="text-gray-400 hover:text-white transition-colors">
               Accueil
             </Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <Link to="/" className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-              Outils
+            <ChevronRight className="w-4 h-4 text-gray-500" />
+            <Link to={config.categoryPath} className="text-gray-400 hover:text-white transition-colors">
+              {config.categoryLabel}
             </Link>
-            <ChevronRight className="w-4 h-4 text-gray-400" />
-            <span className="text-gray-900 dark:text-white font-medium">
+            <ChevronRight className="w-4 h-4 text-gray-500" />
+            <span className="text-white font-medium">
               {title}
             </span>
           </nav>
         </div>
       </div>
 
-      {/* Hero Section */}
-      <div className={cn("bg-gradient-to-br", config.bgGradient)}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Hero Section moderne */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center px-3 py-2 rounded-lg mb-6 bg-white/60 dark:bg-gray-900/40 backdrop-blur-sm border border-white/20 dark:border-gray-800/20">
-              <div className="p-1 rounded-md mr-3 bg-white/80 dark:bg-gray-800/60">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
+              <div className="p-1 rounded-md mr-3 bg-white/20">
                 {React.cloneElement(icon as React.ReactElement, {
-                  className: `w-5 h-5 text-${config.color}-600 dark:text-${config.color}-400`
+                  className: `w-5 h-5 text-${config.color}-400`
                 })}
               </div>
-              <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                Outil {getCategoryLabel(category)}
+              <span className="text-sm font-medium">
+                Outil {config.categoryLabel}
               </span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
               {title}
             </h1>
             
-            <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="text-xl text-gray-300 leading-relaxed mb-8">
               {description}
             </p>
             
             {/* Quick Stats */}
-            <div className="mt-8 flex flex-wrap gap-6">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                <Clock className="w-4 h-4 mr-2" />
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-center text-sm text-gray-400">
+                <Clock className="w-4 h-4 mr-2 text-green-400" />
                 Résultats instantanés
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                <Shield className="w-4 h-4 mr-2" />
+              <div className="flex items-center text-sm text-gray-400">
+                <Shield className="w-4 h-4 mr-2 text-blue-400" />
                 100% gratuit
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                <Lock className="w-4 h-4 mr-2" />
+              <div className="flex items-center text-sm text-gray-400">
+                <Lock className="w-4 h-4 mr-2 text-purple-400" />
                 Données privées
               </div>
             </div>
@@ -114,38 +123,40 @@ export const ToolLayout = ({
         </div>
       </div>
 
-      {/* Tool Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Tool Content moderne */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-8">
-            {children}
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8">
+              {children}
+            </div>
           </div>
           
-          {/* Sidebar */}
-          <div className="lg:col-span-4 space-y-8">
+          {/* Sidebar moderne */}
+          <div className="lg:col-span-4 space-y-6">
             
             {/* Quick Tips */}
-            <Card className="p-6">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Lightbulb className="w-5 h-5 mr-2 text-yellow-500" />
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+              <h3 className="font-semibold text-white mb-4 flex items-center">
+                <Lightbulb className="w-5 h-5 mr-2 text-yellow-400" />
                 Conseils d'utilisation
               </h3>
-              <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+              <div className="space-y-3 text-sm text-gray-300">
                 {getToolTips(category).map((tip, index) => (
                   <div key={index} className="flex items-start">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-2 mr-3 flex-shrink-0" />
                     <span>{tip}</span>
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
 
             {/* Related Tools */}
             {relatedTools.length > 0 && (
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                  <Grid3X3 className="w-5 h-5 mr-2 text-blue-500" />
+              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6">
+                <h3 className="font-semibold text-white mb-4 flex items-center">
+                  <Grid3X3 className="w-5 h-5 mr-2 text-blue-400" />
                   Outils complémentaires
                 </h3>
                 <div className="space-y-3">
@@ -153,19 +164,19 @@ export const ToolLayout = ({
                     <Link
                       key={index}
                       to={tool.href}
-                      className="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group"
+                      className="block p-3 rounded-lg hover:bg-white/10 transition-colors group"
                     >
                       <div className="flex items-start space-x-3">
-                        <div className="p-1 rounded bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/20">
+                        <div className="p-1 rounded bg-white/10 group-hover:bg-purple-500/20">
                           {React.cloneElement(tool.icon as React.ReactElement, {
-                            className: "w-4 h-4 text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                            className: "w-4 h-4 text-gray-300 group-hover:text-purple-400"
                           })}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="font-medium text-gray-900 dark:text-white text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                          <div className="font-medium text-white text-sm group-hover:text-purple-400">
                             {tool.title}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <div className="text-xs text-gray-400 mt-1">
                             {tool.description}
                           </div>
                         </div>
@@ -173,7 +184,7 @@ export const ToolLayout = ({
                     </Link>
                   ))}
                 </div>
-              </Card>
+              </div>
             )}
           </div>
         </div>
@@ -183,16 +194,6 @@ export const ToolLayout = ({
 };
 
 // Fonctions utilitaires
-const getCategoryLabel = (category: string): string => {
-  const labels = {
-    analyze: 'Analyse',
-    optimize: 'Optimisation', 
-    research: 'Recherche',
-    technical: 'Technique'
-  };
-  return labels[category as keyof typeof labels] || 'SEO';
-};
-
 const getToolTips = (category: string): string[] => {
   const tips = {
     analyze: [

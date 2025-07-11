@@ -104,7 +104,7 @@ const RevolutionaryHero: React.FC = () => {
           </div>
 
           {/* Boutons CTA avec effets avancés */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             <Button
               onClick={scrollToTools}
               size="lg"
@@ -128,7 +128,7 @@ const RevolutionaryHero: React.FC = () => {
           </div>
 
           {/* Fonctionnalités avec animations */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-8">
             {[
               {
                 icon: Zap,
@@ -173,7 +173,7 @@ const RevolutionaryHero: React.FC = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator - Rapproché des CTAs */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />

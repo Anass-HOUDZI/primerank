@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -11,6 +10,13 @@ import Contact from "./pages/Contact";
 import Favorites from "./pages/Favorites";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+
+// Pages de catégories
+import AnalyseMots from "./pages/categories/AnalyseMots";
+import AnalyseTechnique from "./pages/categories/AnalyseTechnique";
+import ArchitectureSemantique from "./pages/categories/ArchitectureSemantique";
+import AnalyseBacklinks from "./pages/categories/AnalyseBacklinks";
+import IntegrationsAPIs from "./pages/categories/IntegrationsAPIs";
 
 // Outils existants
 import PageSpeedAnalyzer from "./pages/tools/PageSpeedAnalyzer";
@@ -68,6 +74,13 @@ const App = () => (
         <Route path="/contact" element={<Contact />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/settings" element={<Settings />} />
+        
+        {/* Pages de catégories */}
+        <Route path="/category/analyse-mots-cles" element={<AnalyseMots />} />
+        <Route path="/category/analyse-technique" element={<AnalyseTechnique />} />
+        <Route path="/category/architecture-semantique" element={<ArchitectureSemantique />} />
+        <Route path="/category/analyse-backlinks" element={<AnalyseBacklinks />} />
+        <Route path="/category/integrations-apis" element={<IntegrationsAPIs />} />
         
         {/* Outils d'analyse technique */}
         <Route path="/tools/rank-checker" element={<RankChecker />} />
