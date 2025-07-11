@@ -1,169 +1,309 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Settings as SettingsIcon, Palette, Bell, Database, Shield, User, Moon, Sun, Monitor } from 'lucide-react';
 import { MobileOptimizedLayout } from '../components/mobile/MobileOptimizedLayout';
-import { Settings as SettingsIcon, Moon, Sun, Globe, Bell, Shield, Download } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+
+interface UserSettings {
+  theme: 'light' | 'dark' | 'system';
+  notifications: boolean;
+  autoSave: boolean;
+  defaultExportFormat: 'csv' | 'json' | 'pdf';
+  cacheEnabled: boolean;
+  language: 'fr' | 'en';
+  userName: string;
+  email: string;
+}
 
 const Settings = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notifications, setNotifications] = useState(true);
-  const [language, setLanguage] = useState('fr');
+  const [settings, setSettings] = useState<UserSettings>({
+    theme: 'system',
+    notifications: true,
+    autoSave: true,
+    defaultExportFormat: 'csv',
+    cacheEnabled: true,
+    language: 'fr',
+    userName: '',
+    email: ''
+  });
+
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Load settings from localStorage
+    const savedSettings = localStorage.getItem('seo-tools-settings');
+    if (savedSettings) {
+      setSettings({ ...settings, ...JSON.parse(savedSettings) });
+    }
+  }, []);
+
+  const updateSetting = <K extends keyof UserSettings>(
+    key: K,
+    value: UserSettings[K]
+  ) => {
+    const newSettings = { ...settings, [key]: value };
+    setSettings(newSettings);
+    localStorage.setItem('seo-tools-settings', JSON.stringify(newSettings));
+  };
+
+  const handleSaveSettings = () => {
+    localStorage.setItem('seo-tools-settings', JSON.stringify(settings));
+    toast({
+      title: "Paramètres sauvegardés",
+      description: "Vos préférences ont été mises à jour avec succès.",
+    });
+  };
+
+  const handleResetSettings = () => {
+    const defaultSettings: UserSettings = {
+      theme: 'system',
+      notifications: true,
+      autoSave: true,
+      defaultExportFormat: 'csv',
+      cacheEnabled: true,
+      language: 'fr',
+      userName: '',
+      email: ''
+    };
+    setSettings(defaultSettings);
+    localStorage.setItem('seo-tools-settings', JSON.stringify(defaultSettings));
+    toast({
+      title: "Paramètres réinitialisés",
+      description: "Les paramètres par défaut ont été restaurés.",
+    });
+  };
+
+  const clearCache = () => {
+    // Clear various caches
+    localStorage.removeItem('seo-tools-cache');
+    sessionStorage.clear();
+    
+    // Clear any API caches if they exist
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+      });
+    }
+
+    toast({
+      title: "Cache vidé",
+      description: "Toutes les données en cache ont été supprimées.",
+    });
+  };
 
   return (
     <MobileOptimizedLayout>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-        <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        <div className="container mx-auto px-4 py-8 safe-area-pt">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-500 to-gray-700 rounded-full flex items-center justify-center">
-              <SettingsIcon className="w-8 h-8 text-white" />
+            <div className="flex items-center justify-center mb-4">
+              <SettingsIcon className="w-8 h-8 text-purple-500 mr-3" />
+              <h1 className="text-3xl md:text-4xl font-bold text-white">
+                Paramètres
+              </h1>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Paramètres
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Personnalisez votre expérience SEO Tools
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Personnalisez votre expérience avec la suite d'outils SEO
             </p>
           </div>
 
-          {/* Settings Sections */}
-          <div className="space-y-6">
-            {/* Apparence */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Moon className="w-5 h-5 mr-2" />
-                Apparence
-              </h2>
+          <div className="max-w-4xl mx-auto space-y-6">
+            {/* Profile Settings */}
+            <Card className="p-6 bg-white/5 backdrop-blur-md border-white/10">
+              <div className="flex items-center mb-4">
+                <User className="w-5 h-5 text-blue-400 mr-2" />
+                <h2 className="text-xl font-semibold text-white">Profil Utilisateur</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="userName" className="text-gray-300">Nom d'utilisateur</Label>
+                  <Input
+                    id="userName"
+                    value={settings.userName}
+                    onChange={(e) => updateSetting('userName', e.target.value)}
+                    placeholder="Votre nom"
+                    className="mt-1 bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="text-gray-300">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={settings.email}
+                    onChange={(e) => updateSetting('email', e.target.value)}
+                    placeholder="votre@email.com"
+                    className="mt-1 bg-white/10 border-white/20 text-white placeholder-gray-400"
+                  />
+                </div>
+              </div>
+            </Card>
+
+            {/* Appearance Settings */}
+            <Card className="p-6 bg-white/5 backdrop-blur-md border-white/10">
+              <div className="flex items-center mb-4">
+                <Palette className="w-5 h-5 text-purple-400 mr-2" />
+                <h2 className="text-xl font-semibold text-white">Apparence</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label className="text-gray-300">Thème</Label>
+                  <Select
+                    value={settings.theme}
+                    onValueChange={(value: 'light' | 'dark' | 'system') => updateSetting('theme', value)}
+                  >
+                    <SelectTrigger className="mt-1 bg-white/10 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="light">
+                        <span className="flex items-center">
+                          <Sun className="w-4 h-4 mr-2" />
+                          Clair
+                        </span>
+                      </SelectItem>
+                      <SelectItem value="dark">
+                        <span className="flex items-center">
+                          <Moon className="w-4 h-4 mr-2" />
+                          Sombre
+                        </span>
+                      </SelectItem>
+                      <SelectItem value="system">
+                        <span className="flex items-center">
+                          <Monitor className="w-4 h-4 mr-2" />
+                          Système
+                        </span>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label className="text-gray-300">Langue</Label>
+                  <Select
+                    value={settings.language}
+                    onValueChange={(value: 'fr' | 'en') => updateSetting('language', value)}
+                  >
+                    <SelectTrigger className="mt-1 bg-white/10 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="fr">Français</SelectItem>
+                      <SelectItem value="en">English</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </Card>
+
+            {/* Notifications Settings */}
+            <Card className="p-6 bg-white/5 backdrop-blur-md border-white/10">
+              <div className="flex items-center mb-4">
+                <Bell className="w-5 h-5 text-green-400 mr-2" />
+                <h2 className="text-xl font-semibold text-white">Notifications</h2>
+              </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">Mode sombre</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Activez le thème sombre pour réduire la fatigue oculaire
-                    </p>
+                    <Label className="text-gray-300">Notifications activées</Label>
+                    <p className="text-sm text-gray-500">Recevoir des alertes pour les changements importants</p>
                   </div>
-                  <button
-                    onClick={() => setDarkMode(!darkMode)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      darkMode ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
-                  >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        darkMode ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
-                  </button>
+                  <Switch
+                    checked={settings.notifications}
+                    onCheckedChange={(checked) => updateSetting('notifications', checked)}
+                  />
                 </div>
               </div>
-            </div>
+            </Card>
 
-            {/* Langue */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Globe className="w-5 h-5 mr-2" />
-                Langue
-              </h2>
-              <div className="space-y-4">
+            {/* Data & Export Settings */}
+            <Card className="p-6 bg-white/5 backdrop-blur-md border-white/10">
+              <div className="flex items-center mb-4">
+                <Database className="w-5 h-5 text-orange-400 mr-2" />
+                <h2 className="text-xl font-semibold text-white">Données et Export</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-gray-300">Sauvegarde automatique</Label>
+                    <p className="text-sm text-gray-500">Sauvegarder automatiquement vos analyses</p>
+                  </div>
+                  <Switch
+                    checked={settings.autoSave}
+                    onCheckedChange={(checked) => updateSetting('autoSave', checked)}
+                  />
+                </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Langue de l'interface
-                  </label>
-                  <select
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  <Label className="text-gray-300">Format d'export par défaut</Label>
+                  <Select
+                    value={settings.defaultExportFormat}
+                    onValueChange={(value: 'csv' | 'json' | 'pdf') => updateSetting('defaultExportFormat', value)}
                   >
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                  </select>
+                    <SelectTrigger className="mt-1 bg-white/10 border-white/20 text-white">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="csv">CSV</SelectItem>
+                      <SelectItem value="json">JSON</SelectItem>
+                      <SelectItem value="pdf">PDF</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
-            </div>
+            </Card>
 
-            {/* Notifications */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Bell className="w-5 h-5 mr-2" />
-                Notifications
-              </h2>
+            {/* Performance Settings */}
+            <Card className="p-6 bg-white/5 backdrop-blur-md border-white/10">
+              <div className="flex items-center mb-4">
+                <Shield className="w-5 h-5 text-red-400 mr-2" />
+                <h2 className="text-xl font-semibold text-white">Performance et Cache</h2>
+              </div>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">Notifications push</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Recevez des notifications pour les nouvelles fonctionnalités
-                    </p>
+                    <Label className="text-gray-300">Cache activé</Label>
+                    <p className="text-sm text-gray-500">Améliore les performances en gardant les données en cache</p>
                   </div>
-                  <button
-                    onClick={() => setNotifications(!notifications)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                      notifications ? 'bg-blue-600' : 'bg-gray-200'
-                    }`}
+                  <Switch
+                    checked={settings.cacheEnabled}
+                    onCheckedChange={(checked) => updateSetting('cacheEnabled', checked)}
+                  />
+                </div>
+                <div className="pt-4 border-t border-white/10">
+                  <Button
+                    onClick={clearCache}
+                    variant="destructive"
+                    className="w-full md:w-auto"
                   >
-                    <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                        notifications ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
-                  </button>
+                    Vider le cache
+                  </Button>
                 </div>
               </div>
-            </div>
+            </Card>
 
-            {/* Confidentialité */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Shield className="w-5 h-5 mr-2" />
-                Confidentialité et Sécurité
-              </h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white mb-2">Données personnelles</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    Nous ne collectons aucune donnée personnelle. Toutes les analyses sont effectuées localement.
-                  </p>
-                  <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                    Voir la politique de confidentialité
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Données */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <Download className="w-5 h-5 mr-2" />
-                Données
-              </h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white mb-2">Historique des analyses</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    Gérez l'historique de vos analyses et exportez vos données.
-                  </p>
-                  <div className="space-x-4">
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                      Exporter mes données
-                    </button>
-                    <button className="px-4 py-2 bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-400 rounded-lg hover:bg-red-200 dark:hover:bg-red-800/50 transition-colors">
-                      Effacer l'historique
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* À propos */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                À propos de l'application
-              </h2>
-              <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                <p>Version: 1.0.0</p>
-                <p>Dernière mise à jour: Décembre 2024</p>
-                <p>Développé par: Anass Houdzi</p>
-              </div>
+            {/* Action Buttons */}
+            <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-4">
+              <Button
+                onClick={handleSaveSettings}
+                className="flex-1 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700"
+              >
+                Sauvegarder les paramètres
+              </Button>
+              <Button
+                onClick={handleResetSettings}
+                variant="outline"
+                className="flex-1 border-white/20 text-white hover:bg-white/10"
+              >
+                Réinitialiser
+              </Button>
             </div>
           </div>
         </div>

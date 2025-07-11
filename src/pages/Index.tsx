@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { allTools } from '../data/tools';
 import RevolutionaryHero from '../components/hero/RevolutionaryHero';
-import { CategoriesSection } from '../components/categories/CategoriesSection';
 import FilterSidebar from '../components/FilterSidebar';
 import ToolsHeader from '../components/ToolsHeader';
 import ActiveFilters from '../components/filters/ActiveFilters';
@@ -115,9 +114,6 @@ const Index = () => {
     <>
       {/* Hero Section révolutionnaire */}
       <RevolutionaryHero />
-      
-      {/* Section des catégories premium */}
-      <CategoriesSection />
 
       <div className="bg-white dark:bg-gray-900" id="tools-section">
         {/* Header */}

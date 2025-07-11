@@ -1,135 +1,162 @@
 
 import React, { useState } from 'react';
 import { ToolLayout } from '@/components/tools/ToolLayout';
-import { InputForm } from '@/components/tools/InputForm';
-import { ResultsDisplay } from '@/components/tools/ResultsDisplay';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { Globe, Download, Eye, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Globe, FileText } from 'lucide-react';
 
-interface SitemapData {
+interface SitemapUrl {
   url: string;
-  totalUrls: number;
-  structure: Array<{
-    url: string;
-    priority: number;
-    lastmod: string;
-    changefreq: string;
-  }>;
+  lastmod?: string;
+  priority?: number;
+  changefreq?: string;
 }
 
 const SitemapExtractor = () => {
-  const [data, setData] = useState<SitemapData | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>('');
+  const [sitemapUrl, setSitemapUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState<SitemapUrl[]>([]);
+  const [error, setError] = useState('');
   const { toast } = useToast();
 
-  const handleExtract = async (inputData: { value: string }) => {
-    setLoading(true);
+  const handleExtract = async () => {
+    if (!sitemapUrl.trim()) {
+      setError('Veuillez entrer une URL de sitemap valide');
+      return;
+    }
+
+    setIsLoading(true);
     setError('');
-    
+
     try {
+      // Simulation d'extraction de sitemap
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      const structure = Array.from({ length: 20 }, (_, i) => ({
-        url: `${inputData.value}/page-${i + 1}`,
-        priority: Math.random(),
-        lastmod: new Date().toISOString().split('T')[0],
-        changefreq: ['daily', 'weekly', 'monthly'][Math.floor(Math.random() * 3)]
-      }));
-      
-      const mockData: SitemapData = {
-        url: inputData.value,
-        totalUrls: structure.length,
-        structure
-      };
-      
-      setData(mockData);
+      const mockResults: SitemapUrl[] = [
+        { url: `${sitemapUrl}/page1`, lastmod: '2024-01-15', priority: 1.0, changefreq: 'weekly' },
+        { url: `${sitemapUrl}/page2`, lastmod: '2024-01-14', priority: 0.8, changefreq: 'monthly' },
+        { url: `${sitemapUrl}/blog`, lastmod: '2024-01-13', priority: 0.6, changefreq: 'daily' },
+        { url: `${sitemapUrl}/contact`, lastmod: '2024-01-12', priority: 0.4, changefreq: 'yearly' },
+      ];
+
+      setResults(mockResults);
       toast({
-        title: "Sitemap extrait",
-        description: `${structure.length} URLs trouvées`
+        title: "Sitemap extrait avec succès",
+        description: `${mockResults.length} URLs trouvées`,
       });
-      
     } catch (err) {
-      setError('Erreur lors de l\'extraction.');
-      toast({
-        title: "Erreur",
-        description: "Impossible d'extraire le sitemap",
-        variant: "destructive"
-      });
+      setError('Erreur lors de l\'extraction du sitemap');
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  const handleExport = (format: 'pdf' | 'csv' | 'json') => {
-    if (!data) return;
-    toast({
-      title: "Export réussi",
-      description: "Sitemap téléchargé"
-    });
+  const exportResults = () => {
+    const csvContent = [
+      'URL,Last Modified,Priority,Change Frequency',
+      ...results.map(item => 
+        `${item.url},${item.lastmod || ''},${item.priority || ''},${item.changefreq || ''}`
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sitemap-extraction.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
   };
 
   return (
     <ToolLayout
       title="Extracteur de Sitemap"
-      description="Visualisez et analysez la structure de n'importe quel sitemap avec un diagramme interactif"
-      icon={<Globe />}
-      category="technical"
-      relatedTools={[
-        {
-          title: "Convertisseur CSV",
-          description: "Convertissez vos données",
-          href: "/tools/csv-converter",
-          icon: <FileText />
-        }
-      ]}
+      description="Analysez et visualisez la structure de n'importe quel sitemap XML"
+      icon={Globe}
     >
-      <div className="space-y-8">
-        <InputForm
-          title="Extraire un sitemap"
-          description="Entrez l'URL du sitemap à analyser"
-          inputType="url"
-          placeholder="https://example.com/sitemap.xml"
-          onSubmit={handleExtract}
-          loading={loading}
-        />
-        
-        <ResultsDisplay
-          title="Structure du sitemap"
-          data={data}
-          loading={loading}
-          error={error}
-          onExport={handleExport}
-        >
-          {data && (
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">URLs extraites ({data.totalUrls})</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2">URL</th>
-                      <th className="text-left py-2">Priorité</th>
-                      <th className="text-left py-2">Dernière modif</th>
-                      <th className="text-left py-2">Fréquence</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.structure.slice(0, 10).map((item, index) => (
-                      <tr key={index} className="border-b border-gray-100">
-                        <td className="py-2 truncate max-w-xs">{item.url}</td>
-                        <td className="py-2">{item.priority.toFixed(1)}</td>
-                        <td className="py-2">{item.lastmod}</td>
-                        <td className="py-2">{item.changefreq}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+      <div className="space-y-6">
+        {/* Input Section */}
+        <Card className="p-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-2">
+                URL du Sitemap
+              </label>
+              <Input
+                placeholder="https://example.com/sitemap.xml"
+                value={sitemapUrl}
+                onChange={(e) => setSitemapUrl(e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            {error && (
+              <div className="flex items-center space-x-2 text-red-500 text-sm">
+                <AlertCircle className="w-4 h-4" />
+                <span>{error}</span>
               </div>
-            </Card>
-          )}
-        </ResultsDisplay>
+            )}
+
+            <Button 
+              onClick={handleExtract}
+              disabled={isLoading}
+              className="w-full"
+            >
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                  Extraction en cours...
+                </>
+              ) : (
+                <>
+                  <Eye className="w-4 h-4 mr-2" />
+                  Extraire le Sitemap
+                </>
+              )}
+            </Button>
+          </div>
+        </Card>
+
+        {/* Results Section */}
+        {results.length > 0 && (
+          <Card className="p-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">
+                  Résultats ({results.length} URLs)
+                </h3>
+                <Button onClick={exportResults} variant="outline">
+                  <Download className="w-4 h-4 mr-2" />
+                  Exporter CSV
+                </Button>
+              </div>
+
+              <div className="space-y-2 max-h-96 overflow-y-auto">
+                {results.map((item, index) => (
+                  <div 
+                    key={index}
+                    className="p-3 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">
+                          {item.url}
+                        </p>
+                        <div className="flex items-center space-x-4 text-xs text-gray-500 mt-1">
+                          {item.lastmod && <span>Modifié: {item.lastmod}</span>}
+                          {item.priority && <span>Priorité: {item.priority}</span>}
+                          {item.changefreq && <span>Fréquence: {item.changefreq}</span>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card>
+        )}
       </div>
     </ToolLayout>
   );
