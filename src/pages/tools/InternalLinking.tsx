@@ -96,6 +96,7 @@ const InternalLinking = () => {
       title="Opportunités de Maillage Interne"
       description="Identifiez automatiquement les meilleures opportunités de liens internes pour votre site"
       icon={<Link className="w-6 h-6" />}
+      category="optimize"
     >
       <div className="space-y-6">
         {/* Input Section */}

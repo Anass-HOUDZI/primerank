@@ -173,6 +173,7 @@ const SemanticCocoonV1 = () => {
       title="Générateur de Cocons Sémantiques V1"
       description="Créez automatiquement des cocons sémantiques structurés pour optimiser votre référencement"
       icon={<Layers className="w-6 h-6" />}
+      category="optimize"
     >
       <div className="space-y-6">
         {/* Input Section */}

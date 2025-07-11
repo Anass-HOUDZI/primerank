@@ -75,6 +75,7 @@ const SitemapExtractor = () => {
       title="Extracteur de Sitemap"
       description="Analysez et visualisez la structure de n'importe quel sitemap XML"
       icon={<Globe className="w-6 h-6" />}
+      category="technical"
     >
       <div className="space-y-6">
         {/* Input Section */}
