@@ -2,7 +2,6 @@
 import React from 'react';
 import { useIsMobile } from '../../hooks/use-mobile';
 import { MobileNavigation } from './MobileNavigation';
-import { Footer } from '../Footer';
 
 interface MobileOptimizedLayoutProps {
   children: React.ReactNode;
@@ -12,25 +11,13 @@ export const MobileOptimizedLayout: React.FC<MobileOptimizedLayoutProps> = ({ ch
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {isMobile && <MobileNavigation />}
       
       <main className={`${isMobile ? 'pb-20 pt-16' : ''} transition-all duration-300 flex-1`}>
         {children}
       </main>
 
-      <Footer />
-
-      {/* Pull-to-refresh indicator */}
-      {isMobile && (
-        <div className="fixed top-16 left-1/2 transform -translate-x-1/2 z-30 opacity-0 transition-opacity duration-300">
-          <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        </div>
-      )}
-
-      {/* Safe area styles using Tailwind classes */}
       <style dangerouslySetInnerHTML={{
         __html: `
           .safe-area-pb {

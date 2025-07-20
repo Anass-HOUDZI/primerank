@@ -11,14 +11,16 @@ export interface OnlineStatus {
 
 export const useOnlineStatus = () => {
   const [status, setStatus] = useState<OnlineStatus>({
-    isOnline: navigator.onLine,
+    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
     isLoading: false,
-    lastOnline: navigator.onLine ? new Date() : null,
+    lastOnline: typeof navigator !== 'undefined' && navigator.onLine ? new Date() : null,
     connectionType: 'unknown',
     effectiveType: 'unknown'
   });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const updateConnectionInfo = () => {
       const connection = (navigator as any).connection || 
                         (navigator as any).mozConnection || 

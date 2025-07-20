@@ -1,92 +1,64 @@
+import { useEffect, useRef } from 'react';
 
-import { useState, useRef, useCallback } from 'react';
-
-interface TouchGestureProps {
+interface TouchGestureOptions {
   onSwipeLeft?: () => void;
   onSwipeRight?: () => void;
   onSwipeUp?: () => void;
   onSwipeDown?: () => void;
-  onPinch?: (scale: number) => void;
-  onTap?: () => void;
-  onLongPress?: () => void;
   threshold?: number;
 }
 
-export const useTouchGestures = ({
-  onSwipeLeft,
-  onSwipeRight,
-  onSwipeUp,
-  onSwipeDown,
-  onPinch,
-  onTap,
-  onLongPress,
-  threshold = 50
-}: TouchGestureProps) => {
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
-  const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(null);
-  const longPressTimer = useRef<NodeJS.Timeout>();
-  const [isLongPress, setIsLongPress] = useState(false);
+export const useTouchGestures = (options: TouchGestureOptions) => {
+  const ref = useRef<HTMLElement>(null);
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    setTouchStart({ x: touch.clientX, y: touch.clientY });
-    setTouchEnd(null);
-    setIsLongPress(false);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
 
-    // Start long press timer
-    if (onLongPress) {
-      longPressTimer.current = setTimeout(() => {
-        setIsLongPress(true);
-        onLongPress();
-      }, 500);
-    }
-  }, [onLongPress]);
+    const threshold = options.threshold || 50;
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    setTouchEnd({ x: touch.clientX, y: touch.clientY });
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      touchStart.current = { x: touch.clientX, y: touch.clientY };
+    };
 
-    // Cancel long press if finger moves
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-    }
-  }, []);
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStart.current) return;
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-    }
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStart.current.x;
+      const deltaY = touch.clientY - touchStart.current.y;
 
-    if (!touchStart || !touchEnd) {
-      // Simple tap
-      if (onTap && !isLongPress) {
-        onTap();
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (Math.abs(deltaX) > threshold) {
+          if (deltaX > 0 && options.onSwipeRight) {
+            options.onSwipeRight();
+          } else if (deltaX < 0 && options.onSwipeLeft) {
+            options.onSwipeLeft();
+          }
+        }
+      } else {
+        if (Math.abs(deltaY) > threshold) {
+          if (deltaY > 0 && options.onSwipeDown) {
+            options.onSwipeDown();
+          } else if (deltaY < 0 && options.onSwipeUp) {
+            options.onSwipeUp();
+          }
+        }
       }
-      return;
-    }
 
-    const distanceX = touchStart.x - touchEnd.x;
-    const distanceY = touchStart.y - touchEnd.y;
-    const isLeftSwipe = distanceX > threshold;
-    const isRightSwipe = distanceX < -threshold;
-    const isUpSwipe = distanceY > threshold;
-    const isDownSwipe = distanceY < -threshold;
+      touchStart.current = null;
+    };
 
-    // Determine primary direction
-    if (Math.abs(distanceX) > Math.abs(distanceY)) {
-      // Horizontal swipe
-      if (isLeftSwipe && onSwipeLeft) onSwipeLeft();
-      if (isRightSwipe && onSwipeRight) onSwipeRight();
-    } else {
-      // Vertical swipe
-      if (isUpSwipe && onSwipeUp) onSwipeUp();
-      if (isDownSwipe && onSwipeDown) onSwipeDown();
-    }
-  }, [touchStart, touchEnd, threshold, onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, onTap, isLongPress]);
+    element.addEventListener('touchstart', handleTouchStart);
+    element.addEventListener('touchend', handleTouchEnd);
 
-  return {
-    onTouchStart: handleTouchStart,
-    onTouchMove: handleTouchMove,
-    onTouchEnd: handleTouchEnd,
-  };
+    return () => {
+      element.removeEventListener('touchstart', handleTouchStart);
+      element.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [options]);
+
+  return ref;
 };
