@@ -1,4 +1,4 @@
-# SEO Tools Suite
+# SEO tools suite
 
 La SEO Tools Suite est une plateforme complète de 24 outils SEO gratuits conçus pour démocratiser l'accès aux techniques d'optimisation pour les moteurs de recherche. Cette suite couvre l'analyse technique, l'optimisation sémantique, le netlinking et le suivi de performances, avec des fonctionnalités avancées d'exportation et de visualisation.
 
