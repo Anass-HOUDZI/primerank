@@ -84,6 +84,24 @@ const AnalyseBacklinks = () => {
           </ModernSection>
         </div>
       </div>
+
+      {/* Footer Copyright */}
+      <footer className="bg-white/5 backdrop-blur-md border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+          <p className="text-gray-400 text-sm">
+            Copyright © 2025{' '}
+            <a 
+              href="https://www.linkedin.com/in/anasshoudzi/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
+            >
+              Anass Houdzi
+            </a>
+            {' '} – Tous droits réservés.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
