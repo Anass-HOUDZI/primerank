@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Home, Sun, Moon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
+import { allTools } from '@/data/tools';
 
 interface GlobalHeaderProps {
   searchQuery?: string;
@@ -22,13 +23,25 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
     const path = location.pathname;
     const segments = path.split('/').filter(Boolean);
     
+    // Ne pas afficher les breadcrumbs sur la page d'accueil
+    if (path === '/') {
+      return [];
+    }
+    
     const breadcrumbs = [{ name: 'Accueil', path: '/' }];
     
     if (segments.length > 0) {
       if (segments[0] === 'tools' && segments[1]) {
-        breadcrumbs.push({ name: 'Outils', path: '/' });
-        // You can add specific tool names here based on the tool ID
-        breadcrumbs.push({ name: 'Outil', path: location.pathname });
+        const toolId = segments[1];
+        const tool = allTools.find(t => t.id === toolId);
+        
+        if (tool) {
+          breadcrumbs.push({ name: tool.category, path: '/' });
+          breadcrumbs.push({ name: tool.name, path: location.pathname });
+        } else {
+          breadcrumbs.push({ name: 'Outils', path: '/' });
+          breadcrumbs.push({ name: 'Outil', path: location.pathname });
+        }
       } else if (segments[0] === 'about') {
         breadcrumbs.push({ name: 'À propos', path: '/about' });
       } else if (segments[0] === 'contact') {
@@ -65,22 +78,24 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </Link>
         </div>
 
-        {/* Breadcrumbs */}
-        <nav className="hidden md:flex items-center space-x-1 text-sm text-muted-foreground">
-          {breadcrumbs.map((item, index) => (
-            <React.Fragment key={item.path}>
-              {index > 0 && <span className="mx-1">/</span>}
-              <Link 
-                to={item.path}
-                className={`hover:text-foreground transition-colors ${
-                  index === breadcrumbs.length - 1 ? 'text-foreground font-medium' : ''
-                }`}
-              >
-                {item.name}
-              </Link>
-            </React.Fragment>
-          ))}
-        </nav>
+        {/* Breadcrumbs - Only show if not on home page */}
+        {breadcrumbs.length > 0 && (
+          <nav className="hidden md:flex items-center space-x-1 text-sm text-muted-foreground">
+            {breadcrumbs.map((item, index) => (
+              <React.Fragment key={item.path}>
+                {index > 0 && <span className="mx-1">/</span>}
+                <Link 
+                  to={item.path}
+                  className={`hover:text-foreground transition-colors ${
+                    index === breadcrumbs.length - 1 ? 'text-foreground font-medium' : ''
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </React.Fragment>
+            ))}
+          </nav>
+        )}
 
         {/* Search Bar */}
         {showSearch && (
