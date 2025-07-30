@@ -1,7 +1,9 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { securityMiddleware } from './lib/security-middleware'
+import { ThemeProvider } from './providers/ThemeProvider'
 
 // Initialize security middleware
 securityMiddleware.initialize();
@@ -14,4 +16,10 @@ if (typeof document !== 'undefined') {
   document.head.appendChild(meta);
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </StrictMode>
+);
