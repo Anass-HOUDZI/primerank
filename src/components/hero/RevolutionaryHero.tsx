@@ -69,7 +69,7 @@ const RevolutionaryHero: React.FC = () => {
               SEO libre, 
             </span>
             <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%] mt-2">
-              succès garanti 👑
+              Succès garanti 👑
             </span>
           </h1>
 
