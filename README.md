@@ -1,8 +1,8 @@
 # SEO tools suite
 
-La SEO Tools Suite est une plateforme complète de 24 outils SEO gratuits conçus pour démocratiser l'accès aux techniques d'optimisation pour les moteurs de recherche. Cette suite couvre l'analyse technique, l'optimisation sémantique, le netlinking et le suivi de performances, avec des fonctionnalités avancées d'exportation et de visualisation.
+PrimeRank est une plateforme complète de 24 outils SEO gratuits conçus pour démocratiser l'accès aux techniques d'optimisation pour les moteurs de recherche. Cette suite couvre l'analyse technique, l'optimisation sémantique, le netlinking et le suivi de performances, avec des fonctionnalités avancées d'exportation et de visualisation.
 
-**Lien du Projet** : [Suite SEO Tools](https://preview--seo-tool-hub-central.lovable.app/)
+**Lien du Projet** : [PrimeRank](https://preview--seo-tool-hub-central.lovable.app/)
 
 ## Fonctionnalités Principales
 

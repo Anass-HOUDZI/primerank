@@ -30,18 +30,18 @@ export const PerformanceConfig = {
 
 // Configuration SEO
 export const SEOConfig = {
-  siteName: 'SEO Tools Suite',
+  siteName: 'PrimeRank',
   defaultTitle: 'Outils SEO Gratuits - Suite Complète',
   defaultDescription: 'Suite complète de 24 outils SEO gratuits pour optimiser votre référencement. Analyse technique, mots-clés, backlinks et plus.',
   defaultKeywords: 'SEO, outils SEO gratuits, référencement, analyse technique, mots-clés, backlinks',
-  author: 'SEO Tools Suite',
+  author: 'PrimeRank',
   twitterHandle: '@seotools',
   
   // Structured data
   organizationSchema: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'SEO Tools Suite',
+    name: 'PrimeRank',
     description: 'Suite complète d\'outils SEO gratuits',
     url: window.location.origin,
     logo: `${window.location.origin}/placeholder.svg`,

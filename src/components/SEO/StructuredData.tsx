@@ -17,8 +17,8 @@ export const StructuredData: React.FC<StructuredDataProps> = ({
   name,
   description,
   url,
-  author = 'SEO Tools Suite',
-  category = 'SEO Tools',
+  author = 'PrimeRank',
+  category = 'PrimeRank',
   operatingSystem = 'Web Browser',
   applicationCategory = 'DeveloperApplication'
 }) => {

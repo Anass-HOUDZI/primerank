@@ -128,7 +128,7 @@ export const PWAInstall = () => {
         </div>
 
         <p className="text-sm text-blue-100 mb-4">
-          Installez SEO Tools Hub pour un accès rapide et une expérience optimisée, 
+          Installez PrimeRank pour un accès rapide et une expérience optimisée, 
           même hors ligne !
         </p>
 

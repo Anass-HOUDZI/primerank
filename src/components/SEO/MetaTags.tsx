@@ -14,14 +14,14 @@ interface MetaTagsProps {
 }
 
 export const MetaTags: React.FC<MetaTagsProps> = ({
-  title = 'SEO Tools Suite - Outils SEO Gratuits',
+  title = 'PrimeRank - Outils SEO Gratuits',
   description = 'Suite complète de 24 outils SEO gratuits pour optimiser votre référencement. Analyse technique, mots-clés, backlinks et plus.',
   keywords = 'SEO, outils SEO gratuits, référencement, analyse technique, mots-clés, backlinks',
-  author = 'SEO Tools Suite',
+  author = 'PrimeRank',
   type = 'website',
   image = '/placeholder.svg',
   url,
-  siteName = 'SEO Tools Suite'
+  siteName = 'PrimeRank'
 }) => {
   const location = useLocation();
   const currentUrl = url || `${window.location.origin}${location.pathname}`;

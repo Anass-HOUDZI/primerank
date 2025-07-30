@@ -1,7 +1,7 @@
 # Security Development Guidelines
 
 ## Overview
-This document outlines security best practices and guidelines for developing and maintaining the SEO Tools Suite application.
+This document outlines security best practices and guidelines for developing and maintaining the PrimeRank application.
 
 ## Security Architecture
 

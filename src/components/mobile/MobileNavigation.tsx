@@ -77,7 +77,7 @@ export const MobileNavigation = () => {
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center space-x-3">
             <Search className="w-5 h-5 text-primary" />
-            <h1 className="text-lg font-semibold">SEO Tools Suite</h1>
+            <h1 className="text-lg font-semibold">PrimeRank</h1>
           </div>
         </div>
       </header>

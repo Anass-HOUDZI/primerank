@@ -359,7 +359,7 @@ export class ExportManager {
         ` : ''}
 
         <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px; text-align: center;">
-            Rapport généré par SEO Tools Suite - ${new Date().toLocaleDateString('fr-FR')}
+            Rapport généré par PrimeRank - ${new Date().toLocaleDateString('fr-FR')}
         </div>
     </div>
 </body>

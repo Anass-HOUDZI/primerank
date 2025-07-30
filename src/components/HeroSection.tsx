@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => {
 
           {/* Main heading */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">SEO Tools</span>
+            Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">PrimeRank</span>
             <br />
             Complète et Gratuite
           </h1>

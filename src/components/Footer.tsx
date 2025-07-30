@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                 <Search className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-xl text-gray-900 dark:text-white">SEO Tools</span>
+              <span className="font-bold text-xl text-gray-900 dark:text-white">PrimeRank</span>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               Suite complète de 24 outils SEO gratuits pour démocratiser l'optimisation pour les moteurs de recherche.

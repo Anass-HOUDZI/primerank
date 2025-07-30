@@ -64,7 +64,7 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
               <Search className="w-4 h-4 text-white" />
             </div>
             <span className="hidden font-bold sm:inline-block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              SEO Tools
+              PrimeRank
             </span>
           </Link>
         </div>

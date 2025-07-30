@@ -26,7 +26,7 @@ export const GlobalFooter: React.FC = () => {
                 <Search className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                SEO Tools
+                PrimeRank
               </span>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
