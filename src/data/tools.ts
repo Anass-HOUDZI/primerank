@@ -155,7 +155,7 @@ export const allTools: Tool[] = [
     level: 'Intermédiaire',
     usageCount: 1420,
     executionTime: '45 secondes',
-    features: ['1000 URLs simultanées', 'Visualisations graphiques', 'Export détaillé'],
+    features: ['URLs simultanées', 'Visualisations graphiques', 'Export détaillé'],
     href: '/tools/bulk-status-checker'
   },
   {
@@ -271,7 +271,7 @@ export const allTools: Tool[] = [
     level: 'Intermédiaire',
     usageCount: 650,
     executionTime: '1 minute',
-    features: ['Export Google Sheets', 'Analyse ancres détaillée', 'Métriques complètes'],
+    features: ['Export Google Sheets', 'Analyse ancres', 'Métriques complètes'],
     href: '/tools/website-backlink-analyzer'
   },
 
