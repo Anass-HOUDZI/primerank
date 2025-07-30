@@ -11,10 +11,11 @@ export const Footer: React.FC = () => {
           {/* Logo et description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <Search className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-bold text-xl text-gray-900 dark:text-white">PrimeRank</span>
+              <img 
+                src="/lovable-uploads/2a4e4837-1f67-4270-bd6b-cf4e94876969.png" 
+                alt="PrimeRank" 
+                className="h-8 w-auto"
+              />
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               Suite complète de 24 outils SEO gratuits pour démocratiser l'optimisation pour les moteurs de recherche.

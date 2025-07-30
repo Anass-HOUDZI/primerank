@@ -56,21 +56,22 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
         {/* Logo and Brand */}
         <div className="mr-4 hidden md:flex">
           <Link to="/" className="mr-6 flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Search className="w-4 h-4 text-white" />
-            </div>
-            <span className="hidden font-bold sm:inline-block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              PrimeRank
-            </span>
+            <img 
+              src="/lovable-uploads/2a4e4837-1f67-4270-bd6b-cf4e94876969.png" 
+              alt="PrimeRank" 
+              className="h-8 w-auto"
+            />
           </Link>
         </div>
 
         {/* Mobile Logo */}
         <div className="mr-2 flex md:hidden">
           <Link to="/" className="mr-2 flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Search className="w-4 h-4 text-white" />
-            </div>
+            <img 
+              src="/lovable-uploads/2a4e4837-1f67-4270-bd6b-cf4e94876969.png" 
+              alt="PrimeRank" 
+              className="h-8 w-auto"
+            />
           </Link>
         </div>
 
