@@ -75,17 +75,37 @@ export const PWAInstall = () => {
     }
   };
 
-  const handleDismiss = () => {
+  const handleDismiss = async () => {
     setIsVisible(false);
-    // Ne plus afficher pendant cette session
-    sessionStorage.setItem('pwa-install-dismissed', 'true');
+    // Use secure storage instead of sessionStorage
+    try {
+      const { SecureStorage } = await import('@/lib/secure-storage');
+      await SecureStorage.saveSecure('pwa-install-dismissed', true, 24 * 60 * 60 * 1000); // 24h TTL
+    } catch (error) {
+      console.warn('Failed to save PWA dismissal state securely, falling back to sessionStorage');
+      sessionStorage.setItem('pwa-install-dismissed', 'true');
+    }
   };
 
+  // Enhanced dismissal check with secure storage
+  const [isDismissed, setIsDismissed] = React.useState(false);
+  
+  React.useEffect(() => {
+    const checkDismissalState = async () => {
+      try {
+        const { SecureStorage } = await import('@/lib/secure-storage');
+        const dismissed = await SecureStorage.getSecure('pwa-install-dismissed');
+        setIsDismissed(!!dismissed);
+      } catch (error) {
+        // Fallback to sessionStorage
+        setIsDismissed(!!sessionStorage.getItem('pwa-install-dismissed'));
+      }
+    };
+    checkDismissalState();
+  }, []);
+
   // Ne pas afficher si déjà installé ou rejeté dans cette session
-  if (isInstalled || 
-      !installPrompt || 
-      !isVisible || 
-      sessionStorage.getItem('pwa-install-dismissed')) {
+  if (isInstalled || !installPrompt || !isVisible || isDismissed) {
     return null;
   }
 

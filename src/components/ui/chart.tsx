@@ -74,25 +74,46 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null
   }
 
-  return (
-    <style
-      dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
-          .map(
-            ([theme, prefix]) => `
+  // Generate secure CSS with integrity validation
+  const generateSecureCSS = React.useCallback(() => {
+    const css = Object.entries(THEMES)
+      .map(
+        ([theme, prefix]) => `
 ${prefix} [data-chart=${id}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+    // Validate color format for security
+    if (color && /^(#[0-9a-fA-F]{3,8}|rgb|hsl|var\(--[\w-]+\))/.test(color)) {
+      return `  --color-${key}: ${color};`
+    }
+    return null
   })
+  .filter(Boolean)
   .join("\n")}
 }
 `
-          )
-          .join("\n"),
+      )
+      .join("\n")
+    
+    return css
+  }, [id, colorConfig])
+
+  // Generate nonce for CSP compliance
+  const styleNonce = React.useMemo(() => {
+    if (typeof window !== 'undefined' && (window as any).__CSP_NONCE__) {
+      return (window as any).__CSP_NONCE__
+    }
+    return undefined
+  }, [])
+
+  return (
+    <style
+      nonce={styleNonce}
+      dangerouslySetInnerHTML={{
+        __html: generateSecureCSS(),
       }}
     />
   )

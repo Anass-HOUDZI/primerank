@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Shield, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { SecurityLogger } from '@/lib/security-middleware';
+import { enhancedSecurityLogger } from '@/lib/enhanced-security-logger';
 
 interface SecurityStatusProps {
   showDetails?: boolean;
@@ -14,33 +14,9 @@ export const SecurityStatus = ({ showDetails = false }: SecurityStatusProps) => 
 
   useEffect(() => {
     const updateSecurityStatus = () => {
-      const events = SecurityLogger.getEvents();
-      setSecurityEvents(events.slice(-10)); // Last 10 events
-
-      // Calculate security score based on recent events
-      const recentEvents = events.filter(
-        event => Date.now() - event.timestamp < 24 * 60 * 60 * 1000
-      );
-      
-      let score = 100;
-      recentEvents.forEach(event => {
-        switch (event.severity) {
-          case 'critical':
-            score -= 25;
-            break;
-          case 'high':
-            score -= 15;
-            break;
-          case 'medium':
-            score -= 5;
-            break;
-          case 'low':
-            score -= 1;
-            break;
-        }
-      });
-
-      setSecurityScore(Math.max(0, score));
+      const alerts = enhancedSecurityLogger.getAlerts().slice(-10);
+      setSecurityEvents(alerts);
+      setSecurityScore(enhancedSecurityLogger.getSecurityScore());
     };
 
     updateSecurityStatus();
@@ -104,7 +80,7 @@ export const SecurityStatus = ({ showDetails = false }: SecurityStatusProps) => 
                   key={index}
                   className="flex items-center justify-between text-xs p-2 rounded bg-muted"
                 >
-                  <span className="font-mono">{event.type}</span>
+                  <span className="font-mono">{event.message || event.type}</span>
                   <Badge
                     variant="outline"
                     className={`text-xs ${
