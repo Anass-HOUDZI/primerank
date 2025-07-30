@@ -66,10 +66,10 @@ const RevolutionaryHero: React.FC = () => {
           {/* Titre principal avec effet de dégradé animé */}
           <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-none">
             <span className="block bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent animate-gradient bg-[length:200%_200%]">
-              SEO libre, succès garanti 👑
+              SEO libre, 
             </span>
             <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_200%] mt-2">
-              100% gratuit pour tous et sans limites
+              succès garanti 👑
             </span>
           </h1>
 
