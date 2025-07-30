@@ -103,8 +103,8 @@ const RevolutionaryHero: React.FC = () => {
             <GlassSearchBar onSearch={() => scrollToTools()} />
           </div>
 
-          {/* Boutons CTA avec effets avancés */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+          {/* Bouton CTA centré */}
+          <div className="flex justify-center mb-8">
             <Button
               onClick={scrollToTools}
               size="lg"
@@ -115,15 +115,6 @@ const RevolutionaryHero: React.FC = () => {
                 Commencer l'Analyse
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            </Button>
-            
-            <Button
-              variant="outline"
-              size="lg"
-              className="group bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 px-8 py-4 text-lg rounded-2xl transition-all duration-300 hover:scale-105"
-            >
-              <Shield className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
-              100% Gratuit
             </Button>
           </div>
 
