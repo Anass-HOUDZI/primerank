@@ -97,6 +97,22 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </nav>
         )}
 
+        {/* Navigation Links */}
+        <div className="hidden md:flex items-center space-x-6 ml-6">
+          <Link 
+            to="/about" 
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            À propos
+          </Link>
+          <Link 
+            to="/contact" 
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Contact
+          </Link>
+        </div>
+
         {/* Search Bar */}
         {showSearch && (
           <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
