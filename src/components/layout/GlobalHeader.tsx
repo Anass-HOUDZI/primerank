@@ -42,10 +42,6 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           breadcrumbs.push({ name: 'Outils', path: '/' });
           breadcrumbs.push({ name: 'Outil', path: location.pathname });
         }
-      } else if (segments[0] === 'about') {
-        breadcrumbs.push({ name: 'À propos', path: '/about' });
-      } else if (segments[0] === 'contact') {
-        breadcrumbs.push({ name: 'Contact', path: '/contact' });
       }
     }
     
