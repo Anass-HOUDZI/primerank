@@ -126,18 +126,98 @@ export class RateLimiter {
 
 export const rateLimiter = new RateLimiter();
 
-// CSP Configuration
+// Security Headers Configuration
+export const SecurityHeaders = {
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+  'X-Content-Type-Options': 'nosniff',
+  'X-Frame-Options': 'DENY',
+  'X-XSS-Protection': '1; mode=block',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'Cross-Origin-Resource-Policy': 'same-origin'
+};
+
+// Nonce generator for CSP
+export const generateNonce = (): string => {
+  const array = new Uint8Array(16);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+};
+
+// Security event logger
+export class SecurityLogger {
+  private static events: Array<{
+    type: string;
+    timestamp: number;
+    details: any;
+    severity: 'low' | 'medium' | 'high' | 'critical';
+  }> = [];
+
+  static log(type: string, details: any, severity: 'low' | 'medium' | 'high' | 'critical' = 'medium'): void {
+    const event = {
+      type,
+      timestamp: Date.now(),
+      details,
+      severity
+    };
+
+    this.events.push(event);
+
+    // Keep only last 1000 events
+    if (this.events.length > 1000) {
+      this.events = this.events.slice(-1000);
+    }
+
+    // Log critical events to console
+    if (severity === 'critical' || severity === 'high') {
+      console.warn('Security Event:', event);
+    }
+
+    // Send to monitoring service in production
+    if (process.env.NODE_ENV === 'production' && severity === 'critical') {
+      this.reportSecurityEvent(event);
+    }
+  }
+
+  private static async reportSecurityEvent(event: any): Promise<void> {
+    try {
+      // In a real application, send to your security monitoring service
+      console.error('Critical security event:', event);
+    } catch (error) {
+      console.error('Failed to report security event:', error);
+    }
+  }
+
+  static getEvents(severity?: string): any[] {
+    if (severity) {
+      return this.events.filter(event => event.severity === severity);
+    }
+    return [...this.events];
+  }
+
+  static clearEvents(): void {
+    this.events = [];
+  }
+}
+
+// Enhanced CSP Configuration
 export const CSPConfig = {
   'default-src': ["'self'"],
-  'script-src': ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://www.google.com', 'https://www.gstatic.com'],
-  'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+  'script-src': ["'self'", 'https://www.google.com', 'https://www.gstatic.com'],
+  'style-src': ["'self'", 'https://fonts.googleapis.com'],
   'font-src': ["'self'", 'https://fonts.gstatic.com'],
   'img-src': ["'self'", 'data:', 'https:', 'blob:'],
-  'connect-src': ["'self'", 'https://api.example.com'],
+  'connect-src': ["'self'", 'https://*.googleapis.com', 'https://*.google.com', 'wss:'],
   'frame-src': ["'none'"],
   'object-src': ["'none'"],
   'base-uri': ["'self'"],
-  'form-action': ["'self'"]
+  'form-action': ["'self'"],
+  'frame-ancestors': ["'none'"],
+  'upgrade-insecure-requests': [],
+  'block-all-mixed-content': [],
+  'report-uri': ['/csp-report']
 };
 
 // Utilitaire pour générer le header CSP

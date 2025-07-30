@@ -1,6 +1,9 @@
 
+import { SecureStorage } from './secure-storage';
+
 /**
- * Gestion du stockage côté client avec compression et TTL
+ * Legacy client storage - deprecated in favor of SecureStorage
+ * @deprecated Use SecureStorage for new implementations
  */
 export class ClientStorage {
   private static compress(data: string): string {
@@ -59,5 +62,23 @@ export class ClientStorage {
         localStorage.removeItem(key);
       }
     });
+  }
+
+  // Migration helper to SecureStorage
+  static async migrateToSecure(): Promise<void> {
+    const keys = Object.keys(localStorage);
+    for (const key of keys) {
+      if (key.startsWith('seo-tool-')) {
+        try {
+          const data = this.getToolResult(key.replace('seo-tool-', ''));
+          if (data) {
+            await SecureStorage.saveSecure(key.replace('seo-tool-', ''), data);
+            this.removeToolResult(key.replace('seo-tool-', ''));
+          }
+        } catch (error) {
+          console.warn('Migration failed for key:', key, error);
+        }
+      }
+    }
   }
 }

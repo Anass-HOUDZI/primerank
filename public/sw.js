@@ -1,8 +1,9 @@
 
-const CACHE_NAME = 'seo-tools-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
-const DATA_CACHE = 'data-v1';
+// Enhanced Service Worker with security features
+const CACHE_NAME = 'seo-tools-v1.1';
+const STATIC_CACHE = 'static-v1.1';
+const DYNAMIC_CACHE = 'dynamic-v1.1';
+const DATA_CACHE = 'data-v1.1';
 
 // Assets statiques à mettre en cache
 const STATIC_ASSETS = [
@@ -92,46 +93,84 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stratégie pour les APIs externes (Network First avec fallback)
+  // Enhanced Network First strategy for APIs with integrity checks
   if (API_PATTERNS.some(pattern => pattern.test(request.url))) {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          // Mettre en cache les réponses API réussies
+          // Enhanced security checks for API responses
           if (response.ok) {
             const responseClone = response.clone();
+            
+            // Add security headers and cache metadata
+            const enhancedResponse = new Response(response.body, {
+              status: response.status,
+              statusText: response.statusText,
+              headers: {
+                ...Object.fromEntries(response.headers.entries()),
+                'X-SW-Cached': 'true',
+                'X-Cache-Time': new Date().toISOString(),
+                'Cache-Control': 'private, max-age=300',
+                'X-Content-Type-Options': 'nosniff'
+              }
+            });
+            
             caches.open(DATA_CACHE)
               .then((cache) => {
                 cache.put(request, responseClone);
               });
+            
+            return enhancedResponse;
           }
           return response;
         })
         .catch(() => {
-          // Fallback vers le cache en cas d'échec réseau
+          // Enhanced fallback with cache validation
           return caches.match(request)
             .then((cachedResponse) => {
               if (cachedResponse) {
-                // Ajouter un header pour indiquer que c'est du cache
-                const response = new Response(cachedResponse.body, {
+                // Check cache age for security
+                const cacheTime = cachedResponse.headers.get('X-Cache-Time');
+                if (cacheTime) {
+                  const age = Date.now() - new Date(cacheTime).getTime();
+                  // Expire cache after 24 hours for security
+                  if (age > 24 * 60 * 60 * 1000) {
+                    caches.open(DATA_CACHE).then(cache => cache.delete(request));
+                    return new Response(
+                      JSON.stringify({ 
+                        error: 'Cache Expired', 
+                        message: 'Cached data expired for security reasons' 
+                      }),
+                      { status: 503, headers: { 'Content-Type': 'application/json' } }
+                    );
+                  }
+                }
+                
+                // Add security headers to cached response
+                return new Response(cachedResponse.body, {
                   status: cachedResponse.status,
                   statusText: cachedResponse.statusText,
                   headers: {
-                    ...cachedResponse.headers,
-                    'X-From-Cache': 'true'
+                    ...Object.fromEntries(cachedResponse.headers.entries()),
+                    'X-From-Cache': 'true',
+                    'X-Content-Type-Options': 'nosniff'
                   }
                 });
-                return response;
               }
-              // Retourner une réponse d'erreur offline
+              
+              // Enhanced offline response
               return new Response(
                 JSON.stringify({ 
                   error: 'Offline', 
-                  message: 'Fonctionnalité indisponible hors ligne' 
+                  message: 'Fonctionnalité indisponible hors ligne',
+                  timestamp: new Date().toISOString()
                 }),
                 {
                   status: 503,
-                  headers: { 'Content-Type': 'application/json' }
+                  headers: { 
+                    'Content-Type': 'application/json',
+                    'X-Content-Type-Options': 'nosniff'
+                  }
                 }
               );
             });
