@@ -117,57 +117,6 @@ const RevolutionaryHero: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             </Button>
           </div>
-
-          {/* Fonctionnalités avec animations */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-4">
-            {[
-              {
-                icon: Zap,
-                title: "IA Révolutionnaire",
-                description: "Analyses prédictives avec machine learning avancé",
-                gradient: "from-yellow-400 to-orange-500",
-                delay: "0s"
-              },
-              {
-                icon: Shield,
-                title: "Sécurité Absolue",
-                description: "Chiffrement end-to-end et conformité RGPD",
-                gradient: "from-green-400 to-emerald-500",
-                delay: "0.2s"
-              },
-              {
-                icon: Star,
-                title: "Performance Elite",
-                description: "Résultats instantanés avec précision professionnelle",
-                gradient: "from-purple-400 to-pink-500",
-                delay: "0.4s"
-              }
-            ].map((feature, index) => (
-              <div 
-                key={index}
-                className="group text-center animate-slide-up"
-                style={{ animationDelay: feature.delay }}
-              >
-                <div className={`w-20 h-20 mx-auto mb-6 bg-gradient-to-br ${feature.gradient} rounded-3xl flex items-center justify-center shadow-2xl group-hover:shadow-glow group-hover:scale-110 transition-all duration-300 relative overflow-hidden`}>
-                  <feature.icon className="w-10 h-10 text-white relative z-10" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gradient transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator - Rapproché des CTAs */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse" />
         </div>
       </div>
     </section>
