@@ -46,6 +46,8 @@ import GAIntegration from "./pages/tools/GAIntegration";
 import SchemaValidator from "./pages/tools/SchemaValidator";
 import PositionedKeywords from "./pages/tools/PositionedKeywords";
 
+import { ScrollToTop } from '@/components/navigation/ScrollToTop';
+
 // Configuration optimisée pour PWA
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,6 +70,7 @@ const App = () => (
     <Toaster />
     <Sonner />
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />
