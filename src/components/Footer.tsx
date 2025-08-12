@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <img 
-                src="/lovable-uploads/2a4e4837-1f67-4270-bd6b-cf4e94876969.png" 
+                src="/lovable-uploads/595fb195-c669-4167-9cef-2cf309337f07.png" 
                 alt="PrimeRank" 
                 className="h-8 w-auto"
               />
