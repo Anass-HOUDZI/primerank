@@ -31,10 +31,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <GlobalHeader 
-        searchQuery={filters.searchQuery}
-        onSearchChange={(query) => setFilters({ ...filters, searchQuery: query })}
-      />
+      <GlobalHeader showSearch={false} />
       
       <main className="flex-1">
         {/* Hero Section */}
