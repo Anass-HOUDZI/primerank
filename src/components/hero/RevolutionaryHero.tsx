@@ -78,9 +78,7 @@ const RevolutionaryHero: React.FC = () => {
             <strong className="text-white font-bold">24 outils professionnels gratuits</strong> conçus par des SEO exigeants 
             pour analyser, optimiser et tracker vos performances.
             <br /><br />
-            <em className="text-purple-300 italic">Expertise technique démocratisée pour consultants, agences et entrepreneurs ambitieux.</em>
-            <br /><br />
-            <strong className="text-white font-bold">Revenue tracking, audit technique, cocons sémantiques, intégrations natives et bien plus</strong>
+            <em className="text-purple-300 italic">Revenue tracking, audit technique, cocons sémantiques, intégrations natives et bien plus</em>
           </p>
 
           {/* Statistiques animées */}
