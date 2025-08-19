@@ -94,8 +94,27 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </nav>
         )}
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-6 ml-6">
+        {/* Spacer to push items to the right */}
+        <div className="flex-1" />
+
+        {/* Search Bar */}
+        {showSearch && (
+          <div className="flex items-center mr-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Rechercher un outil..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange?.(e.target.value)}
+                className="w-full rounded-xl border border-input bg-background/50 backdrop-blur-sm pl-10 pr-4 py-2.5 text-sm transition-all duration-300 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground md:w-[300px] lg:w-[400px]"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Navigation Links - Visible on both mobile and desktop */}
+        <div className="flex items-center space-x-4 mr-2">
           <Link 
             to="/about" 
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -110,26 +129,8 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </Link>
         </div>
 
-        {/* Search Bar */}
-        {showSearch && (
-          <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <div className="w-full flex-1 md:w-auto md:flex-none">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Rechercher un outil..."
-                  value={searchQuery}
-                  onChange={(e) => onSearchChange?.(e.target.value)}
-                  className="w-full rounded-xl border border-input bg-background/50 backdrop-blur-sm pl-10 pr-4 py-2.5 text-sm transition-all duration-300 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground md:w-[300px] lg:w-[400px]"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Theme Toggle */}
-        <div className="flex items-center space-x-2 ml-2">
+        <div className="flex items-center space-x-2">
           <Button
             variant="ghost"
             size="icon"
