@@ -75,8 +75,6 @@ const RevolutionaryHero: React.FC = () => {
 
           {/* Sous-titre avec effet de typing */}
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            La <strong className="text-white font-bold">suite SEO française</strong> qui maximise le ROI de votre visibilité organique. 
-            <br />
             <strong className="text-white font-bold">24 outils professionnels gratuits</strong> conçus par des SEO exigeants 
             pour analyser, optimiser et tracker vos performances.
             <br /><br />
