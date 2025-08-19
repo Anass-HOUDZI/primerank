@@ -75,8 +75,14 @@ const RevolutionaryHero: React.FC = () => {
 
           {/* Sous-titre avec effet de typing */}
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-            Révolutionnez votre SEO avec des outils d'IA avancés, des analyses en temps réel 
-            et des insights prédictifs qui transforment votre stratégie digitale.
+            La <strong className="text-white font-bold">suite SEO française</strong> qui maximise le ROI de votre visibilité organique. 
+            <br />
+            <strong className="text-white font-bold">24 outils professionnels gratuits</strong> conçus par des SEO exigeants 
+            pour analyser, optimiser et tracker vos performances.
+            <br /><br />
+            <em className="text-purple-300 italic">Expertise technique démocratisée pour consultants, agences et entrepreneurs ambitieux.</em>
+            <br /><br />
+            <strong className="text-white font-bold">Revenue tracking, audit technique, cocons sémantiques, intégrations natives et bien plus</strong>
           </p>
 
           {/* Statistiques animées */}
