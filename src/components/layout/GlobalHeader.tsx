@@ -86,9 +86,9 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
         {/* Spacer to push items to the right */}
         <div className="flex-1" />
 
-        {/* Search Bar - Mobile First */}
+        {/* Search Bar - Desktop Only */}
         {showSearch && (
-          <div className="flex items-center mr-2 sm:mr-4 flex-1 max-w-xs sm:max-w-sm lg:max-w-md">
+          <div className="hidden md:flex items-center mr-2 sm:mr-4 flex-1 max-w-xs sm:max-w-sm lg:max-w-md">
             <div className="relative w-full">
               <Search className="absolute left-2.5 sm:left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
