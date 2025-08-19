@@ -59,7 +59,7 @@ const RevolutionaryHero: React.FC = () => {
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8 animate-scale-in">
             <Star className="w-5 h-5 mr-3 text-yellow-400 animate-pulse" />
             <span className="text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              Automatisez votre SEO 👑
+              Automatisez votre SEO
             </span>
           </div>
 
