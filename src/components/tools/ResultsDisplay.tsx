@@ -13,6 +13,7 @@ interface ResultsDisplayProps {
   loading: boolean;
   error?: string;
   onExport?: (format: 'pdf' | 'csv' | 'json') => void;
+  onRetry?: () => void;
   children?: React.ReactNode;
   exportData?: ExportData;
   url?: string;
@@ -27,6 +28,7 @@ export const ResultsDisplay = React.memo(({
   loading, 
   error, 
   onExport,
+  onRetry,
   children,
   exportData,
   url,
@@ -102,7 +104,13 @@ export const ResultsDisplay = React.memo(({
           <p className="text-red-700 dark:text-red-300 mb-4">
             {error}
           </p>
-          <Button variant="outline" onClick={() => window.location.reload()}>
+          <Button variant="outline" onClick={() => {
+            if (onRetry) {
+              onRetry();
+            } else {
+              window.location.reload();
+            }
+          }}>
             <RefreshCw className="w-4 h-4 mr-2" />
             Réessayer
           </Button>

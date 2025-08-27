@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { ExternalLink, TrendingUp, Shield, BarChart3 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, Globe, TrendingUp, BarChart3 } from 'lucide-react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const AnalyseBacklinks = () => {
+  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Analyse de backlinks');
 
   return (
@@ -14,9 +15,9 @@ const AnalyseBacklinks = () => {
       <div className="bg-white/5 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+            <RouterLink to="/" className="text-gray-400 hover:text-white transition-colors">
               Accueil
-            </Link>
+            </RouterLink>
             <span className="text-gray-500">/</span>
             <span className="text-white font-medium">
               Analyse de backlinks
@@ -29,7 +30,7 @@ const AnalyseBacklinks = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <ExternalLink className="w-5 h-5 mr-3 text-pink-400" />
+            <Link className="w-5 h-5 mr-3 text-pink-400" />
             <span className="text-lg font-semibold">Analyse de backlinks</span>
           </div>
           
@@ -50,7 +51,7 @@ const AnalyseBacklinks = () => {
               <p className="text-gray-400">Outils disponibles</p>
             </div>
             <div className="text-center">
-              <Shield className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+              <Globe className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">100%</div>
               <p className="text-gray-400">Qualité</p>
             </div>
@@ -77,7 +78,7 @@ const AnalyseBacklinks = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => window.location.href = `/tools/${tool.id}`}
+                  onClick={() => navigate(`/tools/${tool.id}`)}
                 />
               ))}
             </ModernGrid>
