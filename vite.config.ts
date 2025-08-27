@@ -20,18 +20,20 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Minification optimisée
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
-        pure_funcs: mode === 'production' ? ['console.log', 'console.info'] : [],
+    // Minification optimisée uniquement en production
+    minify: mode === 'production' ? 'terser' : false,
+    ...(mode === 'production' && {
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info'],
+        },
+        mangle: {
+          safari10: true,
+        },
       },
-      mangle: {
-        safari10: true,
-      },
-    },
+    }),
     // Code splitting optimisé
     rollupOptions: {
       output: {
@@ -96,17 +98,20 @@ export default defineConfig(({ mode }) => ({
   // Optimisations CSS
   css: {
     devSourcemap: mode === 'development',
-    postcss: {
-      plugins: mode === 'production' ? [
-        require('cssnano')({
-          preset: ['default', {
-            discardComments: { removeAll: true },
-            normalizeWhitespace: true,
-            minifySelectors: true,
-          }]
-        })
-      ] : [],
-    },
+    // Pas de minification CSS en développement
+    ...(mode === 'production' && {
+      postcss: {
+        plugins: [
+          require('cssnano')({
+            preset: ['default', {
+              discardComments: { removeAll: true },
+              normalizeWhitespace: true,  
+              minifySelectors: true,
+            }]
+          })
+        ],
+      },
+    }),
   },
   // Pre-bundling optimisé
   optimizeDeps: {
