@@ -21,7 +21,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   // Optimisations de performance pour la page d'accueil
-  usePageOptimization({
+  const { cacheData, getCachedData } = usePageOptimization({
     enableLazyLoading: true,
     enableImageOptimization: true,
     enableResourcePreloading: true,

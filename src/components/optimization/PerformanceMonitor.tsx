@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Activity, Zap, Clock, Wifi } from 'lucide-react';
@@ -18,15 +18,7 @@ export const PerformanceMonitor: React.FC<{ showInDev?: boolean }> = ({
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    // Ne montrer qu'en développement ou si activé explicitement
-    if (process.env.NODE_ENV === 'development' || showInDev) {
-      setIsVisible(true);
-      measurePerformance();
-    }
-  }, [showInDev]);
-
-  const measurePerformance = () => {
+  const measurePerformance = useCallback(() => {
     if (!('performance' in window)) return;
 
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
@@ -64,7 +56,15 @@ export const PerformanceMonitor: React.FC<{ showInDev?: boolean }> = ({
       memoryUsage: Math.round(memoryUsage / 1048576), // en MB
       connectionType
     });
-  };
+  }, []);
+
+  useEffect(() => {
+    // Ne montrer qu'en développement ou si activé explicitement
+    if (import.meta.env.DEV || showInDev) {
+      setIsVisible(true);
+      measurePerformance();
+    }
+  }, [showInDev, measurePerformance]);
 
   const getPerformanceColor = (value: number, thresholds: [number, number]) => {
     if (value <= thresholds[0]) return 'bg-green-500';

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Link, Globe, TrendingUp, BarChart3 } from 'lucide-react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { ExternalLink, Globe, TrendingUp, BarChart3 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
@@ -15,9 +15,9 @@ const AnalyseBacklinks = () => {
       <div className="bg-white/5 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <RouterLink to="/" className="text-gray-400 hover:text-white transition-colors">
+            <Link to="/" className="text-gray-400 hover:text-white transition-colors">
               Accueil
-            </RouterLink>
+            </Link>
             <span className="text-gray-500">/</span>
             <span className="text-white font-medium">
               Analyse de backlinks
@@ -30,7 +30,7 @@ const AnalyseBacklinks = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <Link className="w-5 h-5 mr-3 text-pink-400" />
+            <ExternalLink className="w-5 h-5 mr-3 text-pink-400" />
             <span className="text-lg font-semibold">Analyse de backlinks</span>
           </div>
           

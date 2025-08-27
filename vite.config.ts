@@ -101,15 +101,7 @@ export default defineConfig(({ mode }) => ({
     // Pas de minification CSS en développement
     ...(mode === 'production' && {
       postcss: {
-        plugins: [
-          require('cssnano')({
-            preset: ['default', {
-              discardComments: { removeAll: true },
-              normalizeWhitespace: true,  
-              minifySelectors: true,
-            }]
-          })
-        ],
+        plugins: [],
       },
     }),
   },
@@ -127,7 +119,7 @@ export default defineConfig(({ mode }) => ({
     ],
     exclude: ['@vite/client', '@vite/env'],
   },
-  // Compression et performance
+  // Performance et développement
   define: {
     __DEV__: mode === 'development',
   },

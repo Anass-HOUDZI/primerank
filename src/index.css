@@ -506,3 +506,8 @@ img[loading="lazy"].loaded {
 .no-layout-shift {
   contain: layout size style;
 }
+
+/* Classe pour l'effet de lueur des cartes modernes */
+.modern-card-glow {
+  background: linear-gradient(135deg, rgba(157, 80, 187, 0.1), rgba(110, 72, 170, 0.05));
+}
