@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { ExternalLink, TrendingUp, Shield, BarChart3 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ExternalLink, Globe, TrendingUp, BarChart3 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const AnalyseBacklinks = () => {
+  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Analyse de backlinks');
 
   return (
@@ -50,7 +51,7 @@ const AnalyseBacklinks = () => {
               <p className="text-gray-400">Outils disponibles</p>
             </div>
             <div className="text-center">
-              <Shield className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+              <Globe className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">100%</div>
               <p className="text-gray-400">Qualité</p>
             </div>
@@ -77,7 +78,7 @@ const AnalyseBacklinks = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => window.location.href = `/tools/${tool.id}`}
+                  onClick={() => navigate(`/tools/${tool.id}`)}
                 />
               ))}
             </ModernGrid>

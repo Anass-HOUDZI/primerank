@@ -368,7 +368,7 @@ const KeywordGenerator = () => {
                                     keyword.difficulty >= 70 ? 'bg-red-500' :
                                     keyword.difficulty >= 40 ? 'bg-orange-500' : 'bg-green-500'
                                   }`}
-                                  style={{ width: `${keyword.difficulty}%` }}
+                                  style={{ "--difficulty-width": `${keyword.difficulty}%` } as React.CSSProperties}
                                 />
                               </div>
                               <span className="text-xs text-gray-500">{keyword.difficulty}%</span>
