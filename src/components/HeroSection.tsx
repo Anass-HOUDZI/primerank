@@ -12,14 +12,14 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-20 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#2525bd]/10 via-white to-[#dd0d2f]/10 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 py-20 overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Hero badge */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 text-sm font-medium mb-8">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-[#2525bd]/20 to-[#dd0d2f]/20 text-[#2525bd] dark:text-[#dd0d2f] text-sm font-medium mb-8">
             <Star className="w-4 h-4 mr-2" />
             24 outils SEO gratuits et professionnels
           </div>
@@ -72,7 +72,7 @@ const HeroSection: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-[#2525bd] to-[#dd0d2f] rounded-full flex items-center justify-center">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
