@@ -9,17 +9,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-primary via-primary to-primary-accent text-primary-foreground hover:from-primary/90 hover:to-primary-accent/90 border-primary/20 shadow-lg hover:shadow-xl",
+        default: "bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] text-white hover:from-[#2525bd]/90 hover:to-[#dd0d2f]/90 border-[#2525bd]/20 shadow-lg hover:shadow-xl",
         destructive:
           "bg-gradient-to-r from-destructive to-destructive/90 text-destructive-foreground hover:from-destructive/90 hover:to-destructive/80 border-destructive/20 shadow-lg hover:shadow-xl",
         outline:
-          "border-2 border-primary/30 bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/50 hover:text-primary shadow-md hover:shadow-lg",
+          "border-2 border-[#2525bd]/30 bg-background/50 backdrop-blur-sm hover:bg-[#2525bd]/10 hover:border-[#2525bd]/50 hover:text-[#2525bd] shadow-md hover:shadow-lg",
         secondary:
-          "bg-gradient-to-r from-secondary to-secondary/90 text-secondary-foreground hover:from-secondary/80 hover:to-secondary/70 border-secondary/20 shadow-md hover:shadow-lg",
+          "bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] text-white hover:from-[#2525bd]/80 hover:to-[#dd0d2f]/70 border-[#2525bd]/20 shadow-md hover:shadow-lg",
         ghost: "border-transparent hover:bg-accent/50 hover:text-accent-foreground backdrop-blur-sm",
-        link: "text-primary underline-offset-4 hover:underline border-transparent",
-        premium: "bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white hover:from-amber-400 hover:to-amber-500 border-amber-400/30 shadow-lg hover:shadow-xl",
-        cta: "bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white hover:from-blue-500 hover:to-purple-500 border-blue-500/30 shadow-xl hover:shadow-2xl transform-gpu",
+        link: "text-[#2525bd] underline-offset-4 hover:underline border-transparent hover:text-[#dd0d2f]",
+        premium: "bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] text-white hover:from-[#2525bd]/90 hover:to-[#dd0d2f]/90 border-[#2525bd]/30 shadow-lg hover:shadow-xl",
+        cta: "bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] text-white hover:from-[#2525bd]/90 hover:to-[#dd0d2f]/90 border-[#2525bd]/30 shadow-xl hover:shadow-2xl transform-gpu",
       },
       size: {
         default: "h-11 px-6 py-3 rounded-xl",
