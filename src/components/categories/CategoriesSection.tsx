@@ -85,11 +85,11 @@ export const CategoriesSection: React.FC = () => {
         {/* Grille de catégories */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {categoriesData.map((category, index) => (
-              <div 
-                key={index}
-                className="animate-slide-up"
-                style={{ "--animation-delay": `${index * 0.1}s` } as React.CSSProperties}
-              >
+            <div 
+              key={index}
+              className="animate-slide-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <PremiumCategoryCard {...category} />
             </div>
           ))}
