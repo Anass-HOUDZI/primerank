@@ -22,6 +22,8 @@ export default defineConfig(({ mode }) => ({
   build: {
     // Minification optimisée uniquement en production
     minify: mode === 'production' ? 'esbuild' : false,
+    // CSS inline pour éviter les problèmes de chargement
+    cssCodeSplit: false,
     // Code splitting optimisé
     rollupOptions: {
       output: {
