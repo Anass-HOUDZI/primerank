@@ -24,10 +24,20 @@ export class SecurityMiddleware {
     console.info('Security headers that should be applied:', SecurityHeaders);
   }
 
-  // Content Security Policy violation handler (disabled for styling compatibility)
+  // Content Security Policy violation handler
   setupCSPReporting(): void {
-    // CSP reporting disabled to allow inline styles for better compatibility
-    console.log('CSP reporting disabled for styling compatibility');
+    if (typeof window !== 'undefined') {
+      document.addEventListener('securitypolicyviolation', (event) => {
+        SecurityLogger.log('csp_violation', {
+          blockedURI: event.blockedURI,
+          violatedDirective: event.violatedDirective,
+          originalPolicy: event.originalPolicy,
+          disposition: event.disposition,
+          sourceFile: event.sourceFile,
+          lineNumber: event.lineNumber
+        }, 'high');
+      });
+    }
   }
 
   // Enhanced rate limiting with sliding window
@@ -205,15 +215,14 @@ export class SecurityMiddleware {
     }
   }
 
-  // Initialize security measures (CSP reporting disabled)
+  // Initialize all security measures
   initialize(): void {
     this.applySecurityHeaders();
-    // this.setupCSPReporting(); // Disabled for styling compatibility
+    this.setupCSPReporting();
     
     SecurityLogger.log('security_middleware_initialized', {
       timestamp: Date.now(),
-      userAgent: navigator.userAgent,
-      cspReporting: false
+      userAgent: navigator.userAgent
     }, 'low');
   }
 }

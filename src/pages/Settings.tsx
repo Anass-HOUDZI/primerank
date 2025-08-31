@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Settings as SettingsIcon, Palette, Bell, Database, Shield, User, Moon, Sun, Monitor } from 'lucide-react';
 import { MobileOptimizedLayout } from '../components/mobile/MobileOptimizedLayout';
-import { usePageOptimization } from '../hooks/usePageOptimization';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
@@ -35,14 +34,6 @@ const Settings = () => {
   });
 
   const { toast } = useToast();
-
-  // Optimisations pour la page Settings
-  usePageOptimization({
-    enableLazyLoading: true,
-    enableImageOptimization: false, // Pas d'images sur cette page
-    enableResourcePreloading: false,
-    enableCacheOptimization: true, // Important pour sauvegarder les settings
-  });
 
   useEffect(() => {
     // Load settings from localStorage

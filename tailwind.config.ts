@@ -94,11 +94,11 @@ export default {
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-				'gradient-primary': 'linear-gradient(135deg, #2525bd 0%, #dd0d2f 100%)',
-				'gradient-secondary': 'linear-gradient(45deg, #2525bd 0%, #dd0d2f 100%)',
-				'gradient-accent': 'linear-gradient(90deg, #2525bd 0%, #dd0d2f 100%)',
-				'hero-gradient': 'linear-gradient(135deg, #2525bd, #dd0d2f)',
-				'card-gradient': 'linear-gradient(145deg, rgba(37,37,189,0.1), rgba(221,13,47,0.05))',
+				'gradient-primary': 'linear-gradient(135deg, #9d50bb 0%, #6e48aa 100%)',
+				'gradient-secondary': 'linear-gradient(45deg, #9d50bb 0%, #6e48aa 100%)',
+				'gradient-accent': 'linear-gradient(90deg, #9d50bb 0%, #6e48aa 100%)',
+				'hero-gradient': 'linear-gradient(135deg, #9d50bb, #6e48aa)',
+				'card-gradient': 'linear-gradient(145deg, rgba(157,80,187,0.1), rgba(110,72,170,0.05))',
 			},
 			keyframes: {
 				'accordion-down': {

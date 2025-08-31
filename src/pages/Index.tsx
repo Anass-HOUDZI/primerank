@@ -10,8 +10,6 @@ import { GlobalHeader } from '../components/layout/GlobalHeader';
 import { GlobalFooter } from '../components/layout/GlobalFooter';
 import { useToolFilters } from '../hooks/useToolFilters';
 import { useIsMobile } from '../hooks/use-mobile';
-import { usePageOptimization } from '../hooks/usePageOptimization';
-import { usePagePreloading } from '../components/optimization/LazyPageLoader';
 import { Button } from '@/components/ui/button';
 import { Filter } from 'lucide-react';
 
@@ -19,17 +17,6 @@ const Index = () => {
   const isMobile = useIsMobile();
   const [filterOpen, setFilterOpen] = useState(false);
   const navigate = useNavigate();
-
-  // Optimisations de performance pour la page d'accueil
-  const { cacheData, getCachedData } = usePageOptimization({
-    enableLazyLoading: true,
-    enableImageOptimization: true,
-    enableResourcePreloading: true,
-    enableCacheOptimization: true,
-  });
-
-  // Préchargement des pages populaires
-  usePagePreloading('/');
   
   const {
     filters,
@@ -77,7 +64,7 @@ const Index = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                {filteredAndSortedTools.map((tool, index) => (
+                {filteredAndSortedTools.map((tool) => (
                   <EnhancedToolCard
                     key={tool.id}
                     tool={tool}
