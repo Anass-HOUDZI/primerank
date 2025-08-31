@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => {
 
           {/* Main heading */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Suite <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">PrimeRank</span>
+            Suite <span className="bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] bg-clip-text text-transparent">PrimeRank</span>
             <br />
             Complète et Gratuite
           </h1>
@@ -42,7 +42,7 @@ const HeroSection: React.FC = () => {
             <Button
               onClick={scrollToTools}
               size="lg"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg"
+              className="bg-gradient-to-r from-[#2525bd] to-[#dd0d2f] hover:from-[#2525bd]/90 hover:to-[#dd0d2f]/90 text-white px-8 py-4 text-lg"
             >
               <Search className="w-5 h-5 mr-2" />
               Découvrir les outils

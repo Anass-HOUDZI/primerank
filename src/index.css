@@ -14,9 +14,9 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 270 45% 52%;
+    --primary: 240 67% 45%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 268 42% 48%;
+    --secondary: 350 83% 47%;
     --secondary-foreground: 210 40% 98%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -29,11 +29,11 @@
     --ring: 270 45% 52%;
     --radius: 0.5rem;
     
-    /* Nouveaux dégradés violets */
-    --gradient-primary: linear-gradient(135deg, #9d50bb, #6e48aa);
-    --gradient-secondary: linear-gradient(45deg, #9d50bb, #6e48aa);
-    --gradient-accent: linear-gradient(90deg, #9d50bb, #6e48aa);
-    --gradient-muted: linear-gradient(180deg, #9d50bb88, #6e48aa66);
+    /* Nouveaux dégradés bleu vers rouge */
+    --gradient-primary: linear-gradient(135deg, #2525bd, #dd0d2f);
+    --gradient-secondary: linear-gradient(45deg, #2525bd, #dd0d2f);
+    --gradient-accent: linear-gradient(90deg, #2525bd, #dd0d2f);
+    --gradient-muted: linear-gradient(180deg, #2525bd88, #dd0d2f66);
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -509,5 +509,5 @@ img[loading="lazy"].loaded {
 
 /* Classe pour l'effet de lueur des cartes modernes */
 .modern-card-glow {
-  background: linear-gradient(135deg, rgba(157, 80, 187, 0.1), rgba(110, 72, 170, 0.05));
+  background: linear-gradient(135deg, rgba(37, 37, 189, 0.1), rgba(221, 13, 47, 0.05));
 }
