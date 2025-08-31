@@ -21,19 +21,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     // Minification optimisée uniquement en production
-    minify: mode === 'production' ? 'terser' : false,
-    ...(mode === 'production' && {
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ['console.log', 'console.info'],
-        },
-        mangle: {
-          safari10: true,
-        },
-      },
-    }),
+    minify: mode === 'production' ? 'esbuild' : false,
     // Code splitting optimisé
     rollupOptions: {
       output: {
@@ -98,7 +86,7 @@ export default defineConfig(({ mode }) => ({
   // Optimisations CSS
   css: {
     devSourcemap: mode === 'development',
-    // Pas de minification CSS en développement
+    // CSS minification enabled for production
     ...(mode === 'production' && {
       postcss: {
         plugins: [],
