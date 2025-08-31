@@ -400,6 +400,23 @@ img[loading="lazy"].loaded {
   filter: none;
 }
 
+/* Optimisation des animations avec variables CSS personnalisées */
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+  opacity: 0;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+/* Progress bar avec variables CSS */
+.bg-primary .h-full {
+  transform: var(--progress-transform, translateX(-100%));
+}
+
+/* Difficulty bar avec variables CSS */
+.h-2.rounded-full {
+  width: var(--difficulty-width, 0%);
+}
+
 /* Optimisation des polices pour réduire le FOUT */
 @font-face {
   font-family: 'Inter';
