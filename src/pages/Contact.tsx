@@ -2,9 +2,17 @@
 import React from 'react';
 import { GlobalHeader } from '../components/layout/GlobalHeader';
 import { GlobalFooter } from '../components/layout/GlobalFooter';
+import { usePageOptimization } from '../hooks/usePageOptimization';
 import { Mail, Linkedin, Github, MessageCircle } from 'lucide-react';
 
 const Contact = () => {
+  // Optimisations pour la page de contact
+  usePageOptimization({
+    enableImageOptimization: true,
+    enableResourcePreloading: false,
+    enableCacheOptimization: false, // Page statique simple
+  });
+
   return (
     <div className="min-h-screen flex flex-col">
       <GlobalHeader showSearch={false} />

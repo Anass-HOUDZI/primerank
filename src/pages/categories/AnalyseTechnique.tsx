@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { Wrench, Zap, Shield, Activity } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Zap, Code, Gauge, BarChart3 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const AnalyseTechnique = () => {
+  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Analyse technique');
 
   return (
@@ -29,7 +30,7 @@ const AnalyseTechnique = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <Wrench className="w-5 h-5 mr-3 text-blue-400" />
+            <Code className="w-5 h-5 mr-3 text-blue-400" />
             <span className="text-lg font-semibold">Analyse technique</span>
           </div>
           
@@ -50,12 +51,12 @@ const AnalyseTechnique = () => {
               <p className="text-gray-400">Outils disponibles</p>
             </div>
             <div className="text-center">
-              <Shield className="w-8 h-8 text-green-400 mx-auto mb-2" />
+              <Gauge className="w-8 h-8 text-green-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">100%</div>
-              <p className="text-gray-400">Sécurisé</p>
+              <p className="text-gray-400">Précision</p>
             </div>
             <div className="text-center">
-              <Activity className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+              <BarChart3 className="w-8 h-8 text-purple-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">Temps réel</div>
               <p className="text-gray-400">Analyses</p>
             </div>
@@ -77,7 +78,7 @@ const AnalyseTechnique = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => window.location.href = `/tools/${tool.id}`}
+                  onClick={() => navigate(`/tools/${tool.id}`)}
                 />
               ))}
             </ModernGrid>
