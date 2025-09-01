@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Upload, Link, FileText, Globe } from 'lucide-react';
+import { useSecurity } from '@/hooks/useSecurity';
+import { DataSanitizer } from '@/lib/security';
 
 interface InputFormProps {
   title: string;
@@ -28,14 +30,34 @@ export const InputForm = ({
 }: InputFormProps) => {
   const [inputValue, setInputValue] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const { validateInput, logSecurityEvent } = useSecurity('input-form');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (inputType === 'file' && file) {
+      // File validation
+      const validation = validateInput(file);
+      if (!validation.valid) {
+        logSecurityEvent('invalid_file_upload', { 
+          filename: file.name,
+          size: file.size,
+          error: validation.error 
+        }, 'high');
+        return;
+      }
       onSubmit({ file });
     } else if (inputValue.trim()) {
-      onSubmit({ value: inputValue.trim() });
+      // Input validation
+      const validation = validateInput(inputValue.trim());
+      if (!validation.valid) {
+        logSecurityEvent('invalid_input', { 
+          inputType,
+          error: validation.error 
+        }, 'medium');
+        return;
+      }
+      onSubmit({ value: validation.sanitized || inputValue.trim() });
     }
   };
 
@@ -107,7 +129,31 @@ export const InputForm = ({
                       name="file-upload"
                       type="file"
                       className="sr-only"
-                      onChange={(e) => setFile(e.target.files?.[0] || null)}
+                      onChange={(e) => {
+                        const selectedFile = e.target.files?.[0];
+                        if (selectedFile) {
+                          // Basic file validation
+                          const maxSize = 10 * 1024 * 1024; // 10MB
+                          const allowedTypes = ['text/csv', 'text/plain', 'application/xml', 'text/xml'];
+                          
+                          if (selectedFile.size > maxSize) {
+                            logSecurityEvent('file_too_large', { 
+                              filename: selectedFile.name, 
+                              size: selectedFile.size 
+                            }, 'medium');
+                            return;
+                          }
+                          
+                          if (!allowedTypes.includes(selectedFile.type)) {
+                            logSecurityEvent('invalid_file_type', { 
+                              filename: selectedFile.name, 
+                              type: selectedFile.type 
+                            }, 'high');
+                            return;
+                          }
+                        }
+                        setFile(selectedFile || null);
+                      }}
                     />
                   </label>
                   <p className="pl-1">ou glisser-déposer</p>
@@ -131,7 +177,10 @@ export const InputForm = ({
             <Textarea
               id="text-input"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                const sanitized = DataSanitizer.sanitizeString(e.target.value);
+                setInputValue(sanitized);
+              }}
               placeholder={getPlaceholder()}
               rows={6}
               className="w-full"
@@ -147,7 +196,12 @@ export const InputForm = ({
               id="input"
               type={inputType === 'url' ? 'url' : 'text'}
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                const sanitized = inputType === 'url' 
+                  ? DataSanitizer.sanitizeUrl(e.target.value)
+                  : DataSanitizer.sanitizeString(e.target.value);
+                setInputValue(sanitized);
+              }}
               placeholder={getPlaceholder()}
               className="w-full"
               required
