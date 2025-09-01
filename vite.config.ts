@@ -22,8 +22,10 @@ export default defineConfig(({ mode }) => ({
   build: {
     // Minification optimisée uniquement en production
     minify: mode === 'production' ? 'esbuild' : false,
-    // CSS inline pour éviter les problèmes de chargement
+    // CSS complètement inline pour forcer le chargement
     cssCodeSplit: false,
+    // Forcer l'inline CSS dans le HTML
+    assetsInlineLimit: 100000, // Inline tout jusqu'à 100KB
     // Code splitting optimisé
     rollupOptions: {
       output: {
