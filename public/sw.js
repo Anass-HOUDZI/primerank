@@ -76,9 +76,12 @@ self.addEventListener('fetch', (event) => {
         .then((response) => {
           return response || fetch(request)
             .then((fetchResponse) => {
-              return caches.open(STATIC_CACHE)
+            return caches.open(STATIC_CACHE)
                 .then((cache) => {
-                  cache.put(request, fetchResponse.clone());
+                  // Only cache GET requests
+                  if (request.method === 'GET') {
+                    cache.put(request, fetchResponse.clone());
+                  }
                   return fetchResponse;
                 });
             });
@@ -117,7 +120,10 @@ self.addEventListener('fetch', (event) => {
             
             caches.open(DATA_CACHE)
               .then((cache) => {
-                cache.put(request, responseClone);
+                // Only cache GET requests
+                if (request.method === 'GET') {
+                  cache.put(request, responseClone);
+                }
               });
             
             return enhancedResponse;
@@ -187,7 +193,10 @@ self.addEventListener('fetch', (event) => {
           .then((fetchResponse) => {
             caches.open(DYNAMIC_CACHE)
               .then((cache) => {
-                cache.put(request, fetchResponse.clone());
+                // Only cache GET requests
+                if (request.method === 'GET') {
+                  cache.put(request, fetchResponse.clone());
+                }
               });
             return fetchResponse;
           })
