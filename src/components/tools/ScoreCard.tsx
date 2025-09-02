@@ -119,13 +119,10 @@ export const ScoreCard = ({
 
       {/* Progress Bar */}
       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-          <div
-            className="h-2 rounded-full transition-all duration-500"
-            style={{ 
-              width: `${Math.min(percentage, 100)}%`,
-              background: `hsl(${colors.progress})`
-            } as React.CSSProperties}
-          />
+        <div
+          className={cn('h-2 rounded-full transition-all duration-500', colors.progress)}
+          style={{ width: `${Math.min(percentage, 100)}%` }}
+        />
       </div>
       
       <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
