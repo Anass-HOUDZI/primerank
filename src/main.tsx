@@ -12,7 +12,7 @@ securityMiddleware.initialize();
 if (typeof document !== 'undefined') {
   const meta = document.createElement('meta');
   meta.httpEquiv = 'Content-Security-Policy';
-  meta.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; object-src 'none';";
+  meta.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; style-src-attr 'unsafe-inline'; font-src 'self' https:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; object-src 'none';";
   document.head.appendChild(meta);
 }
 
