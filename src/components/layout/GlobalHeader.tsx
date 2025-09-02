@@ -52,32 +52,21 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-2xl items-center">
-        {/* Logo and Brand */}
-        <div className="mr-4 hidden md:flex">
-          <Link to="/" className="mr-6 flex items-center space-x-2">
+      <div className="container flex h-14 sm:h-16 max-w-screen-2xl items-center px-3 sm:px-4">
+        {/* Mobile-First Logo */}
+        <div className="flex items-center mr-2 sm:mr-4">
+          <Link to="/" className="flex items-center space-x-2 py-1">
             <img 
               src="/lovable-uploads/595fb195-c669-4167-9cef-2cf309337f07.png" 
               alt="PrimeRank" 
-              className="h-8 w-auto"
+              className="h-7 sm:h-8 w-auto"
             />
           </Link>
         </div>
 
-        {/* Mobile Logo */}
-        <div className="mr-2 flex md:hidden">
-          <Link to="/" className="mr-2 flex items-center space-x-2">
-            <img 
-              src="/lovable-uploads/595fb195-c669-4167-9cef-2cf309337f07.png" 
-              alt="PrimeRank" 
-              className="h-8 w-auto"
-            />
-          </Link>
-        </div>
-
-        {/* Breadcrumbs - Only show if not on home page */}
+        {/* Breadcrumbs - Only show on larger screens */}
         {breadcrumbs.length > 0 && (
-          <nav className="hidden md:flex items-center space-x-1 text-sm text-muted-foreground">
+          <nav className="hidden lg:flex items-center space-x-1 text-sm text-muted-foreground mr-4">
             {breadcrumbs.map((item, index) => (
               <React.Fragment key={item.path}>
                 {index > 0 && <span className="mx-1">/</span>}
@@ -94,50 +83,51 @@ export const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           </nav>
         )}
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center space-x-6 ml-6">
+        {/* Spacer to push items to the right */}
+        <div className="flex-1" />
+
+        {/* Search Bar - Desktop Only */}
+        {showSearch && (
+          <div className="hidden md:flex items-center mr-2 sm:mr-4 flex-1 max-w-xs sm:max-w-sm lg:max-w-md">
+            <div className="relative w-full">
+              <Search className="absolute left-2.5 sm:left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange?.(e.target.value)}
+                className="w-full rounded-lg sm:rounded-xl border border-input bg-background/50 backdrop-blur-sm pl-9 sm:pl-10 pr-3 sm:pr-4 py-2 sm:py-2.5 text-sm transition-all duration-300 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground touch-manipulation"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Navigation Links - Responsive */}
+        <div className="hidden sm:flex items-center space-x-2 lg:space-x-4 mr-2">
           <Link 
             to="/about" 
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors py-2 px-1 touch-manipulation"
           >
             À propos
           </Link>
           <Link 
             to="/contact" 
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-xs lg:text-sm text-muted-foreground hover:text-foreground transition-colors py-2 px-1 touch-manipulation"
           >
             Contact
           </Link>
         </div>
 
-        {/* Search Bar */}
-        {showSearch && (
-          <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <div className="w-full flex-1 md:w-auto md:flex-none">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Rechercher un outil..."
-                  value={searchQuery}
-                  onChange={(e) => onSearchChange?.(e.target.value)}
-                  className="w-full rounded-xl border border-input bg-background/50 backdrop-blur-sm pl-10 pr-4 py-2.5 text-sm transition-all duration-300 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-muted-foreground md:w-[300px] lg:w-[400px]"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Theme Toggle */}
-        <div className="flex items-center space-x-2 ml-2">
+        {/* Theme Toggle - Mobile Optimized */}
+        <div className="flex items-center">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="h-9 w-9"
+            className="h-8 w-8 sm:h-9 sm:w-9 touch-manipulation"
           >
-            <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-3.5 w-3.5 sm:h-4 sm:w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Changer le thème</span>
           </Button>
         </div>

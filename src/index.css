@@ -14,9 +14,9 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 270 45% 52%;
+    --primary: 240 67% 45%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 268 42% 48%;
+    --secondary: 350 83% 47%;
     --secondary-foreground: 210 40% 98%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -29,11 +29,11 @@
     --ring: 270 45% 52%;
     --radius: 0.5rem;
     
-    /* Nouveaux dégradés violets */
-    --gradient-primary: linear-gradient(135deg, #9d50bb, #6e48aa);
-    --gradient-secondary: linear-gradient(45deg, #9d50bb, #6e48aa);
-    --gradient-accent: linear-gradient(90deg, #9d50bb, #6e48aa);
-    --gradient-muted: linear-gradient(180deg, #9d50bb88, #6e48aa66);
+    /* Nouveaux dégradés bleu vers rouge */
+    --gradient-primary: linear-gradient(135deg, #2525bd, #dd0d2f);
+    --gradient-secondary: linear-gradient(45deg, #2525bd, #dd0d2f);
+    --gradient-accent: linear-gradient(90deg, #2525bd, #dd0d2f);
+    --gradient-muted: linear-gradient(180deg, #2525bd88, #dd0d2f66);
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -322,4 +322,209 @@ img[data-src] {
 
 img[data-src].loaded {
   @apply animate-none;
+}
+
+/* Mobile optimizations - Enhanced touch targets and interactions */
+.grid-responsive {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+/* Touch optimizations */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+.touch-feedback {
+  transition: transform 0.15s ease-out;
+}
+
+.touch-feedback:active {
+  transform: scale(0.95);
+}
+
+/* Enhanced mobile breakpoints */
+@media (min-width: 480px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Optimisations de performance pour le chargement */
+.lazy-loaded {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-loaded.loaded {
+  opacity: 1;
+}
+
+/* Optimisation GPU pour les animations */
+.gpu-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Préchargement optimisé des images */
+img[loading="lazy"] {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+img[loading="lazy"].loaded {
+  filter: none;
+}
+
+/* Optimisation des animations avec variables CSS personnalisées */
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+  opacity: 0;
+  animation-delay: var(--animation-delay, 0s);
+}
+
+/* Progress bar avec variables CSS */
+.bg-primary .h-full {
+  transform: var(--progress-transform, translateX(-100%));
+}
+
+/* Difficulty bar avec variables CSS */
+.h-2.rounded-full {
+  width: var(--difficulty-width, 0%);
+}
+
+/* Optimisation des polices pour réduire le FOUT */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: local('Inter'), url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-display: swap; 
+  src: local('Space Grotesk'), url('https://fonts.gstatic.com/s/spacegrotesk/v13/V8mQoQDjQSkFtoMM3T6r8E7mPbF4B2t_SN3P2nkQBw.woff2') format('woff2');
+}
+
+/* Optimisation de la bande passante pour les backgrounds */
+.optimized-bg {
+  background-size: cover;
+  background-attachment: scroll; /* Évite les problèmes de performance sur mobile */
+  will-change: transform; /* Indique au navigateur les propriétés qui vont changer */
+}
+
+/* Conteneurs avec scroll virtuel pour les listes longues */
+.virtual-scroll {
+  contain: layout style paint;
+  overflow-anchor: none;
+}
+
+/* Classes d'optimisation pour les cartes d'outils */
+.tool-card-optimized {
+  contain: layout;
+  will-change: transform, opacity;
+}
+
+.tool-card-optimized:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Optimisation du rendu des textes */
+.text-rendering-optimized {
+  text-rendering: optimizeSpeed;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimisation pour les éléments critiques above-the-fold */
+.critical-element {
+  content-visibility: visible;
+}
+
+.non-critical-element {
+  content-visibility: auto;
+}
+
+/* Animation optimisée pour le lazy loading */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Optimisation des transitions pour réduire les repaints */
+.smooth-transition {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cache CSS pour les éléments répétitifs */
+.cached-style {
+  contain: strict;
+}
+
+/* Optimisation pour les grilles d'éléments */
+.optimized-grid {
+  display: grid;
+  contain: layout;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .optimized-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+/* Optimisation pour les boutons tactiles */
+.touch-optimized {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Réduction des reflows/repaints */
+.no-layout-shift {
+  contain: layout size style;
+}
+
+/* Classe pour l'effet de lueur des cartes modernes */
+.modern-card-glow {
+  background: linear-gradient(135deg, rgba(37, 37, 189, 0.1), rgba(221, 13, 47, 0.05));
 }

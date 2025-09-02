@@ -183,8 +183,7 @@ const ModernToolCard = ({ tool, onUse }: ModernToolCardProps) => {
         </div>
 
         {/* Effet de lueur au survol */}
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" 
-             style={{ background: `linear-gradient(135deg, ${config.gradient.split(' ')[1]} 0%, ${config.gradient.split(' ')[3]} 100%)` }} />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none modern-card-glow" />
       </div>
     </div>
   );
