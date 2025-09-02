@@ -83,7 +83,7 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <GlobalHeader showSearch={false} />
+      <GlobalHeader />
       
       <main className="flex-1">
         {/* Tool Header */}

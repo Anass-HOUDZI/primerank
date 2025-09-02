@@ -2,17 +2,9 @@
 import React from 'react';
 import { GlobalHeader } from '../components/layout/GlobalHeader';
 import { GlobalFooter } from '../components/layout/GlobalFooter';
-import { usePageOptimization } from '../hooks/usePageOptimization';
 import { Search, Target, Shield, Zap, Users, Globe } from 'lucide-react';
 
 const About = () => {
-  // Optimisations spécifiques pour la page About
-  usePageOptimization({
-    enableImageOptimization: true,
-    enableResourcePreloading: false, // Moins critique sur cette page
-    enableCacheOptimization: true,
-  });
-
   return (
     <div className="min-h-screen flex flex-col">
       <GlobalHeader showSearch={false} />

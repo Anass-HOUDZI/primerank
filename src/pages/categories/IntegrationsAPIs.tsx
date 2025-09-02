@@ -1,12 +1,11 @@
 
 import React from 'react';
-import { Zap, Webhook, Database, BarChart3 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Plug, Zap, Cloud, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const IntegrationsAPIs = () => {
-  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Intégrations APIs');
 
   return (
@@ -30,7 +29,7 @@ const IntegrationsAPIs = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <Webhook className="w-5 h-5 mr-3 text-emerald-400" />
+            <Plug className="w-5 h-5 mr-3 text-emerald-400" />
             <span className="text-lg font-semibold">Intégrations APIs</span>
           </div>
           
@@ -46,7 +45,7 @@ const IntegrationsAPIs = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mb-16 max-w-2xl mx-auto">
             <div className="text-center">
-              <Database className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+              <Cloud className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">{categoryTools.length}</div>
               <p className="text-gray-400">Intégrations</p>
             </div>
@@ -56,7 +55,7 @@ const IntegrationsAPIs = () => {
               <p className="text-gray-400">Données</p>
             </div>
             <div className="text-center">
-              <BarChart3 className="w-8 h-8 text-green-400 mx-auto mb-2" />
+              <Activity className="w-8 h-8 text-green-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">Auto</div>
               <p className="text-gray-400">Synchronisation</p>
             </div>
@@ -78,7 +77,7 @@ const IntegrationsAPIs = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => navigate(`/tools/${tool.id}`)}
+                  onClick={() => window.location.href = `/tools/${tool.id}`}
                 />
               ))}
             </ModernGrid>

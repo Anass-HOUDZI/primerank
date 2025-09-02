@@ -1,12 +1,11 @@
 
 import React from 'react';
-import { Network, GitBranch, Share2, BarChart3 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Layers, Network, Link } from 'lucide-react';
+import { Link as RouterLink } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const ArchitectureSemantique = () => {
-  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Architecture sémantique');
 
   return (
@@ -15,9 +14,9 @@ const ArchitectureSemantique = () => {
       <div className="bg-white/5 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+            <RouterLink to="/" className="text-gray-400 hover:text-white transition-colors">
               Accueil
-            </Link>
+            </RouterLink>
             <span className="text-gray-500">/</span>
             <span className="text-white font-medium">
               Architecture sémantique
@@ -30,7 +29,7 @@ const ArchitectureSemantique = () => {
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <Network className="w-5 h-5 mr-3 text-cyan-400" />
+            <Layers className="w-5 h-5 mr-3 text-cyan-400" />
             <span className="text-lg font-semibold">Architecture sémantique</span>
           </div>
           
@@ -51,12 +50,12 @@ const ArchitectureSemantique = () => {
               <p className="text-gray-400">Outils disponibles</p>
             </div>
             <div className="text-center">
-              <GitBranch className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+              <Link className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">∞</div>
               <p className="text-gray-400">Liens analysés</p>
             </div>
             <div className="text-center">
-              <Share2 className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+              <Layers className="w-8 h-8 text-purple-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">Auto</div>
               <p className="text-gray-400">Génération</p>
             </div>
@@ -78,7 +77,7 @@ const ArchitectureSemantique = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => navigate(`/tools/${tool.id}`)}
+                  onClick={() => window.location.href = `/tools/${tool.id}`}
                 />
               ))}
             </ModernGrid>

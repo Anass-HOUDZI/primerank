@@ -1,12 +1,11 @@
 
 import React from 'react';
 import { Search, TrendingUp, Target, BarChart3 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ModernCard, ModernGrid, ModernSection } from '@/components/modern/ModernDesignSystem';
 import { allTools } from '@/data/tools';
 
 const AnalyseMots = () => {
-  const navigate = useNavigate();
   const categoryTools = allTools.filter(tool => tool.category === 'Analyse de mots-clés');
 
   return (
@@ -78,7 +77,7 @@ const AnalyseMots = () => {
                   category={tool.category}
                   isPremium={tool.isPremium}
                   isNew={tool.isNew}
-                  onClick={() => navigate(`/tools/${tool.id}`)}
+                  onClick={() => window.location.href = `/tools/${tool.id}`}
                 />
               ))}
             </ModernGrid>
