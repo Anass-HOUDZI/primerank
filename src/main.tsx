@@ -8,11 +8,11 @@ import { ThemeProvider } from './providers/ThemeProvider'
 // Initialize security middleware
 securityMiddleware.initialize();
 
-// Apply Content Security Policy - Version allégée pour la production
+// Apply Content Security Policy with enhanced compatibility
 if (typeof document !== 'undefined') {
   const meta = document.createElement('meta');
   meta.httpEquiv = 'Content-Security-Policy';
-  meta.content = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; style-src-attr 'unsafe-inline'; font-src 'self' https:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; object-src 'none';";
+  meta.content = "default-src 'self'; script-src 'self' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://*.googleapis.com https://*.google.com wss:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';";
   document.head.appendChild(meta);
 }
 

@@ -10,8 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { Target, TrendingUp, Search, Filter, Download } from 'lucide-react';
-import { useSecurity } from '@/hooks/useSecurity';
-import { DataSanitizer } from '@/lib/security';
 
 interface KeywordData {
   keyword: string;
@@ -40,33 +38,8 @@ const KeywordGenerator = () => {
   const [minVolume, setMinVolume] = useState('100');
   const [competition, setCompetition] = useState('all');
   const { toast } = useToast();
-  const { validateInput, checkRateLimit, logSecurityEvent } = useSecurity('keyword-generator');
 
   const handleGenerate = async () => {
-    // Security checks
-    if (!checkRateLimit()) {
-      toast({
-        title: "Limite atteinte",
-        description: "Veuillez patienter avant de relancer une génération",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    const validation = validateInput(seedKeyword);
-    if (!validation.valid) {
-      toast({
-        title: "Erreur de validation",
-        description: validation.error || "Format de mot-clé invalide",
-        variant: "destructive"
-      });
-      logSecurityEvent('invalid_keyword_input', { 
-        input: seedKeyword.slice(0, 20), 
-        error: validation.error 
-      }, 'medium');
-      return;
-    }
-
     if (!seedKeyword.trim()) {
       toast({
         title: "Erreur",
@@ -256,10 +229,7 @@ const KeywordGenerator = () => {
                 id="seed"
                 placeholder="seo, marketing digital..."
                 value={seedKeyword}
-                onChange={(e) => {
-                  const sanitized = DataSanitizer.sanitizeString(e.target.value);
-                  setSeedKeyword(sanitized);
-                }}
+                onChange={(e) => setSeedKeyword(e.target.value)}
                 className="mt-1"
               />
             </div>

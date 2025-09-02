@@ -1,8 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
-import { useSecurity } from '@/hooks/useSecurity';
-import { DataSanitizer } from '@/lib/security';
 
 interface SearchBarProps {
   value: string;
@@ -18,7 +16,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { validateInput, logSecurityEvent } = useSecurity('search-bar');
 
   const mockSuggestions = [
     'Analyseur de vitesse',
@@ -61,17 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           ref={inputRef}
           type="text"
           value={value}
-          onChange={(e) => {
-            const validation = validateInput(e.target.value);
-            if (validation.valid && validation.sanitized) {
-              onChange(validation.sanitized);
-            } else {
-              logSecurityEvent('invalid_search_input', { 
-                input: e.target.value.slice(0, 20), 
-                error: validation.error 
-              }, 'low');
-            }
-          }}
+          onChange={(e) => onChange(e.target.value)}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setTimeout(() => setIsFocused(false), 150)}
           placeholder={placeholder}
